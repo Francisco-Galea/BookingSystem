@@ -1,12 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SistemaReservas.Models;
 
 namespace SistemaReservas.DAOs.BookingDAO
 {
-    public class BookingDaoSQLSERVER
+    public class BookingDaoSQLSERVER : IBookingDAO
     {
+        public void CreateBooking()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteBooking(int BookingId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Booking> GetAllBookings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Booking GetBookingById(int BookingId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBooking(int BookingId, Booking booking)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

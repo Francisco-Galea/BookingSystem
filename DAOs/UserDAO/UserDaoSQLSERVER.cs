@@ -1,20 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SistemaReservas.Models;
+﻿using SistemaReservas.Models;
 
 namespace SistemaReservas.DAOs.UserDAO
 {
     public class UserDaoSQLSERVER : IUserDAO
     {
-        public void DeleteUser(int UserId)
+        private static UserDaoSQLSERVER instanceSingleton;        
+        private UserDaoSQLSERVER() { }
+
+        public static UserDaoSQLSERVER GetInstance()
         {
-            throw new NotImplementedException();
+            if (instanceSingleton == null)
+            {
+                instanceSingleton = new UserDaoSQLSERVER();
+            }
+            return instanceSingleton;
+        }    
+
+        public void InsertUser(User OUser)
+        {
+            
         }
 
-        public List<User> GetAllUsers()
+        public void UpdateUser(int UserId, User OUser)
         {
             throw new NotImplementedException();
         }
@@ -24,12 +31,12 @@ namespace SistemaReservas.DAOs.UserDAO
             throw new NotImplementedException();
         }
 
-        public void InsertUser(User OUser)
+        public List<User> GetAllUsers()
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateUser(int UserId, User OUser)
+        public void DeleteUser(int UserId)
         {
             throw new NotImplementedException();
         }
