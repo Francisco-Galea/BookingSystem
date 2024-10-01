@@ -5,38 +5,39 @@ namespace SistemaReservas.Controllers
 {
     public class UserController
     {
-        private readonly IUserDAO userDAO;
+        private readonly IUserDAO userDAO;     
 
         public UserController(IUserDAO userDAO)
         {
-            this.userDAO = userDAO;
+            this.userDAO = UserDaoSQLSERVER.GetInstance();
         }
 
-        public static void CreateUser(string Nombre, string Email)
+        public void CreateUser(string Nombre, string Email)
         {
             User user = new(Nombre, Email);
             userDAO.InsertUser(user);
         }
 
-        public static void UpdateUser(int UserId, string Nombre, string Email)
+        public void UpdateUser(int UserId, string Nombre, string Email)
         {
             User user = new(Nombre, Email);
             userDAO.UpdateUser(UserId, user);
         }
 
-        public static User GetUserById(int UserId)
+        public User GetUserById(int UserId)
         {
             return userDAO.GetUserById(UserId);
         }
 
-        public static User GetAllUsers()
+        public List<User> GetAllUsers()
         {
             return userDAO.GetAllUsers();
         }
 
-        public static void DeleteUser(int UserId)
+        public void DeleteUser(int UserId)
         {
             userDAO.DeleteUser(UserId);
         }
+
     }
 }
