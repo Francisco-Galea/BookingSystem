@@ -1,10 +1,12 @@
 ﻿using SistemaReservas.Models;
+using System.Data.SqlClient;
 
 namespace SistemaReservas.DAOs.UserDAO
 {
     public class UserDaoSQLSERVER : IUserDAO
     {
-        private static UserDaoSQLSERVER instanceSingleton;        
+        private static UserDaoSQLSERVER instanceSingleton;
+        private string ConnectionString = "Server=FRANGA\\SQLEXPRESS;Database=titoRestobar;TrustServerCertificate=true; Trusted_Connection=True;";
         private UserDaoSQLSERVER() { }
 
         public static UserDaoSQLSERVER GetInstance()
@@ -18,7 +20,17 @@ namespace SistemaReservas.DAOs.UserDAO
 
         public void InsertUser(User OUser)
         {
-            
+            using(SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string query = "INSERT INTO Users (UserName, Email) VALUES (@UserName, @Email)";
+                SqlCommand sqlCommand = new SqlCommand(query, connection);
+                sqlCommand.Parameters.AddWithValue("@UserName", OUser.GetUserName());
+                sqlCommand.Parameters.AddWithValue("@Email", OUser.GetEmail());
+                
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+                connection.Close();
+            }
         }
 
         public void UpdateUser(int UserId, User OUser)
@@ -28,7 +40,24 @@ namespace SistemaReservas.DAOs.UserDAO
 
         public User GetUserById(int UserId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string query = "SELECT * FROM Users WHERE UserId = @UserId";
+                SqlCommand sqlCommand = new SqlCommand(query, connection);
+                sqlCommand.Parameters.AddWithValue("@UserId", UserId);
+
+                connection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                User user = new User();
+                if (reader.Read())
+                {
+                    user.SetUserId((int)reader["UserId"]);
+                    user.SetUserName((string)reader["UserName"]);
+                    user.SetEmail((string)reader["Email"]);
+                }
+                return user;
+            }
         }
 
         public List<User> GetAllUsers()
