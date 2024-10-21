@@ -8,17 +8,61 @@ namespace SistemaReservas.Models
 {
     public abstract class Vehicle
     {
-       
-        private int VehicleId { get; set; }
-        private string Brand { get; set; }
-        private string Model { get; set; }
-        private decimal CostUsagePerHour { get; set; }
 
-        protected Vehicle(string brand, string model, decimal costUsagePerHour)
+        private int VehicleId;
+        private string Brand;
+        private string Model;
+        private decimal CostUsagePerHour;
+
+        protected Vehicle(string BRAND, string MODEL, decimal COSTUSAGEPERHOUR)
         {
-            Brand = brand;
-            Model = model;
-            CostUsagePerHour = costUsagePerHour;
+            this.Brand = BRAND;
+            this.Model = MODEL;
+            this.CostUsagePerHour = COSTUSAGEPERHOUR;
+        }
+
+        public int VEHICLEID
+        {
+            get { return VehicleId; }
+            set { VehicleId = value; }
+        }
+        public string BRAND
+        {
+            get { return Brand; }
+            set 
+            {
+                if (string.IsNullOrEmpty(Brand))
+                {
+                    throw new ArgumentNullException("El valor no puede ser vacio");
+                }
+                Brand = value; 
+            }
+        }
+
+        public string MODEL
+        {
+            get { return Model; }
+            set 
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("El valor no puede ser vacio");
+                }
+                Model = value; 
+            }
+        }
+
+        public decimal COSTUSAGEPERHOUR
+        {
+            get { return CostUsagePerHour; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new Exception("No se permite ingresar valores menores a 0");                    
+                }
+                CostUsagePerHour = value;
+            }
         }
 
     }

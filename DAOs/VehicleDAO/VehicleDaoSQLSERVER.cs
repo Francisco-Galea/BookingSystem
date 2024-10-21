@@ -4,6 +4,20 @@ namespace SistemaReservas.DAOs.VehicleDAO
 {
     public class VehicleDaoSQLSERVER : IVehicleDAO
     {
+        private static VehicleDaoSQLSERVER instanceSingleton;
+        private string ConnectionString = "Server=FRANGA\\SQLEXPRESS;Database=titoRestobar;TrustServerCertificate=true; Trusted_Connection=True;";
+
+        private VehicleDaoSQLSERVER() { }
+
+        public static VehicleDaoSQLSERVER GetInstance()
+        {
+            if(instanceSingleton == null)
+            {
+                instanceSingleton = new VehicleDaoSQLSERVER();
+            }
+            return instanceSingleton;
+        }
+
         public void CreateVehicle(Vehicle OVehicle)
         {
             throw new NotImplementedException();

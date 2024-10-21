@@ -24,9 +24,8 @@ namespace SistemaReservas.DAOs.UserDAO
             {
                 string query = "INSERT INTO Users (UserName, Email) VALUES (@UserName, @Email)";
                 SqlCommand sqlCommand = new SqlCommand(query, connection);
-                sqlCommand.Parameters.AddWithValue("@UserName", OUser.GetUserName());
-                sqlCommand.Parameters.AddWithValue("@Email", OUser.GetEmail());
-                
+                sqlCommand.Parameters.AddWithValue("@UserName", OUser.USERNAME);
+                sqlCommand.Parameters.AddWithValue("@Email", OUser.EMAIL);
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();
                 connection.Close();
@@ -52,9 +51,9 @@ namespace SistemaReservas.DAOs.UserDAO
                 User user = new User();
                 if (reader.Read())
                 {
-                    user.SetUserId((int)reader["UserId"]);
-                    user.SetUserName((string)reader["UserName"]);
-                    user.SetEmail((string)reader["Email"]);
+                    user.USERID = (int)reader["UserId"];
+                    user.USERNAME = (string)reader["UserName"];
+                    user.EMAIL = (string)reader["Email"];
                 }
                 return user;
             }

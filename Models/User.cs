@@ -12,42 +12,48 @@ namespace SistemaReservas.Models
         private string UserName;
         private string Email;
 
-        public User(string userName, string email)
+        public User(string USERNAME, string EMAIL)
         {
-            this.UserName = userName;
-            this.Email = email;
+            this.UserName = USERNAME;
+            this.Email = EMAIL;
         }
 
         public User()
         {
         }
         
-        public int GetUserId()
+        public int USERID
         {
-            return this.UserId; 
-        }
-        public void SetUserId(int userId)
-        {
-            this.UserId = userId;
+            get { return UserId; }
+            set { UserId = value; }
         }
 
-        public string GetUserName()
+        public string USERNAME
         {
-            return this.UserName;
-        }
-        public void SetUserName(string userName)
-        {
-            this.UserName = userName;
+            get { return UserName; }
+            set 
+            {
+                if(string.IsNullOrEmpty(UserName))
+                {
+                    throw new ArgumentNullException("El valor no puede estar vacio");
+                }
+                UserName = value;
+            }
         }
 
-        public string GetEmail()
+        public string EMAIL
         {
-            return this.Email;
+            get { return Email; }
+            set
+            {
+                if (string.IsNullOrEmpty(Email))
+                {
+                    throw new ArgumentNullException("El valor no puede estar vacio");
+                }
+                Email = value;
+            }
         }
-        public void SetEmail(string email)
-        {
-            this.Email = email;
-        }
+        
 
     }
 }

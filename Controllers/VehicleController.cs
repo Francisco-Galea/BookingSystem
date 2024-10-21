@@ -10,10 +10,10 @@ namespace SistemaReservas.Controllers
 
         public VehicleController(IVehicleDAO vehicleDAO)
         {
-            this.vehicleDAO = vehicleDAO;
+            this.vehicleDAO = VehicleDaoSQLSERVER.GetInstance();
         }
         
-        public static void CreateVehicle(string VehicleType, string Brand, string Model, decimal CostUsagePerHour)
+        public void CreateVehicle(string VehicleType, string Brand, string Model, decimal CostUsagePerHour)
         {
             IVehicleFactory vehicleFactory;    
             switch(VehicleType.ToLower())
@@ -36,6 +36,10 @@ namespace SistemaReservas.Controllers
                     vehicleDAO.CreateVehicle(truck);
                     break;
 
+                default:
+                    MessageBox.Show("Me tiraste cualquier verdura, podes crear un auto, un camion o una moto por el momento.");
+                    break;
+
             }
         }
 
@@ -54,22 +58,22 @@ namespace SistemaReservas.Controllers
             return new MotorbikeFactory(); 
         }
 
-        public static void UpdateVehicle(int VehicleId, string Brand, string Model, decimal CostUsagePerHour)
+        public void UpdateVehicle(int VehicleId, string Brand, string Model, decimal CostUsagePerHour)
         {
             
         }
 
-        public static void DeleteVehicle(int VehicleId)
+        public void DeleteVehicle(int VehicleId)
         {
             vehicleDAO.DeleteVehicle(VehicleId);
         }
 
-        public static List<Vehicle> GetVehicles()
+        public List<Vehicle> GetVehicles()
         {
             return vehicleDAO.GetAllVehicles();
         }
 
-        public static Vehicle GetVehicle(int VehicleId)
+        public Vehicle GetVehicle(int VehicleId)
         {
             return vehicleDAO.GetVehicleById(VehicleId);
         }
