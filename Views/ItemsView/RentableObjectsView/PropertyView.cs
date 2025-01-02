@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Booking.Views
+namespace Boocking.Views.RentableObjectsView
 {
-    public partial class RentableObjectView : Form
+    public partial class PropertyView : Form
     {
-        public RentableObjectView()
+        public PropertyView()
         {
             InitializeComponent();
         }

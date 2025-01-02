@@ -6,7 +6,7 @@
         private string Location;
         private int PassengerCapacity;
 
-        public PropertyEntity(string LOCATION, int PASSENGERCAPACITY, string NAME, string DESCRIPTION, decimal MAINTENANCECOSTPERDAY, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, MAINTENANCECOSTPERDAY, COSTUSAGERPERDAY)
+        public PropertyEntity(string LOCATION, int PASSENGERCAPACITY, string NAME, string DESCRIPTION, decimal MAINTENANCECOSTPERDAY, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             this.Location = LOCATION;
             this.PassengerCapacity = PASSENGERCAPACITY;

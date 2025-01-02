@@ -13,7 +13,9 @@ namespace Booking.Models.Entities
         private IStrategyFinalPriceBooking FinalPriceBooking;
         private bool IsPaid;
         private bool IsActive;
-        private DateOnly? DeletedAt;
+        private DateTime CreatedAt = DateTime.Now;
+        private DateTime LastUpdatedAt;
+        private DateTime? DeletedAt;
 
         public int BOOKINGID
         {
@@ -83,11 +85,7 @@ namespace Booking.Models.Entities
             set { this.IsActive = value; }
         }
 
-        private DateOnly? DELETEDAT
-        {
-            get { return this.DeletedAt; }
-            set { this.DeletedAt = value; }
-        }
+        
 
     }
 }
