@@ -8,7 +8,7 @@ namespace Booking.Models.Entities
         private int UserId;
         private int RentableId;
         private DateOnly InitBooking;
-        private DateOnly? EndBooking;
+        private DateOnly EndBooking;
         private int DaysBooked;
         private IStrategyFinalPriceBooking FinalPriceBooking;
         private bool IsPaid;
