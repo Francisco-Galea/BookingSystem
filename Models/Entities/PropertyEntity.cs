@@ -5,7 +5,7 @@
         private int PropertyId;
         private string Location;
 
-        public PropertyEntity(string LOCATION, string NAME, string DESCRIPTION, decimal MAINTENANCECOSTPERDAY, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public PropertyEntity(string LOCATION, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             this.Location = LOCATION;
         }

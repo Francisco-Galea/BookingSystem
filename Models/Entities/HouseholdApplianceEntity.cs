@@ -9,7 +9,7 @@ namespace Booking.Models.Entities
         private string SerialNumber;
         private string UsageType;
 
-        public HouseholdApplianceEntity(string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE, string NAME, string DESCRIPTION, decimal MAINTENANCECOSTPERDAY, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public HouseholdApplianceEntity(string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             this.Brand = BRAND;
             this.Model = MODEL;

@@ -7,7 +7,7 @@
         private string Model;
         private string SerialNumber;
 
-        public ElectronicEntity(string BRAND, string MODEL, string SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY ) : base(NAME, DESCRIPTION, MAINTENANCECOSTPERDAY, COSTUSAGERPERDAY)
+        public ElectronicEntity(string BRAND, string MODEL, string SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY ) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             this.Brand = BRAND;
             this.Model = MODEL;

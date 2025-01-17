@@ -8,7 +8,7 @@
         private int PassengerCapacity;
         private int SerialNumber;
 
-        public VehicleEntity(string BRAND, string MODEL, int PASSENGERCAPACITY, int SERIALNUMBER, string NAME, string DESCRIPTION, decimal MAINTENANCECOSTPERDAY, decimal COSTUSAGEPERDAY)
+        public VehicleEntity(string BRAND, string MODEL, int PASSENGERCAPACITY, int SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY)
         : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
         {
             Brand = BRAND;
