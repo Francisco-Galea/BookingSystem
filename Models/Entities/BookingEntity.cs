@@ -40,7 +40,7 @@ namespace Booking.Models.Entities
                     {
                         throw new Exception("La fecha de fin de reserva no puede ser antes de la fecha de inicio de reserva");
                     }
-                    this.EndBooking = value;    
+                    this.EndBooking = (DateOnly)value;    
                 }
                 catch
                 {

@@ -91,35 +91,35 @@
             // 
             txtIndimentaryType.Location = new Point(72, 45);
             txtIndimentaryType.Name = "txtIndimentaryType";
-            txtIndimentaryType.Size = new Size(150, 31);
+            txtIndimentaryType.Size = new Size(180, 31);
             txtIndimentaryType.TabIndex = 5;
             // 
             // txtDescription
             // 
             txtDescription.Location = new Point(72, 107);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(150, 31);
+            txtDescription.Size = new Size(180, 31);
             txtDescription.TabIndex = 6;
             // 
             // txtCostUsage
             // 
             txtCostUsage.Location = new Point(72, 169);
             txtCostUsage.Name = "txtCostUsage";
-            txtCostUsage.Size = new Size(150, 31);
+            txtCostUsage.Size = new Size(180, 31);
             txtCostUsage.TabIndex = 7;
             // 
             // txtSize
             // 
             txtSize.Location = new Point(72, 231);
             txtSize.Name = "txtSize";
-            txtSize.Size = new Size(150, 31);
+            txtSize.Size = new Size(169, 31);
             txtSize.TabIndex = 8;
             // 
             // txtGenre
             // 
             txtGenre.Location = new Point(72, 293);
             txtGenre.Name = "txtGenre";
-            txtGenre.Size = new Size(150, 31);
+            txtGenre.Size = new Size(169, 31);
             txtGenre.TabIndex = 9;
             // 
             // btnCancel
@@ -133,7 +133,7 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(170, 368);
+            btnCreate.Location = new Point(196, 368);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(112, 34);
             btnCreate.TabIndex = 11;
@@ -144,7 +144,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(307, 423);
+            ClientSize = new Size(320, 423);
             Controls.Add(btnCreate);
             Controls.Add(btnCancel);
             Controls.Add(txtGenre);

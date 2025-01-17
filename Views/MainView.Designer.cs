@@ -70,7 +70,9 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Name = "MainView";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MainView";
+            WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
             PerformLayout();
         }
