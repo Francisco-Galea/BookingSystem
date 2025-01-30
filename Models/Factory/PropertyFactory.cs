@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Boocking.Models.Entities.RentableEntities;
+using Boocking.Models.Factory.Interfaces;
+using Booking.Models.Entities;
 
 namespace Booking.Models.Factory
 {
-    internal class PropertyFactory
+    public class PropertyFactory : IPropertyFactory
     {
+        public RentableEntity CreatePropertyEntity(string LOCATION, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
+        {
+            return new PropertyEntity(LOCATION, NAME, DESCRIPTION, COSTUSAGERPERDAY);
+        }
     }
 }

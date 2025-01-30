@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Booking.Models.Entities;
 
-namespace Boocking.Models.Entities
+namespace Boocking.Models.Entities.RentableEntities
 {
     public class IndumentaryEntity : RentableEntity
     {
@@ -16,7 +16,7 @@ namespace Boocking.Models.Entities
         public IndumentaryEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string SIZE, string GENRE) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             Size = SIZE;
-            Genre = GENRE;  
+            Genre = GENRE;
         }
 
         public int INDUMENTARYID

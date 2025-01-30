@@ -1,5 +1,5 @@
-﻿using Booking.Models.Dao.ConnectionString;
-using Booking.Models.Entities;
+﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Models.Dao.ConnectionString;
 
 namespace Boocking.Models.Dao.HouseholdApplianceDao
 {

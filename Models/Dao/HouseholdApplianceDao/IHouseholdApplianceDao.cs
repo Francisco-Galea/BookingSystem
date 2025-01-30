@@ -1,4 +1,4 @@
-﻿using Booking.Models.Entities;
+﻿using Boocking.Models.Entities.RentableEntities;
 
 namespace Boocking.Models.Dao.HouseholdApplianceDao
 {

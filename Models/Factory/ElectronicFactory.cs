@@ -1,13 +1,14 @@
-﻿using Booking.Models.Entities;
+﻿using Boocking.Models.Entities.RentableEntities;
 using Booking.Models.Factory.Interface;
+using Booking.Models.Entities;
 
 namespace Booking.Models.Factory
 {
-    public class ElectronicFactory : IFactoryRentable
+    public class ElectronicFactory : IElectronicFactory
     {
-        public RentableEntity CreateORentable()
+        public RentableEntity CreateElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER)
         {
-            throw new NotImplementedException();
+            return new ElectronicEntity(BRAND, MODEL, SERIALNUMBER, NAME, DESCRIPTION, COSTUSAGERPERDAY);
         }
     }
 }
