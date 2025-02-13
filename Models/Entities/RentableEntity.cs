@@ -6,6 +6,7 @@
         private string Name;
         private string Description;
         private decimal CostUsagePerDay;
+        private bool isDeleted;
 
         public RentableEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
         {

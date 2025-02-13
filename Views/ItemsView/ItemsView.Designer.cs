@@ -28,56 +28,84 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            comboBox1 = new ComboBox();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dataGridViewRentableEntities = new DataGridView();
+            cbbRentableEntities = new ComboBox();
+            btnCreate = new Button();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewRentableEntities).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewRentableEntities
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(211, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(577, 426);
-            dataGridView1.TabIndex = 0;
+            dataGridViewRentableEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewRentableEntities.Location = new Point(169, 10);
+            dataGridViewRentableEntities.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewRentableEntities.Name = "dataGridViewRentableEntities";
+            dataGridViewRentableEntities.RowHeadersWidth = 62;
+            dataGridViewRentableEntities.Size = new Size(462, 341);
+            dataGridViewRentableEntities.TabIndex = 0;
             // 
-            // comboBox1
+            // cbbRentableEntities
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 12);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(193, 33);
-            comboBox1.TabIndex = 1;
+            cbbRentableEntities.FormattingEnabled = true;
+            cbbRentableEntities.Location = new Point(10, 10);
+            cbbRentableEntities.Margin = new Padding(2, 2, 2, 2);
+            cbbRentableEntities.Name = "cbbRentableEntities";
+            cbbRentableEntities.Size = new Size(155, 28);
+            cbbRentableEntities.TabIndex = 1;
             // 
-            // button1
+            // btnCreate
             // 
-            button1.Location = new Point(12, 51);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 34);
-            button1.TabIndex = 2;
-            button1.Text = "Crear";
-            button1.UseVisualStyleBackColor = true;
+            btnCreate.Location = new Point(10, 41);
+            btnCreate.Margin = new Padding(2, 2, 2, 2);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(154, 27);
+            btnCreate.TabIndex = 2;
+            btnCreate.Text = "Crear";
+            btnCreate.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(10, 73);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(154, 29);
+            btnUpdate.TabIndex = 3;
+            btnUpdate.Text = "Modificar";
+            btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(12, 108);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(152, 29);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Eliminar";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // ItemsView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(comboBox1);
-            Controls.Add(dataGridView1);
+            ClientSize = new Size(640, 360);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnCreate);
+            Controls.Add(cbbRentableEntities);
+            Controls.Add(dataGridViewRentableEntities);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "ItemsView";
             Text = "Booking";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewRentableEntities).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private ComboBox comboBox1;
-        private Button button1;
+        private DataGridView dataGridViewRentableEntities;
+        private ComboBox cbbRentableEntities;
+        private Button btnCreate;
+        private Button btnUpdate;
+        private Button btnDelete;
     }
 }
