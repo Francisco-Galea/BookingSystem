@@ -71,9 +71,9 @@
             // 
             // dtpEndReservation
             // 
-            dtpEndReservation.Location = new Point(492, 299);
+            dtpEndReservation.Location = new Point(498, 299);
             dtpEndReservation.Name = "dtpEndReservation";
-            dtpEndReservation.Size = new Size(250, 27);
+            dtpEndReservation.Size = new Size(290, 27);
             dtpEndReservation.TabIndex = 4;
             // 
             // label2
