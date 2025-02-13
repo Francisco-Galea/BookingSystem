@@ -1,4 +1,6 @@
-﻿namespace Booking.Models.Entities
+﻿using Booking.Models.Entities;
+
+namespace Boocking.Models.Entities.RentableEntities
 {
     public class ElectronicEntity : RentableEntity
     {
@@ -7,22 +9,22 @@
         private string Model;
         private string SerialNumber;
 
-        public ElectronicEntity(string BRAND, string MODEL, string SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY ) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public ElectronicEntity(string BRAND, string MODEL, string SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
-            this.Brand = BRAND;
-            this.Model = MODEL;
-            this.SerialNumber = SERIALNUMBER;   
+            Brand = BRAND;
+            Model = MODEL;
+            SerialNumber = SERIALNUMBER;
         }
 
         public int ELECTRONICID
         {
-            get { return this.ElectronicId; }
-            set { this.ElectronicId = value; }
+            get { return ElectronicId; }
+            set { ElectronicId = value; }
         }
 
         public string BRAND
         {
-            get { return this.Brand; }
+            get { return Brand; }
             set
             {
                 try
@@ -31,7 +33,7 @@
                     {
                         throw new Exception("La marca no puede estar vacia");
                     }
-                    this.Brand = value;
+                    Brand = value;
                 }
                 catch
                 {
@@ -42,7 +44,7 @@
 
         public string MODEL
         {
-            get { return this.Model; }
+            get { return Model; }
             set
             {
                 try
@@ -51,7 +53,7 @@
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    this.Model = value;
+                    Model = value;
                 }
                 catch
                 {
@@ -62,7 +64,7 @@
 
         public string SERIALNUMBER
         {
-            get { return this.SerialNumber; }
+            get { return SerialNumber; }
             set
             {
                 try
@@ -71,7 +73,7 @@
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    this.SerialNumber = value;
+                    SerialNumber = value;
                 }
                 catch
                 {

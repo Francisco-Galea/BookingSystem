@@ -1,5 +1,6 @@
-﻿
-namespace Booking.Models.Entities
+﻿using Booking.Models.Entities;
+
+namespace Boocking.Models.Entities.RentableEntities
 {
     public class HouseholdApplianceEntity : RentableEntity
     {
@@ -11,21 +12,21 @@ namespace Booking.Models.Entities
 
         public HouseholdApplianceEntity(string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
-            this.Brand = BRAND;
-            this.Model = MODEL;
-            this.SerialNumber = SERIALNUMBER;
-            this.UsageType = USAGETYPE;
+            Brand = BRAND;
+            Model = MODEL;
+            SerialNumber = SERIALNUMBER;
+            UsageType = USAGETYPE;
         }
 
         public int HOUSEHOLDAPPLIANCEID
         {
-            get { return this.HouseholdApplianceId; }
-            set { this.HouseholdApplianceId = value; }
+            get { return HouseholdApplianceId; }
+            set { HouseholdApplianceId = value; }
         }
 
         public string BRAND
         {
-            get { return this.Brand; }
+            get { return Brand; }
             set
             {
                 try
@@ -34,7 +35,7 @@ namespace Booking.Models.Entities
                     {
                         throw new Exception("La marca no puede estar vacia");
                     }
-                    this.Brand = value;
+                    Brand = value;
                 }
                 catch
                 {
@@ -45,7 +46,7 @@ namespace Booking.Models.Entities
 
         public string MODEL
         {
-            get { return this.Model; }
+            get { return Model; }
             set
             {
                 try
@@ -54,7 +55,7 @@ namespace Booking.Models.Entities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    this.Model = value;
+                    Model = value;
                 }
                 catch
                 {
@@ -65,7 +66,7 @@ namespace Booking.Models.Entities
 
         public string SERIALNUMBER
         {
-            get { return this.SerialNumber; }
+            get { return SerialNumber; }
             set
             {
                 try
@@ -74,7 +75,7 @@ namespace Booking.Models.Entities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    this.SerialNumber = value;
+                    SerialNumber = value;
                 }
                 catch
                 {
@@ -85,7 +86,7 @@ namespace Booking.Models.Entities
 
         public string USAGETYPE
         {
-            get { return this.UsageType; }
+            get { return UsageType; }
             set
             {
                 try
@@ -94,7 +95,7 @@ namespace Booking.Models.Entities
                     {
                         throw new Exception("El tipo de uso no puede estar vacio");
                     }
-                    this.UsageType = value;
+                    UsageType = value;
                 }
                 catch
                 {

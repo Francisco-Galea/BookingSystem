@@ -1,4 +1,6 @@
-﻿namespace Booking.Models.Entities
+﻿using Booking.Models.Entities;
+
+namespace Boocking.Models.Entities.RentableEntities
 {
     public class VehicleEntity : RentableEntity
     {
@@ -19,25 +21,25 @@
 
         public int VEHICLEID
         {
-            get { return this.VehicleId; }
-            set { this.VehicleId = value; }
+            get { return VehicleId; }
+            set { VehicleId = value; }
         }
 
         private string BRAND
         {
-            get { return this.Brand; }
-            set { this.Brand = value; }
+            get { return Brand; }
+            set { Brand = value; }
         }
 
         private string MODEL
         {
-            get { return this.Model; }
-            set { this.Model = value; }
+            get { return Model; }
+            set { Model = value; }
         }
 
         public int PASSENGERCAPACITY
         {
-            get { return this.PassengerCapacity; }
+            get { return PassengerCapacity; }
             set
             {
                 try
@@ -46,7 +48,7 @@
                     {
                         throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
                     }
-                    this.PassengerCapacity = value;
+                    PassengerCapacity = value;
                 }
                 catch
                 {
@@ -57,7 +59,7 @@
 
         public int SERIALNUMBER
         {
-            get { return this.SerialNumber; }
+            get { return SerialNumber; }
             set
             {
                 try
@@ -66,7 +68,7 @@
                     {
                         throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
                     }
-                    this.SerialNumber = value;
+                    SerialNumber = value;
                 }
                 catch
                 {
