@@ -153,6 +153,7 @@
             btnCreate.TabIndex = 11;
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
             // 
             // btnUpdate
             // 
