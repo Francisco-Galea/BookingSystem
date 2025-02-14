@@ -5,8 +5,7 @@ namespace Booking.Models.Entities
     public class BookingEntity
     {
         private int BookingId;
-        private int UserId;
-        private int RentableId;
+        private RentableEntity ORentable;
         private DateOnly InitBooking;
         private DateOnly EndBooking;
         private int DaysBooked;
@@ -14,8 +13,11 @@ namespace Booking.Models.Entities
         private bool IsPaid;
         private bool IsActive;
         private DateTime CreatedAt = DateTime.Now;
+        private UserEntity CreatedBy;
         private DateTime LastUpdatedAt;
+        private UserEntity? LastUpdatedBy;
         private DateTime? DeletedAt;
+        private UserEntity? DeletedBy;
 
         public int BOOKINGID
         {
@@ -53,18 +55,6 @@ namespace Booking.Models.Entities
         {
             get { return this.DaysBooked; }
             set { this.DaysBooked = value; }
-        }
-
-        public int USERID
-        {
-            get { return this.UserId; }
-            set { this.UserId = value; }
-        }
-
-        public int RENTABLEID
-        {
-            get { return this.RentableId; }
-            set { this.RentableId = value; }
         }
 
         public bool ISPAID
