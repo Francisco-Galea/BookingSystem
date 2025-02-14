@@ -1,4 +1,5 @@
 using Boocking.Views;
+using Boocking.Views.BookingsView;
 
 namespace Booking
 {
@@ -13,7 +14,8 @@ namespace Booking
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainView());
+            //Application.Run(new MainView());
+            Application.Run(new ItemsView());
         }
     }
 }
