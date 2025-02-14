@@ -39,61 +39,65 @@
             // dataGridViewRentableEntities
             // 
             dataGridViewRentableEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewRentableEntities.Location = new Point(169, 10);
-            dataGridViewRentableEntities.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewRentableEntities.Location = new Point(211, 12);
+            dataGridViewRentableEntities.Margin = new Padding(2);
             dataGridViewRentableEntities.Name = "dataGridViewRentableEntities";
             dataGridViewRentableEntities.RowHeadersWidth = 62;
-            dataGridViewRentableEntities.Size = new Size(462, 341);
+            dataGridViewRentableEntities.Size = new Size(578, 426);
             dataGridViewRentableEntities.TabIndex = 0;
             // 
             // cbbRentableEntities
             // 
             cbbRentableEntities.FormattingEnabled = true;
-            cbbRentableEntities.Location = new Point(10, 10);
-            cbbRentableEntities.Margin = new Padding(2, 2, 2, 2);
+            cbbRentableEntities.Items.AddRange(new object[] { "Vehiculo", "Dispositivo electronico", "Indumentaria", "Propiedad", "Vehiculo" });
+            cbbRentableEntities.Location = new Point(12, 12);
+            cbbRentableEntities.Margin = new Padding(2);
             cbbRentableEntities.Name = "cbbRentableEntities";
-            cbbRentableEntities.Size = new Size(155, 28);
+            cbbRentableEntities.Size = new Size(193, 33);
             cbbRentableEntities.TabIndex = 1;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(10, 41);
-            btnCreate.Margin = new Padding(2, 2, 2, 2);
+            btnCreate.Location = new Point(12, 51);
+            btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(154, 27);
+            btnCreate.Size = new Size(192, 34);
             btnCreate.TabIndex = 2;
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(10, 73);
+            btnUpdate.Location = new Point(12, 91);
+            btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(154, 29);
+            btnUpdate.Size = new Size(192, 36);
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(12, 108);
+            btnDelete.Location = new Point(15, 135);
+            btnDelete.Margin = new Padding(4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(152, 29);
+            btnDelete.Size = new Size(190, 36);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
             // 
             // ItemsView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(640, 360);
+            ClientSize = new Size(800, 450);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnCreate);
             Controls.Add(cbbRentableEntities);
             Controls.Add(dataGridViewRentableEntities);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "ItemsView";
             Text = "Booking";
             ((System.ComponentModel.ISupportInitialize)dataGridViewRentableEntities).EndInit();
