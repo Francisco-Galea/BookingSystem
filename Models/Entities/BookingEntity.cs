@@ -19,6 +19,8 @@ namespace Booking.Models.Entities
         private DateTime? DeletedAt;
         private UserEntity? DeletedBy;
 
+
+
         public int BOOKINGID
         {
             get { return this.BookingId; }
