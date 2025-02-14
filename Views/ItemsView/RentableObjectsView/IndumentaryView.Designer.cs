@@ -69,9 +69,9 @@
             label3.Location = new Point(72, 141);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(180, 25);
+            label3.Size = new Size(101, 25);
             label3.TabIndex = 2;
-            label3.Text = "Costo de uso por dia";
+            label3.Text = "Tarifa diaria";
             // 
             // label4
             // 
@@ -142,6 +142,7 @@
             btnCancel.TabIndex = 10;
             btnCancel.Text = "Cancelar";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnCreate
             // 
@@ -156,7 +157,7 @@
             // btnUpdate
             // 
             btnUpdate.Location = new Point(146, 366);
-            btnUpdate.Margin = new Padding(4, 4, 4, 4);
+            btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(118, 36);
             btnUpdate.TabIndex = 19;
