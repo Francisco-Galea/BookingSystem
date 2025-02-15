@@ -4,27 +4,27 @@ namespace Boocking.Models.Entities.RentableEntities
 {
     public class ElectronicEntity : RentableEntity
     {
-        private int ElectronicId;
-        private string Brand;
-        private string Model;
-        private string SerialNumber;
+        private int electronicId;
+        private string brand;
+        private string model;
+        private string serialNumber;
 
-        public ElectronicEntity(string BRAND, string MODEL, string SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public ElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
-            Brand = BRAND;
-            Model = MODEL;
-            SerialNumber = SERIALNUMBER;
+            this.brand = BRAND;
+            this.model = MODEL;
+            this.serialNumber = SERIALNUMBER;
         }
 
         public int ELECTRONICID
         {
-            get { return ElectronicId; }
-            set { ElectronicId = value; }
+            get { return electronicId; }
+            set { this.electronicId = value; }
         }
 
         public string BRAND
         {
-            get { return Brand; }
+            get { return brand; }
             set
             {
                 try
@@ -33,7 +33,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La marca no puede estar vacia");
                     }
-                    Brand = value;
+                    this.brand = value;
                 }
                 catch
                 {
@@ -44,7 +44,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string MODEL
         {
-            get { return Model; }
+            get { return model; }
             set
             {
                 try
@@ -53,7 +53,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    Model = value;
+                    this.model = value;
                 }
                 catch
                 {
@@ -64,7 +64,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string SERIALNUMBER
         {
-            get { return SerialNumber; }
+            get { return serialNumber; }
             set
             {
                 try
@@ -73,7 +73,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    SerialNumber = value;
+                    this.serialNumber = value;
                 }
                 catch
                 {

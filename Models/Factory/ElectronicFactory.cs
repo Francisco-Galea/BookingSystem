@@ -8,7 +8,7 @@ namespace Booking.Models.Factory
     {
         public RentableEntity CreateElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER)
         {
-            return new ElectronicEntity(BRAND, MODEL, SERIALNUMBER, NAME, DESCRIPTION, COSTUSAGERPERDAY);
+            return new ElectronicEntity(NAME, DESCRIPTION, COSTUSAGERPERDAY, BRAND, MODEL, SERIALNUMBER);
         }
     }
 }

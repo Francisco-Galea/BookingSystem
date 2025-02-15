@@ -4,23 +4,23 @@ namespace Boocking.Models.Entities.RentableEntities
 {
     public class PropertyEntity : RentableEntity
     {
-        private int PropertyId;
-        private string Location;
+        private int propertyId;
+        private string location;
 
-        public PropertyEntity(string LOCATION, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public PropertyEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string LOCATION) : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
         {
-            Location = LOCATION;
+            this.location = LOCATION;
         }
 
         public int PROPERTYID
         {
-            get { return PropertyId; }
-            set { PropertyId = value; }
+            get { return propertyId; }
+            set { propertyId = value; }
         }
 
         public string LOCATION
         {
-            get { return Location; }
+            get { return location; }
             set
             {
                 try
@@ -29,7 +29,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La ubicacion del la propiedad no debe estar vacia");
                     }
-                    Location = value;
+                    location = value;
                 }
                 catch
                 {

@@ -6,9 +6,9 @@ namespace Booking.Models.Factory
 {
     public class HouseholdApplianceFactory : IHouseHoldApplianceFactory
     {
-        public RentableEntity CreateHouseHoldAppliance(string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
+        public RentableEntity CreateHouseHoldAppliance(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE)
         {
-            return new HouseholdApplianceEntity(BRAND, MODEL, SERIALNUMBER, USAGETYPE, NAME, DESCRIPTION, COSTUSAGERPERDAY);
+            return new HouseholdApplianceEntity(NAME, DESCRIPTION, COSTUSAGERPERDAY, BRAND, MODEL, SERIALNUMBER, USAGETYPE);
         }
     }
 }

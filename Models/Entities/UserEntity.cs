@@ -2,15 +2,16 @@
 {
     public class UserEntity
     {
-        private int UserDni;
-        private string UserName;
-        private string LastName;
-        private string Email;
+        private int userDni;
+        private string userName;
+        private string lastName;
+        private string email;
 
-        public UserEntity(string USERNAME, string EMAIL)
+        public UserEntity(string USERNAME, string EMAIL, string LASTNAME)
         {
-            UserName = USERNAME;
-            Email = EMAIL;
+            this.userName = USERNAME;
+            this.lastName = LASTNAME;
+            this.email = EMAIL;
         }
 
     }

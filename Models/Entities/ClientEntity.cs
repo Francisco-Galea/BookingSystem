@@ -8,9 +8,9 @@ namespace Boocking.Models.Entities
 {
     public class ClientEntity
     {
-        public int ClientDni;
-        public string Name;
-        public string LastName;
-        public string PhoneNumber;
+        private int clientDni;
+        private string name;
+        private string lastName;
+        private string phoneNumber;
     }
 }

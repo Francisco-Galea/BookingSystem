@@ -4,42 +4,42 @@ namespace Boocking.Models.Entities.RentableEntities
 {
     public class VehicleEntity : RentableEntity
     {
-        private int VehicleId;
-        private string Brand;
-        private string Model;
-        private int PassengerCapacity;
-        private int SerialNumber;
+        private int vehicleId;
+        private string brand;
+        private string model;
+        private int passengerCapacity;
+        private int serialNumber;
 
-        public VehicleEntity(string BRAND, string MODEL, int PASSENGERCAPACITY, int SERIALNUMBER, string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY)
+        public VehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, int SERIALNUMBER)
         : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
         {
-            Brand = BRAND;
-            Model = MODEL;
-            PassengerCapacity = PASSENGERCAPACITY;
-            SerialNumber = SERIALNUMBER;
+            this.brand = BRAND;
+            this.model = MODEL;
+            this.passengerCapacity = PASSENGERCAPACITY;
+            this.serialNumber = SERIALNUMBER;
         }
 
         public int VEHICLEID
         {
-            get { return VehicleId; }
-            set { VehicleId = value; }
+            get { return vehicleId; }
+            set { vehicleId = value; }
         }
 
         private string BRAND
         {
-            get { return Brand; }
-            set { Brand = value; }
+            get { return brand; }
+            set { brand = value; }
         }
 
         private string MODEL
         {
-            get { return Model; }
-            set { Model = value; }
+            get { return model; }
+            set { model = value; }
         }
 
         public int PASSENGERCAPACITY
         {
-            get { return PassengerCapacity; }
+            get { return passengerCapacity; }
             set
             {
                 try
@@ -48,7 +48,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
                     }
-                    PassengerCapacity = value;
+                    passengerCapacity = value;
                 }
                 catch
                 {
@@ -59,7 +59,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public int SERIALNUMBER
         {
-            get { return SerialNumber; }
+            get { return serialNumber; }
             set
             {
                 try
@@ -68,7 +68,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
                     }
-                    SerialNumber = value;
+                    serialNumber = value;
                 }
                 catch
                 {

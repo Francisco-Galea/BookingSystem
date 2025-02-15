@@ -4,29 +4,29 @@ namespace Boocking.Models.Entities.RentableEntities
 {
     public class HouseholdApplianceEntity : RentableEntity
     {
-        private int HouseholdApplianceId;
-        private string Brand;
-        private string Model;
-        private string SerialNumber;
-        private string UsageType;
+        private int householdApplianceId;
+        private string brand;
+        private string model;
+        private string serialNumber;
+        private string usageType;
 
-        public HouseholdApplianceEntity(string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE, string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
+        public HouseholdApplianceEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER, string USAGETYPE) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
-            Brand = BRAND;
-            Model = MODEL;
-            SerialNumber = SERIALNUMBER;
-            UsageType = USAGETYPE;
+            this.brand = BRAND;
+            this.model = MODEL;
+            this.serialNumber = SERIALNUMBER;
+            this.usageType = USAGETYPE;
         }
 
         public int HOUSEHOLDAPPLIANCEID
         {
-            get { return HouseholdApplianceId; }
-            set { HouseholdApplianceId = value; }
+            get { return householdApplianceId; }
+            set { householdApplianceId = value; }
         }
 
         public string BRAND
         {
-            get { return Brand; }
+            get { return brand; }
             set
             {
                 try
@@ -35,7 +35,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La marca no puede estar vacia");
                     }
-                    Brand = value;
+                    brand = value;
                 }
                 catch
                 {
@@ -46,7 +46,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string MODEL
         {
-            get { return Model; }
+            get { return model; }
             set
             {
                 try
@@ -55,7 +55,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    Model = value;
+                    model = value;
                 }
                 catch
                 {
@@ -66,7 +66,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string SERIALNUMBER
         {
-            get { return SerialNumber; }
+            get { return serialNumber; }
             set
             {
                 try
@@ -75,7 +75,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("El modelo no puede estar vacio");
                     }
-                    SerialNumber = value;
+                    serialNumber = value;
                 }
                 catch
                 {
@@ -86,7 +86,7 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string USAGETYPE
         {
-            get { return UsageType; }
+            get { return usageType; }
             set
             {
                 try
@@ -95,7 +95,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("El tipo de uso no puede estar vacio");
                     }
-                    UsageType = value;
+                    usageType = value;
                 }
                 catch
                 {

@@ -9,32 +9,32 @@ namespace Boocking.Models.Entities.RentableEntities
 {
     public class IndumentaryEntity : RentableEntity
     {
-        private int IndumentaryId;
-        private string Size;
-        private string Genre;
+        private int indumentaryId;
+        private string size;
+        private string genre;
 
         public IndumentaryEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string SIZE, string GENRE) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
-            Size = SIZE;
-            Genre = GENRE;
+            this.size = SIZE;
+            this.genre = GENRE;
         }
 
         public int INDUMENTARYID
         {
-            get { return IndumentaryId; }
-            set { IndumentaryId = value; }
+            get { return indumentaryId; }
+            set { this.indumentaryId = value; }
         }
 
         public string SIZE
         {
-            get { return Size; }
-            set { Size = value; }
+            get { return size; }
+            set { this.size = value; }
         }
 
         public string GENRE
         {
-            get { return Genre; }
-            set { Genre = value; }
+            get { return genre; }
+            set { this.genre = value; }
         }
 
     }

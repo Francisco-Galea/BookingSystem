@@ -2,28 +2,28 @@
 {
     public abstract class RentableEntity
     {
-        private int RentableId;
-        private string Name;
-        private string Description;
-        private decimal CostUsagePerDay;
+        private int rentableId;
+        private string name;
+        private string description;
+        private decimal costUsagePerDay;
         private bool isDeleted;
 
         public RentableEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
         {
-            this.Name = NAME;
-            this.Description = DESCRIPTION;
-            this.CostUsagePerDay = COSTUSAGERPERDAY;
+            this.name = NAME;
+            this.description = DESCRIPTION;
+            this.costUsagePerDay = COSTUSAGERPERDAY;
         }
 
         public int RENTABLEID
         {
-            get { return this.RentableId; }
-            set { this.RentableId = value; }
+            get { return this.rentableId; }
+            set { this.rentableId = value; }
         }
 
         public string NAME
         {
-            get { return this.Name; }
+            get { return this.name; }
             set
             {
                 try
@@ -32,7 +32,7 @@
                     {
                         throw new Exception("El nombre del objeto no puede estar vacio");
                     }
-                    this.Name = value;
+                    this.name = value;
                 }
                 catch
                 {
@@ -43,7 +43,7 @@
 
         public string DESCRIPTION
         {
-            get { return this.Description; }
+            get { return this.description; }
             set
             {
                 try
@@ -52,7 +52,7 @@
                     {
                         throw new Exception("La descripcion del objeto no puede estar vacio");
                     }
-                    this.Description = value;
+                    this.description = value;
                 }
                 catch
                 {
@@ -63,7 +63,7 @@
 
         public decimal COSTUSAGEPERDAY
         {
-            get { return this.CostUsagePerDay; }
+            get { return this.costUsagePerDay; }
             set
             {
                 try
@@ -72,7 +72,7 @@
                     {
                         throw new Exception("El costo de uso por dia no puede ser 0");
                     }
-                    this.CostUsagePerDay = value;
+                    this.costUsagePerDay = value;
                 }
                 catch
                 {
