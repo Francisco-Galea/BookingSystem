@@ -1,5 +1,4 @@
-﻿using Boocking.Exceptions;
-using Boocking.Models.Factory.Interfaces;
+﻿using Boocking.Models.Factory.Interfaces;
 
 namespace Boocking.Views.RentableObjectsView
 {
@@ -7,7 +6,6 @@ namespace Boocking.Views.RentableObjectsView
     {
 
         private readonly IVehicleFactory vehicleFactory;
-        private readonly ExceptionsManager exceptionsManager;
 
         public VehicleView()
         {
@@ -21,15 +19,25 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            string vehicleType = txtVehicleName.Text;
-            string vehicleBrand = txtBrand.Text;
-            string vehicleModel = txtModel.Text;
-            string vehicleDescription = txtDescription.Text;
-            string costUsage = txtCostUsage.Text;
-            string serialNumber = txtSerialNumber.Text;
-            string passengerCapacity = numPassengerCapacity.GetType().ToString();
+            try
+            {
 
-            vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                string vehicleType = txtVehicleName.Text;
+                string vehicleBrand = txtBrand.Text;
+                string vehicleModel = txtModel.Text;
+                string vehicleDescription = txtDescription.Text;
+                string costUsage = txtCostUsage.Text;
+                string serialNumber = txtSerialNumber.Text;
+                string passengerCapacity = numPassengerCapacity.GetType().ToString();
+
+                vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }
