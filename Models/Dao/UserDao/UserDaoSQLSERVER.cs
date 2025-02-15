@@ -7,7 +7,7 @@ namespace Boocking.Models.Dao.UserDao
     {
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateUser()
+        public void CreateUser(UserEntity user)
         {
             throw new NotImplementedException();
         }

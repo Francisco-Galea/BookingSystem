@@ -7,7 +7,7 @@ namespace Boocking.Models.Dao.PropertyDao
     {
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateProperty()
+        public void CreateProperty(PropertyEntity property)
         {
             throw new NotImplementedException();
         }

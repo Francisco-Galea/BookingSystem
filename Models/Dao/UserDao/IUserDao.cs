@@ -1,10 +1,11 @@
-﻿using Booking.Models.Entities;
+﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Models.Entities;
 
 namespace Boocking.Models.Dao.UserDao
 {
     internal interface IUserDao
     {
-        void CreateUser();
+        void CreateUser(UserEntity user);
         void UpdateUser(int UserId, UserEntity user);
         UserEntity GetUserById(int UserId);
         List<UserEntity> GetAllUsers();

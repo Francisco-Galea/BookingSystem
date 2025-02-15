@@ -7,7 +7,7 @@ namespace Booking.Models.Dao.BookingDao
     {
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateBooking()
+        public void CreateBooking(BookingEntity booking)
         {
             throw new NotImplementedException();
         }

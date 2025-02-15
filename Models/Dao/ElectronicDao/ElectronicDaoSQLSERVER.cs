@@ -7,7 +7,7 @@ namespace Boocking.Models.Dao.ElectronicDao
     {
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateElectronic()
+        public void CreateElectronic(ElectronicEntity electronic)
         {
             throw new NotImplementedException();
         }

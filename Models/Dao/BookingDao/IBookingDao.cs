@@ -4,7 +4,7 @@ namespace Booking.Models.Dao.BookingDao
 {
     public interface IBookingDao
     {
-        void CreateBooking();
+        void CreateBooking(BookingEntity booking);
         void UpdateBooking(int BookingId, BookingEntity booking);
         BookingEntity GetBookingById(int BookingId);
         List<BookingEntity> GetAllBookings();
