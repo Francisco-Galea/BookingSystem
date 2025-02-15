@@ -1,5 +1,4 @@
-﻿
-using Boocking.Models.Factory.Interfaces;
+﻿using Boocking.Models.Factory.Interfaces;
 
 namespace Boocking.Views.RentableObjectsView
 {

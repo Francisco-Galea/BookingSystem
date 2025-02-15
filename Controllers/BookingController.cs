@@ -1,6 +1,5 @@
 ﻿using Boocking.Views.ItemsView.RentableObjectsView;
 using Boocking.Views.RentableObjectsView;
-using Booking.Models.Entities;
 
 namespace Boocking.Controllers
 {

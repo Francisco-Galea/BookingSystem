@@ -1,5 +1,4 @@
-﻿
-using Boocking.Controllers;
+﻿using Boocking.Controllers;
 
 namespace Boocking.Views.BookingsView
 {
@@ -19,7 +18,7 @@ namespace Boocking.Views.BookingsView
                 string selectedEntity = cbbRentableEntities.SelectedItem as string;
                 bookingController.CreateBooking(selectedEntity);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
