@@ -1,11 +1,13 @@
-﻿using Boocking.Models.Factory.Interfaces;
+﻿using Boocking.Exceptions;
+using Boocking.Models.Factory.Interfaces;
 
 namespace Boocking.Views.RentableObjectsView
 {
     public partial class VehicleView : Form
     {
 
-        private readonly IVehicleProperty vehicleProperty;
+        private readonly IVehicleFactory vehicleFactory;
+        private readonly ExceptionsManager exceptionsManager;
 
         public VehicleView()
         {
@@ -27,8 +29,7 @@ namespace Boocking.Views.RentableObjectsView
             string serialNumber = txtSerialNumber.Text;
             string passengerCapacity = numPassengerCapacity.GetType().ToString();
 
-            vehicleProperty.CreateVehicleEntity(vehicleType, vehicleBrand, vehicleModel, vehicleDescription, costUsage, serialNumber, passengerCapacity);
-
+            vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
         }
     }
 }

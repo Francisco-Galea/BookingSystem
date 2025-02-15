@@ -8,9 +8,9 @@ namespace Boocking.Models.Entities.RentableEntities
         private string brand;
         private string model;
         private int passengerCapacity;
-        private int serialNumber;
+        private string serialNumber;
 
-        public VehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, int SERIALNUMBER)
+        public VehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, string SERIALNUMBER)
         : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
         {
             this.brand = BRAND;
@@ -22,19 +22,19 @@ namespace Boocking.Models.Entities.RentableEntities
         public int VEHICLEID
         {
             get { return vehicleId; }
-            set { vehicleId = value; }
+            set { this.vehicleId = value; }
         }
 
         private string BRAND
         {
             get { return brand; }
-            set { brand = value; }
+            set { this.brand = value; }
         }
 
         private string MODEL
         {
             get { return model; }
-            set { model = value; }
+            set { this.model = value; }
         }
 
         public int PASSENGERCAPACITY
@@ -48,7 +48,7 @@ namespace Boocking.Models.Entities.RentableEntities
                     {
                         throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
                     }
-                    passengerCapacity = value;
+                    this.passengerCapacity = value;
                 }
                 catch
                 {
@@ -57,24 +57,10 @@ namespace Boocking.Models.Entities.RentableEntities
             }
         }
 
-        public int SERIALNUMBER
+        public string SERIALNUMBER
         {
             get { return serialNumber; }
-            set
-            {
-                try
-                {
-                    if (value <= 0)
-                    {
-                        throw new Exception("La capacidad de pasajeros no puede ser menor o igual a 0");
-                    }
-                    serialNumber = value;
-                }
-                catch
-                {
-                    throw;
-                }
-            }
+            set { this.serialNumber = value; }
         }
 
     }

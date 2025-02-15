@@ -36,7 +36,7 @@ namespace Boocking.Controllers
             }
 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 throw new Exception("Ingrese una opcion valida");
             }
