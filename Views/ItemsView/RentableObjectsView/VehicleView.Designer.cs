@@ -144,7 +144,7 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(275, 579);
+            btnCreate.Location = new Point(287, 578);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(112, 34);

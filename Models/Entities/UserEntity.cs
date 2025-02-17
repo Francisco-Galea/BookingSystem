@@ -6,6 +6,7 @@
         private string userName;
         private string lastName;
         private string email;
+        private bool isAdmin;
 
         public UserEntity(string USERNAME, string EMAIL, string LASTNAME)
         {

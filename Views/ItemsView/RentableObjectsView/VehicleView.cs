@@ -1,11 +1,12 @@
-﻿using Boocking.Models.Factory.Interfaces;
+﻿using Boocking.Controllers.EntitiesController;
+using Boocking.Models.Factory.Interfaces;
 
 namespace Boocking.Views.RentableObjectsView
 {
     public partial class VehicleView : Form
     {
 
-        private readonly IVehicleFactory vehicleFactory;
+        private readonly VehicleController vehicleController = new VehicleController();
 
         public VehicleView()
         {
@@ -30,12 +31,12 @@ namespace Boocking.Views.RentableObjectsView
                 string serialNumber = txtSerialNumber.Text;
                 string passengerCapacity = numPassengerCapacity.GetType().ToString();
 
-                vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                vehicleController.VerifyVehicleData(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
 
             }
             catch
             {
-
+                throw;
             }
 
         }
