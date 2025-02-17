@@ -39,13 +39,12 @@
             label5 = new Label();
             btnCancel = new Button();
             btnCreate = new Button();
-            numPassengerCapacity = new NumericUpDown();
             lblBrand = new Label();
             lblModel = new Label();
             txtBrand = new TextBox();
             txtModel = new TextBox();
             btnUpdate = new Button();
-            ((System.ComponentModel.ISupportInitialize)numPassengerCapacity).BeginInit();
+            txtPassengerCapacity = new TextBox();
             SuspendLayout();
             // 
             // txtVehicleName
@@ -153,15 +152,6 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
-            // numPassengerCapacity
-            // 
-            numPassengerCapacity.Location = new Point(80, 480);
-            numPassengerCapacity.Margin = new Padding(2);
-            numPassengerCapacity.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            numPassengerCapacity.Name = "numPassengerCapacity";
-            numPassengerCapacity.Size = new Size(188, 31);
-            numPassengerCapacity.TabIndex = 13;
-            // 
             // lblBrand
             // 
             lblBrand.AutoSize = true;
@@ -208,17 +198,24 @@
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
             // 
+            // txtPassengerCapacity
+            // 
+            txtPassengerCapacity.Location = new Point(84, 480);
+            txtPassengerCapacity.Name = "txtPassengerCapacity";
+            txtPassengerCapacity.Size = new Size(184, 31);
+            txtPassengerCapacity.TabIndex = 19;
+            // 
             // VehicleView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(410, 622);
+            Controls.Add(txtPassengerCapacity);
             Controls.Add(btnUpdate);
             Controls.Add(txtModel);
             Controls.Add(txtBrand);
             Controls.Add(lblModel);
             Controls.Add(lblBrand);
-            Controls.Add(numPassengerCapacity);
             Controls.Add(btnCreate);
             Controls.Add(btnCancel);
             Controls.Add(label5);
@@ -233,7 +230,6 @@
             Margin = new Padding(2);
             Name = "VehicleView";
             Text = "VehicleView";
-            ((System.ComponentModel.ISupportInitialize)numPassengerCapacity).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -251,11 +247,11 @@
         private Label label5;
         private Button btnCancel;
         private Button btnCreate;
-        private NumericUpDown numPassengerCapacity;
         private Label lblBrand;
         private Label lblModel;
         private TextBox txtBrand;
         private TextBox txtModel;
         private Button btnUpdate;
+        private TextBox txtPassengerCapacity;
     }
 }

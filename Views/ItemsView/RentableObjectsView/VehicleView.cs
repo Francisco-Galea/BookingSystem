@@ -29,7 +29,7 @@ namespace Boocking.Views.RentableObjectsView
                 string vehicleDescription = txtDescription.Text;
                 string costUsage = txtCostUsage.Text;
                 string serialNumber = txtSerialNumber.Text;
-                string passengerCapacity = numPassengerCapacity.GetType().ToString();
+                string passengerCapacity = txtPassengerCapacity.Text;
 
                 vehicleController.VerifyVehicleData(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
 
