@@ -1,11 +1,18 @@
-﻿using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Models.Dao.InterfaceDao;
+using Boocking.Models.Entities.RentableEntities;
 using Booking.Models.Dao.ConnectionString;
+using Booking.Models.Entities;
 
 namespace Boocking.Models.Dao.VehicleDao
 {
-    public class VehicleDaoSQLSERVER : IVehicleDao
+    public class VehicleDaoSQLSERVER : IDaoSQLSERVER
     {
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
+
+        public void CreateEntity(RentableEntity rentableEntity)
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateVehicle()
         {
