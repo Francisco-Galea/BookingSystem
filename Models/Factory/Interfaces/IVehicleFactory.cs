@@ -1,9 +1,9 @@
-﻿using Booking.Models.Entities;
+﻿using Boocking.Models.Entities.RentableEntities;
 
 namespace Boocking.Models.Factory.Interfaces
 {
     public interface IVehicleFactory
     {
-        RentableEntity CreateVehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, string SERIALNUMBER);
+        VehicleEntity CreateVehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, string SERIALNUMBER);
     }
 }

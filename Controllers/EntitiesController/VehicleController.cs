@@ -1,5 +1,4 @@
 ﻿
-using Boocking.Models.Dao.InterfaceDao;
 using Boocking.Models.Dao.VehicleDao;
 using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory.Interfaces;
@@ -13,7 +12,7 @@ namespace Boocking.Controllers.EntitiesController
 
         private readonly ParseController parseController = new ParseController();
         private readonly IVehicleFactory vehicleFactory = new VehicleFactory();
-        private readonly IDaoSQLSERVER vehicleDao = new VehicleDaoSQLSERVER();
+        private readonly IVehicleDao vehicleDao = new VehicleDaoSQLSERVER();
 
         public void VerifyVehicleData(string vehicleType,string vehicleDescription,string costUsage,string vehicleBrand,string vehicleModel,string passengerCapacity,string serialNumber)
         {
@@ -22,8 +21,8 @@ namespace Boocking.Controllers.EntitiesController
                 decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
                 int parsedPassengerCapacty = parseController.ParseToInt(passengerCapacity);
 
-                RentableEntity vehiculo = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
-                vehicleDao.CreateEntity(vehiculo);
+                VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
+                vehicleDao.CreateVehicle(vehicle);
             }
             catch
             {

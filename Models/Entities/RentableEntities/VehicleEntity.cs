@@ -25,13 +25,13 @@ namespace Boocking.Models.Entities.RentableEntities
             set { this.vehicleId = value; }
         }
 
-        private string BRAND
+        public string BRAND
         {
             get { return brand; }
             set { this.brand = value; }
         }
 
-        private string MODEL
+        public string MODEL
         {
             get { return model; }
             set { this.model = value; }
