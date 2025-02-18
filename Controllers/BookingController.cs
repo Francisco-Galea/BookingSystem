@@ -38,7 +38,8 @@ namespace Boocking.Controllers
             }
             catch(Exception)
             {
-                throw new Exception("Ingrese una opcion valida");
+                MessageBox.Show($"Seleccione una opcion valida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Invalid option");
             }
 
         }

@@ -12,7 +12,7 @@
             catch (FormatException)
             {
                 MessageBox.Show($"No se puede convertir '{input}' en entero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw new FormatException($"No se puede convertir '{input}' en entero.");
+                throw new FormatException($"Cannot parse '{input}' into int.");
             }
         }
 
@@ -24,7 +24,8 @@
             }
             catch (FormatException )
             {
-                throw new FormatException($"No se puede convertir '{input}' en decimal");
+                MessageBox.Show($"No se puede convertir '{input}' en decimal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new FormatException($"Cannot parse '{input}' into decimal");
             }
         }
 

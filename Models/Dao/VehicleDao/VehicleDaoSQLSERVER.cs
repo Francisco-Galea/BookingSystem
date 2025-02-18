@@ -43,7 +43,7 @@ namespace Boocking.Models.Dao.VehicleDao
             throw new NotImplementedException();
         }
 
-        public List<VehicleEntity> GetAllVehicle()
+        public List<VehicleEntity> GetAllVehicles()
         {
             throw new NotImplementedException();
         }

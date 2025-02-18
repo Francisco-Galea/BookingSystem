@@ -30,5 +30,25 @@ namespace Boocking.Controllers.EntitiesController
             }
         }
 
+        public VehicleEntity GetVehicleById(int vehicleId)
+        {
+            return vehicleDao.GetVehicleById(vehicleId);
+        }
+
+        public List<VehicleEntity> GetAllVehicles()
+        {
+            return vehicleDao.GetAllVehicles();
+        }
+
+        public void UpdateVehicle(int vehicleId,VehicleEntity vehicle)
+        {
+            vehicleDao.UpdateVehicle(vehicleId, vehicle);
+        }
+
+        public void DeleteVehicle(int vehicleId)
+        {
+            vehicleDao.DeleteVehicle(vehicleId);
+        }
+
     }
 }

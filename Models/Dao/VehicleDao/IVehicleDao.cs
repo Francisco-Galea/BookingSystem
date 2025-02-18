@@ -7,7 +7,7 @@ namespace Boocking.Models.Dao.VehicleDao
         void CreateVehicle(VehicleEntity vehicle);
         void UpdateVehicle(int VehicleId, VehicleEntity vehicle);
         VehicleEntity GetVehicleById(int VehicleId);
-        List<VehicleEntity> GetAllVehicle();
+        List<VehicleEntity> GetAllVehicles();
         void DeleteVehicle(int VehicleId);
     }
 }

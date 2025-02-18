@@ -28,29 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewRentableEntities = new DataGridView();
             cbbRentableEntities = new ComboBox();
             btnCreate = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewRentableEntities).BeginInit();
+            listBoxVehicles = new ListBox();
+            listBoxProperties = new ListBox();
+            listBoxElectronic = new ListBox();
+            listBoxIndumentary = new ListBox();
             SuspendLayout();
-            // 
-            // dataGridViewRentableEntities
-            // 
-            dataGridViewRentableEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewRentableEntities.Location = new Point(211, 12);
-            dataGridViewRentableEntities.Margin = new Padding(2);
-            dataGridViewRentableEntities.Name = "dataGridViewRentableEntities";
-            dataGridViewRentableEntities.RowHeadersWidth = 62;
-            dataGridViewRentableEntities.Size = new Size(578, 426);
-            dataGridViewRentableEntities.TabIndex = 0;
             // 
             // cbbRentableEntities
             // 
             cbbRentableEntities.FormattingEnabled = true;
             cbbRentableEntities.Items.AddRange(new object[] { "Vehiculo", "Dispositivo electronico", "Indumentaria", "Propiedad", "Vehiculo" });
-            cbbRentableEntities.Location = new Point(12, 12);
+            cbbRentableEntities.Location = new Point(11, 179);
             cbbRentableEntities.Margin = new Padding(2);
             cbbRentableEntities.Name = "cbbRentableEntities";
             cbbRentableEntities.Size = new Size(193, 33);
@@ -58,7 +50,7 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(12, 51);
+            btnCreate.Location = new Point(11, 218);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(192, 34);
@@ -69,7 +61,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(12, 91);
+            btnUpdate.Location = new Point(11, 258);
             btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(192, 36);
@@ -79,7 +71,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(15, 135);
+            btnDelete.Location = new Point(14, 302);
             btnDelete.Margin = new Padding(4);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(190, 36);
@@ -87,29 +79,69 @@
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
             // 
+            // listBoxVehicles
+            // 
+            listBoxVehicles.FormattingEnabled = true;
+            listBoxVehicles.ItemHeight = 25;
+            listBoxVehicles.Location = new Point(227, 12);
+            listBoxVehicles.Name = "listBoxVehicles";
+            listBoxVehicles.Size = new Size(273, 254);
+            listBoxVehicles.TabIndex = 8;
+            // 
+            // listBoxProperties
+            // 
+            listBoxProperties.FormattingEnabled = true;
+            listBoxProperties.ItemHeight = 25;
+            listBoxProperties.Location = new Point(515, 12);
+            listBoxProperties.Name = "listBoxProperties";
+            listBoxProperties.Size = new Size(273, 254);
+            listBoxProperties.TabIndex = 9;
+            // 
+            // listBoxElectronic
+            // 
+            listBoxElectronic.FormattingEnabled = true;
+            listBoxElectronic.ItemHeight = 25;
+            listBoxElectronic.Location = new Point(227, 272);
+            listBoxElectronic.Name = "listBoxElectronic";
+            listBoxElectronic.Size = new Size(273, 254);
+            listBoxElectronic.TabIndex = 10;
+            // 
+            // listBoxIndumentary
+            // 
+            listBoxIndumentary.FormattingEnabled = true;
+            listBoxIndumentary.ItemHeight = 25;
+            listBoxIndumentary.Location = new Point(515, 272);
+            listBoxIndumentary.Name = "listBoxIndumentary";
+            listBoxIndumentary.Size = new Size(273, 254);
+            listBoxIndumentary.TabIndex = 11;
+            // 
             // ItemsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(824, 547);
+            Controls.Add(listBoxIndumentary);
+            Controls.Add(listBoxElectronic);
+            Controls.Add(listBoxProperties);
+            Controls.Add(listBoxVehicles);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnCreate);
             Controls.Add(cbbRentableEntities);
-            Controls.Add(dataGridViewRentableEntities);
             Margin = new Padding(2);
             Name = "ItemsView";
             Text = "Booking";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewRentableEntities).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private DataGridView dataGridViewRentableEntities;
         private ComboBox cbbRentableEntities;
         private Button btnCreate;
         private Button btnUpdate;
         private Button btnDelete;
+        private ListBox listBoxVehicles;
+        private ListBox listBoxProperties;
+        private ListBox listBoxElectronic;
+        private ListBox listBoxIndumentary;
     }
 }
