@@ -12,7 +12,7 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
 {
     public partial class PropertyUpdateView : Form
     {
-        public PropertyUpdateView()
+        public PropertyUpdateView(int entityId)
         {
             InitializeComponent();
         }

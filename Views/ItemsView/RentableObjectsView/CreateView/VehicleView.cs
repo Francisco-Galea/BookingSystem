@@ -8,7 +8,6 @@ namespace Boocking.Views.RentableObjectsView
     {
 
         private readonly VehicleController vehicleController = new VehicleController();
-        private readonly VehicleUpdateView vehicleUpdateView;
 
         public VehicleView()
         {
@@ -16,8 +15,6 @@ namespace Boocking.Views.RentableObjectsView
             CreateDataGridColumns();
             LoadVehicles();
         }
-
-        
 
         private void btnCreate_Click(object sender, EventArgs e)
         {

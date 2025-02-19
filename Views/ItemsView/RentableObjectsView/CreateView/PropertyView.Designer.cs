@@ -35,12 +35,12 @@
             txtProperty = new TextBox();
             txtDescription = new TextBox();
             txtCostUsage = new TextBox();
-            txtDirection = new TextBox();
+            txtLocation = new TextBox();
             btnCreate = new Button();
-            dgvProperties = new DataGridView();
             btnBack = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
+            dgvProperties = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvProperties).BeginInit();
             SuspendLayout();
             // 
@@ -108,13 +108,13 @@
             txtCostUsage.Size = new Size(180, 31);
             txtCostUsage.TabIndex = 6;
             // 
-            // txtDirection
+            // txtLocation
             // 
-            txtDirection.Location = new Point(12, 216);
-            txtDirection.Margin = new Padding(2);
-            txtDirection.Name = "txtDirection";
-            txtDirection.Size = new Size(180, 31);
-            txtDirection.TabIndex = 7;
+            txtLocation.Location = new Point(12, 216);
+            txtLocation.Margin = new Padding(2);
+            txtLocation.Name = "txtLocation";
+            txtLocation.Size = new Size(180, 31);
+            txtLocation.TabIndex = 7;
             // 
             // btnCreate
             // 
@@ -126,15 +126,6 @@
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
-            // 
-            // dgvProperties
-            // 
-            dgvProperties.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProperties.Location = new Point(197, 12);
-            dgvProperties.Name = "dgvProperties";
-            dgvProperties.RowHeadersWidth = 62;
-            dgvProperties.Size = new Size(527, 422);
-            dgvProperties.TabIndex = 10;
             // 
             // btnBack
             // 
@@ -166,17 +157,26 @@
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // dgvProperties
+            // 
+            dgvProperties.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProperties.Location = new Point(197, 9);
+            dgvProperties.Name = "dgvProperties";
+            dgvProperties.RowHeadersWidth = 62;
+            dgvProperties.Size = new Size(527, 425);
+            dgvProperties.TabIndex = 15;
+            // 
             // PropertyView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(736, 485);
+            Controls.Add(dgvProperties);
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(btnBack);
-            Controls.Add(dgvProperties);
             Controls.Add(btnCreate);
-            Controls.Add(txtDirection);
+            Controls.Add(txtLocation);
             Controls.Add(txtCostUsage);
             Controls.Add(txtDescription);
             Controls.Add(txtProperty);
@@ -201,11 +201,11 @@
         private TextBox txtProperty;
         private TextBox txtDescription;
         private TextBox txtCostUsage;
-        private TextBox txtDirection;
+        private TextBox txtLocation;
         private Button btnCreate;
-        private DataGridView dgvProperties;
         private Button btnBack;
         private Button btnDelete;
         private Button btnUpdate;
+        private DataGridView dgvProperties;
     }
 }

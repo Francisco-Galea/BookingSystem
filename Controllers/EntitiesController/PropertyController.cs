@@ -13,13 +13,13 @@ namespace Booking.Controllers.EntitiesController
         private readonly IPropertyFactory propertyFactory = new PropertyFactory();
         private readonly IPropertyDao propertyDao = new PropertyDaoSQLSERVER();
 
-        public void CreateProperty(string propertyType, string description, string costUsage, string direction)
+        public void CreateProperty(string propertyType, string description, string costUsage, string location)
         {
             try
             {
                 decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
                 
-                PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, direction);
+                PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
                 propertyDao.CreateProperty(property);
                 MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -29,9 +29,20 @@ namespace Booking.Controllers.EntitiesController
             }
         }
 
-        public void UpdateProperty(int propertyId)
+        public void UpdateProperty(int propertyId, string propertyType, string description, string costUsage, string location)
         {
+            try
+            {
+                decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
 
+                PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
+                propertyDao.UpdateProperty(propertyId, property);
+                MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void DeleteProperty(int propertyId)
@@ -44,7 +55,7 @@ namespace Booking.Controllers.EntitiesController
             return propertyDao.GetPropertyById(propertyId);
         }
 
-        public List<PropertyEntity> GetProperties()
+        public List<PropertyEntity> GetAllProperties()
         {
             return propertyDao.GetAllProperties();
         }

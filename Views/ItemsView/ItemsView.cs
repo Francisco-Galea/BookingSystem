@@ -4,7 +4,6 @@ namespace Boocking.Views.BookingsView
 {
     public partial class ItemsView : Form
     {
-        private readonly VehicleView vehicleView;
 
         public ItemsView()
         {
@@ -25,7 +24,9 @@ namespace Boocking.Views.BookingsView
 
         private void btnShowProperties_Click(object sender, EventArgs e)
         {
-
+            PropertyView propertyView = new PropertyView();
+            propertyView.Show();
+            this.Hide();
         }
 
         private void btnShowElectronics_Click(object sender, EventArgs e)

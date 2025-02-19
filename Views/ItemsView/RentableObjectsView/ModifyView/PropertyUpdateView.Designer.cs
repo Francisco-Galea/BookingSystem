@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtDirection = new TextBox();
+            txtLocation = new TextBox();
             txtCostUsage = new TextBox();
             txtDescription = new TextBox();
             txtProperty = new TextBox();
@@ -45,15 +45,17 @@
             label7 = new Label();
             label8 = new Label();
             label9 = new Label();
+            btnCancel = new Button();
+            btnUpdate = new Button();
             SuspendLayout();
             // 
-            // txtDirection
+            // txtLocation
             // 
-            txtDirection.Location = new Point(11, 252);
-            txtDirection.Margin = new Padding(2);
-            txtDirection.Name = "txtDirection";
-            txtDirection.Size = new Size(180, 31);
-            txtDirection.TabIndex = 15;
+            txtLocation.Location = new Point(11, 252);
+            txtLocation.Margin = new Padding(2);
+            txtLocation.Name = "txtLocation";
+            txtLocation.Size = new Size(180, 31);
+            txtLocation.TabIndex = 15;
             // 
             // txtCostUsage
             // 
@@ -200,11 +202,31 @@
             label9.TabIndex = 17;
             label9.Text = "Tipo de propiedad";
             // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(12, 404);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(112, 34);
+            btnCancel.TabIndex = 25;
+            btnCancel.Text = "Cancelar";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(388, 404);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(112, 34);
+            btnUpdate.TabIndex = 26;
+            btnUpdate.Text = "Modificar";
+            btnUpdate.UseVisualStyleBackColor = true;
+            // 
             // PropertyUpdateView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(512, 450);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnCancel);
             Controls.Add(textBox1);
             Controls.Add(textBox2);
             Controls.Add(textBox3);
@@ -214,7 +236,7 @@
             Controls.Add(label8);
             Controls.Add(label9);
             Controls.Add(label5);
-            Controls.Add(txtDirection);
+            Controls.Add(txtLocation);
             Controls.Add(txtCostUsage);
             Controls.Add(txtDescription);
             Controls.Add(txtProperty);
@@ -230,7 +252,7 @@
 
         #endregion
 
-        private TextBox txtDirection;
+        private TextBox txtLocation;
         private TextBox txtCostUsage;
         private TextBox txtDescription;
         private TextBox txtProperty;
@@ -247,5 +269,7 @@
         private Label label7;
         private Label label8;
         private Label label9;
+        private Button btnCancel;
+        private Button btnUpdate;
     }
 }
