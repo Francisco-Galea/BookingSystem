@@ -37,7 +37,26 @@ namespace Boocking.Models.Dao.PropertyDao
 
         public void DeleteProperty(int propertyId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = "UPDATE Properties SET IsDeleted = 1 WHERE PropertyId = @PropertyId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PropertyId", propertyId);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al realizar el borrado lógico del producto", ex);
+                    }
+                }
+            }
         }
 
         public List<PropertyEntity> GetAllProperties()
@@ -78,12 +97,72 @@ namespace Boocking.Models.Dao.PropertyDao
 
         public PropertyEntity GetPropertyById(int propertyId)
         {
-            throw new NotImplementedException();
+            PropertyEntity propertyReturned = new PropertyEntity();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = "SELECT PropertyId, Name, Description, CostUsagePerDay, Location FROM Properties WHERE PropertyId = @PropertyId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PropertyId", propertyId);
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                propertyReturned.PROPERTYID = reader.GetInt32(0);
+                                propertyReturned.NAME = reader.GetString(1);
+                                propertyReturned.DESCRIPTION = reader.GetString(2);
+                                propertyReturned.COSTUSAGEPERDAY= reader.GetDecimal(3); 
+                                propertyReturned.LOCATION = reader.GetString(4);
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            return propertyReturned;
         }
 
         public void UpdateProperty(int propertyId, PropertyEntity property)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"UPDATE Properties SET 
+                                 Name = @Name,
+                                 Description = @Description,
+                                 CostUsagePerDay = @CostUsagePerDay,
+                                 Location = @Location
+                                 WHERE PropertyId = @PropertyId
+                                ";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PropertyId", propertyId);
+                    command.Parameters.AddWithValue("@Name", property.NAME);
+                    command.Parameters.AddWithValue("@Description", property.DESCRIPTION);
+                    command.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);
+                    command.Parameters.AddWithValue("@Location", property.LOCATION);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+
+            }
         }
     }
 }

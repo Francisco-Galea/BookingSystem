@@ -1,7 +1,7 @@
-﻿using Boocking.Controllers;
-using Boocking.Models.Dao.PropertyDao;
+﻿using Boocking.Models.Dao.PropertyDao;
 using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory.Interfaces;
+using Booking.Controllers.Utility;
 using Booking.Models.Factory;
 
 namespace Booking.Controllers.EntitiesController

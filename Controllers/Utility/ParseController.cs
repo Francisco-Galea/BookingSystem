@@ -1,4 +1,4 @@
-﻿namespace Boocking.Controllers
+﻿namespace Booking.Controllers.Utility
 {
     public class ParseController
     {
@@ -22,7 +22,7 @@
             {
                 return decimal.Parse(input);
             }
-            catch (FormatException )
+            catch (FormatException)
             {
                 MessageBox.Show($"No se puede convertir '{input}' en decimal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new FormatException($"Cannot parse '{input}' into decimal");

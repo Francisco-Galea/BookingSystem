@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtLocation = new TextBox();
-            txtCostUsage = new TextBox();
-            txtDescription = new TextBox();
-            txtProperty = new TextBox();
+            txtOldLocation = new TextBox();
+            txtOldCostUsage = new TextBox();
+            txtOldDescription = new TextBox();
+            txtOldProperty = new TextBox();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             label5 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            txtNewLocation = new TextBox();
+            txtNewCostUsage = new TextBox();
+            txtNewDescription = new TextBox();
+            txtNewPropertyType = new TextBox();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
@@ -49,37 +49,41 @@
             btnUpdate = new Button();
             SuspendLayout();
             // 
-            // txtLocation
+            // txtOldLocation
             // 
-            txtLocation.Location = new Point(11, 252);
-            txtLocation.Margin = new Padding(2);
-            txtLocation.Name = "txtLocation";
-            txtLocation.Size = new Size(180, 31);
-            txtLocation.TabIndex = 15;
+            txtOldLocation.Location = new Point(11, 252);
+            txtOldLocation.Margin = new Padding(2);
+            txtOldLocation.Name = "txtOldLocation";
+            txtOldLocation.ReadOnly = true;
+            txtOldLocation.Size = new Size(180, 31);
+            txtOldLocation.TabIndex = 15;
             // 
-            // txtCostUsage
+            // txtOldCostUsage
             // 
-            txtCostUsage.Location = new Point(11, 192);
-            txtCostUsage.Margin = new Padding(2);
-            txtCostUsage.Name = "txtCostUsage";
-            txtCostUsage.Size = new Size(180, 31);
-            txtCostUsage.TabIndex = 14;
+            txtOldCostUsage.Location = new Point(11, 192);
+            txtOldCostUsage.Margin = new Padding(2);
+            txtOldCostUsage.Name = "txtOldCostUsage";
+            txtOldCostUsage.ReadOnly = true;
+            txtOldCostUsage.Size = new Size(180, 31);
+            txtOldCostUsage.TabIndex = 14;
             // 
-            // txtDescription
+            // txtOldDescription
             // 
-            txtDescription.Location = new Point(11, 132);
-            txtDescription.Margin = new Padding(2);
-            txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(180, 31);
-            txtDescription.TabIndex = 13;
+            txtOldDescription.Location = new Point(11, 132);
+            txtOldDescription.Margin = new Padding(2);
+            txtOldDescription.Name = "txtOldDescription";
+            txtOldDescription.ReadOnly = true;
+            txtOldDescription.Size = new Size(180, 31);
+            txtOldDescription.TabIndex = 13;
             // 
-            // txtProperty
+            // txtOldProperty
             // 
-            txtProperty.Location = new Point(11, 72);
-            txtProperty.Margin = new Padding(2);
-            txtProperty.Name = "txtProperty";
-            txtProperty.Size = new Size(180, 31);
-            txtProperty.TabIndex = 12;
+            txtOldProperty.Location = new Point(11, 72);
+            txtOldProperty.Margin = new Padding(2);
+            txtOldProperty.Name = "txtOldProperty";
+            txtOldProperty.ReadOnly = true;
+            txtOldProperty.Size = new Size(180, 31);
+            txtOldProperty.TabIndex = 12;
             // 
             // label4
             // 
@@ -130,37 +134,37 @@
             label5.TabIndex = 16;
             label5.Text = "Vas a modificar";
             // 
-            // textBox1
+            // txtNewLocation
             // 
-            textBox1.Location = new Point(314, 252);
-            textBox1.Margin = new Padding(2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(180, 31);
-            textBox1.TabIndex = 24;
+            txtNewLocation.Location = new Point(314, 252);
+            txtNewLocation.Margin = new Padding(2);
+            txtNewLocation.Name = "txtNewLocation";
+            txtNewLocation.Size = new Size(180, 31);
+            txtNewLocation.TabIndex = 24;
             // 
-            // textBox2
+            // txtNewCostUsage
             // 
-            textBox2.Location = new Point(314, 192);
-            textBox2.Margin = new Padding(2);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(180, 31);
-            textBox2.TabIndex = 23;
+            txtNewCostUsage.Location = new Point(314, 192);
+            txtNewCostUsage.Margin = new Padding(2);
+            txtNewCostUsage.Name = "txtNewCostUsage";
+            txtNewCostUsage.Size = new Size(180, 31);
+            txtNewCostUsage.TabIndex = 23;
             // 
-            // textBox3
+            // txtNewDescription
             // 
-            textBox3.Location = new Point(314, 132);
-            textBox3.Margin = new Padding(2);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(180, 31);
-            textBox3.TabIndex = 22;
+            txtNewDescription.Location = new Point(314, 132);
+            txtNewDescription.Margin = new Padding(2);
+            txtNewDescription.Name = "txtNewDescription";
+            txtNewDescription.Size = new Size(180, 31);
+            txtNewDescription.TabIndex = 22;
             // 
-            // textBox4
+            // txtNewPropertyType
             // 
-            textBox4.Location = new Point(314, 72);
-            textBox4.Margin = new Padding(2);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(180, 31);
-            textBox4.TabIndex = 21;
+            txtNewPropertyType.Location = new Point(314, 72);
+            txtNewPropertyType.Margin = new Padding(2);
+            txtNewPropertyType.Name = "txtNewPropertyType";
+            txtNewPropertyType.Size = new Size(180, 31);
+            txtNewPropertyType.TabIndex = 21;
             // 
             // label6
             // 
@@ -204,42 +208,44 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(12, 404);
+            btnCancel.Location = new Point(11, 331);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
+            btnCancel.Size = new Size(133, 34);
             btnCancel.TabIndex = 25;
             btnCancel.Text = "Cancelar";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(388, 404);
+            btnUpdate.Location = new Point(359, 331);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(112, 34);
+            btnUpdate.Size = new Size(135, 34);
             btnUpdate.TabIndex = 26;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // PropertyUpdateView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(512, 450);
+            ClientSize = new Size(506, 382);
             Controls.Add(btnUpdate);
             Controls.Add(btnCancel);
-            Controls.Add(textBox1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox3);
-            Controls.Add(textBox4);
+            Controls.Add(txtNewLocation);
+            Controls.Add(txtNewCostUsage);
+            Controls.Add(txtNewDescription);
+            Controls.Add(txtNewPropertyType);
             Controls.Add(label6);
             Controls.Add(label7);
             Controls.Add(label8);
             Controls.Add(label9);
             Controls.Add(label5);
-            Controls.Add(txtLocation);
-            Controls.Add(txtCostUsage);
-            Controls.Add(txtDescription);
-            Controls.Add(txtProperty);
+            Controls.Add(txtOldLocation);
+            Controls.Add(txtOldCostUsage);
+            Controls.Add(txtOldDescription);
+            Controls.Add(txtOldProperty);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -252,19 +258,19 @@
 
         #endregion
 
-        private TextBox txtLocation;
-        private TextBox txtCostUsage;
-        private TextBox txtDescription;
-        private TextBox txtProperty;
+        private TextBox txtOldLocation;
+        private TextBox txtOldCostUsage;
+        private TextBox txtOldDescription;
+        private TextBox txtOldProperty;
         private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
         private Label label5;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox txtNewLocation;
+        private TextBox txtNewCostUsage;
+        private TextBox txtNewDescription;
+        private TextBox txtNewPropertyType;
         private Label label6;
         private Label label7;
         private Label label8;

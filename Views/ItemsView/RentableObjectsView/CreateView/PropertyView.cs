@@ -1,6 +1,4 @@
-﻿
-using Boocking.Controllers.EntitiesController;
-using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers.EntitiesController;
 using Booking.Views.ItemsView.RentableObjectsView.ModifyView;
 
@@ -45,6 +43,8 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            int entityId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+            propertyController.DeleteProperty(entityId);
             LoadProperties();
         }
 
