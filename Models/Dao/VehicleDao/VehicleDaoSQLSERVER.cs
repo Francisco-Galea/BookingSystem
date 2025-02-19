@@ -13,7 +13,7 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "INSERT INTO Vehicle (Name, Description, CostUsagePerDay, Brand, Model, PassengerCapacity, SerialNumber) VALUES (@Name, @Description, @CostUsagePerDay, @Brand, @Model, @PassengerCapacity, @SerialNumber)";
+                string query = "INSERT INTO Vehicles (Name, Description, CostUsagePerDay, Brand, Model, PassengerCapacity, SerialNumber) VALUES (@Name, @Description, @CostUsagePerDay, @Brand, @Model, @PassengerCapacity, @SerialNumber)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -44,7 +44,7 @@ namespace Boocking.Models.Dao.VehicleDao
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicle WHERE VehicleId = @vehicleId";
+                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicles WHERE VehicleId = @vehicleId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -82,7 +82,7 @@ namespace Boocking.Models.Dao.VehicleDao
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicle WHERE IsDeleted = 0";
+                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicles WHERE IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -119,7 +119,7 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "UPDATE Vehicle SET IsDeleted = 1 WHERE VehicleId = @VehicleId";
+                string query = "UPDATE Vehicles SET IsDeleted = 1 WHERE VehicleId = @VehicleId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -143,7 +143,7 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = @"UPDATE Vehicle SET 
+                string query = @"UPDATE Vehicles SET 
                                  Name = @Name,
                                  Description = @Description,
                                  CostUsagePerDay = @CostUsagePerDay,

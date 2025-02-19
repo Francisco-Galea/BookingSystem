@@ -5,9 +5,9 @@ namespace Boocking.Models.Dao.PropertyDao
     public interface IPropertyDao
     {
         void CreateProperty(PropertyEntity property);
-        void UpdateProperty(int PropertyId, PropertyEntity property);
-        PropertyEntity GetPropertyById(int PropertyId);
+        void UpdateProperty(int propertyId, PropertyEntity property);
+        PropertyEntity GetPropertyById(int propertyId);
         List<PropertyEntity> GetAllProperties();
-        void DeleteProperty(int PropertyId);
+        void DeleteProperty(int propertyId);
     }
 }

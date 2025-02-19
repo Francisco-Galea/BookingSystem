@@ -5,6 +5,7 @@ namespace Boocking.Models.Dao.PropertyDao
 {
     public class PropertyDaoSQLSERVER : IPropertyDao
     {
+
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
         public void CreateProperty(PropertyEntity property)
@@ -12,7 +13,7 @@ namespace Boocking.Models.Dao.PropertyDao
             throw new NotImplementedException();
         }
 
-        public void DeleteProperty(int PropertyId)
+        public void DeleteProperty(int propertyId)
         {
             throw new NotImplementedException();
         }
@@ -22,12 +23,12 @@ namespace Boocking.Models.Dao.PropertyDao
             throw new NotImplementedException();
         }
 
-        public PropertyEntity GetPropertyById(int PropertyId)
+        public PropertyEntity GetPropertyById(int propertyId)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateProperty(int PropertyId, PropertyEntity property)
+        public void UpdateProperty(int propertyId, PropertyEntity property)
         {
             throw new NotImplementedException();
         }
