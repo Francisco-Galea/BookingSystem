@@ -50,11 +50,13 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 string serialNumber = txtNewSerialNumber.Text;
                 string passengerCapacity = txtNewPassenger.Text;
                 vehicleController.UpdateVehicle(vehicleId, vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                this.Close();
             }
             catch
             {
 
             }
         }
+
     }
 }

@@ -6,6 +6,7 @@ namespace Boocking.Models.Dao.VehicleDao
 {
     public class VehicleDaoSQLSERVER : IVehicleDao
     {
+
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
         public void CreateVehicle(VehicleEntity vehicle)
@@ -127,11 +128,8 @@ namespace Boocking.Models.Dao.VehicleDao
                     try
                     {
                         connection.Open();
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected == 0)
-                        {
-                            throw new Exception("No se encontró el producto para borrar o ya está borrado.");
-                        }
+                        command.ExecuteNonQuery();
+                        
                     }
                     catch (Exception ex)
                     {
