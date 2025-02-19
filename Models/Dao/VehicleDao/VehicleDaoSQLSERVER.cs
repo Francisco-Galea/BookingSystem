@@ -13,49 +13,73 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "INSERT INTO Vehicles (Name, Description, CostUsagePerDay, Brand, Model, PassengerCapacity, SerialNumber) VALUES (@Name, @Description, @CostUsagePerDay, @Brand, @Model, @PassengerCapacity, @SerialNumber)";
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@Name", vehicle.NAME);
-                    command.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
-                    command.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
-                    command.Parameters.AddWithValue("@Brand", vehicle.BRAND);
-                    command.Parameters.AddWithValue("@Model", vehicle.MODEL);
-                    command.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
-                    command.Parameters.AddWithValue("@SerialNumber", vehicle.SERIALNUMBER);
+                    string rentableQuery = @"
+                    INSERT INTO Rentables (Name, Description, CostUsagePerDay) 
+                    OUTPUT INSERTED.RentableId
+                    VALUES (@Name, @Description, @CostUsagePerDay)";
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error al crear el producto en la base de datos", ex);
-                    }
+                    SqlCommand rentableCommand = new SqlCommand(rentableQuery, connection, transaction);
+                    rentableCommand.Parameters.AddWithValue("@Name", vehicle.NAME);
+                    rentableCommand.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
+                    rentableCommand.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
+
+                    var rentableIdResult = rentableCommand.ExecuteScalar();
+                    int rentableId = Convert.ToInt32(rentableIdResult); // 
+
+                    string vehicleQuery = @"
+                    INSERT INTO Vehicles (RentableId, Brand, Model, PassengerCapacity, SerialNumber)
+                    VALUES (@RentableId, @Brand, @Model, @PassengerCapacity, @SerialNumber)";
+
+                    SqlCommand vehicleCommand = new SqlCommand(vehicleQuery, connection, transaction);
+                    vehicleCommand.Parameters.AddWithValue("@RentableId", rentableId); 
+                    vehicleCommand.Parameters.AddWithValue("@Brand", vehicle.BRAND);
+                    vehicleCommand.Parameters.AddWithValue("@Model", vehicle.MODEL);
+                    vehicleCommand.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
+                    vehicleCommand.Parameters.AddWithValue("@SerialNumber", vehicle.SERIALNUMBER);
+
+                    vehicleCommand.ExecuteNonQuery(); 
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al crear el vehiculo", ex);
                 }
             }
         }
 
+
         public VehicleEntity GetVehicleById(int vehicleId)
         {
-            VehicleEntity vehicleReturned = new VehicleEntity();
+            VehicleEntity vehicleReturned = null; 
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicles WHERE VehicleId = @vehicleId";
+                string query = @"
+                                SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
+                                FROM Vehicles v
+                                INNER JOIN Rentables r ON v.RentableId = r.RentableId
+                                WHERE v.VehicleId = @vehicleId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@vehicleId", vehicleId);
+
                     try
                     {
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            if(reader.Read())
+                            if (reader.Read()) 
                             {
+                                vehicleReturned = new VehicleEntity(); 
                                 vehicleReturned.VEHICLEID = reader.GetInt32(0);
                                 vehicleReturned.NAME = reader.GetString(1);
                                 vehicleReturned.DESCRIPTION = reader.GetString(2);
@@ -67,13 +91,13 @@ namespace Boocking.Models.Dao.VehicleDao
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        throw new Exception("Error al obtener el vehículo", ex);
                     }
                 }
             }
-            return vehicleReturned;
+            return vehicleReturned; 
         }
 
         public List<VehicleEntity> GetAllVehicles()
@@ -82,7 +106,11 @@ namespace Boocking.Models.Dao.VehicleDao
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicles WHERE IsDeleted = 0";
+                string query = @"
+                                SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
+                                FROM Vehicles v
+                                INNER JOIN Rentables r ON v.RentableId = r.RentableId
+                                WHERE r.IsDeleted = 0"; 
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -102,16 +130,18 @@ namespace Boocking.Models.Dao.VehicleDao
                                 vehicle.MODEL = reader.GetString(5);
                                 vehicle.SERIALNUMBER = reader.GetString(6);
                                 vehicle.PASSENGERCAPACITY = reader.GetInt32(7);
+
                                 vehicles.Add(vehicle);
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        throw new Exception("Error al obtener los vehículos", ex);
                     }
                 }
             }
+
             return vehicles;
         }
 
@@ -119,22 +149,27 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "UPDATE Vehicles SET IsDeleted = 1 WHERE VehicleId = @VehicleId";
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    string getRentableIdQuery = "SELECT RentableId FROM Vehicles WHERE VehicleId = @VehicleId";
+                    SqlCommand getRentableIdCommand = new SqlCommand(getRentableIdQuery, connection, transaction);
+                    getRentableIdCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al realizar el borrado lógico del producto", ex);
-                    }
+                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());
+                    string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
+                    SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
+                    deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                    deleteRentableCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al realizar el borrado lógico del vehículo", ex);
                 }
             }
         }
@@ -143,40 +178,49 @@ namespace Boocking.Models.Dao.VehicleDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = @"UPDATE Vehicles SET 
-                                 Name = @Name,
-                                 Description = @Description,
-                                 CostUsagePerDay = @CostUsagePerDay,
-                                 Brand = @Brand,
-                                 Model = @Model,
-                                 SerialNumber = @SerialNumber,
-                                 PassengerCapacity = @PassengerCapacity
-                                 WHERE VehicleId = @VehicleId
-                                ";
-                
-                using (SqlCommand command = new SqlCommand (query, connection))
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
                 {
-                    command.Parameters.AddWithValue("@VehicleId", vehicleId);
-                    command.Parameters.AddWithValue("@Name", vehicle.NAME);
-                    command.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
-                    command.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
-                    command.Parameters.AddWithValue("@Brand", vehicle.BRAND);
-                    command.Parameters.AddWithValue("@Model", vehicle.MODEL);
-                    command.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
-                    command.Parameters.AddWithValue("@SerialNumber", vehicle.SERIALNUMBER);
+                    string updateVehicleQuery = @"
+                                                UPDATE Vehicles SET 
+                                                Brand = @Brand,
+                                                Model = @Model,
+                                                PassengerCapacity = @PassengerCapacity,
+                                                SerialNumber = @SerialNumber
+                                                WHERE VehicleId = @VehicleId
+                                                ";
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch
-                    {
+                    SqlCommand updateVehicleCommand = new SqlCommand(updateVehicleQuery, connection, transaction);
+                    updateVehicleCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    updateVehicleCommand.Parameters.AddWithValue("@Brand", vehicle.BRAND);
+                    updateVehicleCommand.Parameters.AddWithValue("@Model", vehicle.MODEL);
+                    updateVehicleCommand.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
+                    updateVehicleCommand.Parameters.AddWithValue("@SerialNumber", vehicle.SERIALNUMBER);
+                    updateVehicleCommand.ExecuteNonQuery();
 
-                    }
+                    string updateRentableQuery = @"
+                                                 UPDATE Rentables SET 
+                                                 Name = @Name,
+                                                 Description = @Description,
+                                                 CostUsagePerDay = @CostUsagePerDay
+                                                 WHERE RentableId = (SELECT RentableId FROM Vehicles WHERE VehicleId = @VehicleId)
+                                                 ";
+
+                    SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
+                    updateRentableCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    updateRentableCommand.Parameters.AddWithValue("@Name", vehicle.NAME);
+                    updateRentableCommand.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
+                    updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
+                    updateRentableCommand.ExecuteNonQuery();
+                    transaction.Commit();
                 }
-
-
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al actualizar el vehículo", ex);
+                }
             }
         }
     }

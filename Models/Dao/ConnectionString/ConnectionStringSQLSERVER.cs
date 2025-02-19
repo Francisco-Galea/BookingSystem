@@ -2,7 +2,7 @@
 {
     public class ConnectionStringSQLSERVER
     {
-        private string connectionString = "Server=FRAN-GALEA\\SQLEXPRESS;Database=BookingSystem;TrustServerCertificate=true; Trusted_Connection=True;";
+        private string connectionString = "Server=FRANGA\\SQLEXPRESS;Database=BookingSystem;TrustServerCertificate=true; Trusted_Connection=True;";
         private static ConnectionStringSQLSERVER instance;
 
         private ConnectionStringSQLSERVER() { }
