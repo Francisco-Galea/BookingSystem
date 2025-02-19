@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boocking.Controllers.EntitiesController;
-using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Controllers.EntitiesController;
 using Boocking.Views.ItemsView.RentableObjectsView;
 using Boocking.Views.RentableObjectsView;
-using Booking.Models.Entities;
-using Microsoft.VisualBasic;
+using Booking.Views.ItemsView.RentableObjectsView.ModifyView;
 
 namespace Booking.Controllers
 {
@@ -53,25 +46,57 @@ namespace Booking.Controllers
             }
         }
 
-        public List<RentableEntity> GetEntitiesByType(string entityType)
+        public void DeleteSelectedEntity(int entityId, string selectedEntity)
         {
-            switch (entityType)
+            try
             {
-                case "Vehiculo":
-                    break;
+                switch (selectedEntity)
+                {
+                    case "Vehicle":
+                        vehicleController.DeleteVehicle(entityId);
+                        break;
 
-                case "Propiedad":
-                    break;
+                    case "Propiedad":
+                        break;
 
-                case "Dispositivo electronico":
-                    break;
+                    case "Dispositivo electronico":
+                        break;
 
-                case "Indumentaria":
-                    break;
+                    case "Indumentaria":
+                        break;
+                }
             }
+            catch
+            {
 
+            }
+        }
 
+        public void UpdateSelectedEntity(int entityId, string selectedEntity)
+        {
+            try
+            {
+                switch (selectedEntity)
+                {
+                    case "Vehicle":
+                        VehicleUpdateView vehicleUpdateView = new VehicleUpdateView(entityId);
+                        vehicleUpdateView.ShowDialog();
+                        break;
 
+                    case "Propiedad":
+                        break;
+
+                    case "Dispositivo electronico":
+                        break;
+
+                    case "Indumentaria":
+                        break;
+                }
+            }
+            catch
+            {
+
+            }
         }
 
     }

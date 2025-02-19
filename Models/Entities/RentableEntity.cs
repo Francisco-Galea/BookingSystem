@@ -8,6 +8,8 @@
         private decimal costUsagePerDay;
         private bool isDeleted;
 
+        public RentableEntity() { }
+
         public RentableEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
         {
             this.name = NAME;

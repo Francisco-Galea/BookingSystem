@@ -43,7 +43,6 @@
             lblModel = new Label();
             txtBrand = new TextBox();
             txtModel = new TextBox();
-            btnUpdate = new Button();
             txtPassengerCapacity = new TextBox();
             SuspendLayout();
             // 
@@ -188,16 +187,6 @@
             txtModel.Size = new Size(184, 31);
             txtModel.TabIndex = 17;
             // 
-            // btnUpdate
-            // 
-            btnUpdate.Location = new Point(150, 576);
-            btnUpdate.Margin = new Padding(4);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(118, 36);
-            btnUpdate.TabIndex = 18;
-            btnUpdate.Text = "Modificar";
-            btnUpdate.UseVisualStyleBackColor = true;
-            // 
             // txtPassengerCapacity
             // 
             txtPassengerCapacity.Location = new Point(84, 480);
@@ -211,7 +200,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(410, 622);
             Controls.Add(txtPassengerCapacity);
-            Controls.Add(btnUpdate);
             Controls.Add(txtModel);
             Controls.Add(txtBrand);
             Controls.Add(lblModel);
@@ -251,7 +239,6 @@
         private Label lblModel;
         private TextBox txtBrand;
         private TextBox txtModel;
-        private Button btnUpdate;
         private TextBox txtPassengerCapacity;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Boocking.Controllers.EntitiesController;
-using Boocking.Models.Factory.Interfaces;
 
 namespace Boocking.Views.RentableObjectsView
 {
@@ -22,7 +21,6 @@ namespace Boocking.Views.RentableObjectsView
         {
             try
             {
-
                 string vehicleType = txtVehicleName.Text;
                 string vehicleBrand = txtBrand.Text;
                 string vehicleModel = txtModel.Text;
@@ -30,9 +28,8 @@ namespace Boocking.Views.RentableObjectsView
                 string costUsage = txtCostUsage.Text;
                 string serialNumber = txtSerialNumber.Text;
                 string passengerCapacity = txtPassengerCapacity.Text;
-
-                vehicleController.VerifyVehicleData(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
-
+                vehicleController.CreateVehicle(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                this.Close();
             }
             catch
             {
@@ -40,5 +37,11 @@ namespace Boocking.Views.RentableObjectsView
             }
 
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            
+        }
+
     }
 }

@@ -10,6 +10,8 @@ namespace Boocking.Models.Entities.RentableEntities
         private int passengerCapacity;
         private string serialNumber;
 
+        public VehicleEntity() : base () { }
+
         public VehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, string SERIALNUMBER)
         : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
         {

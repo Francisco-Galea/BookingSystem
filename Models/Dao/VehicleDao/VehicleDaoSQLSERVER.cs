@@ -1,6 +1,5 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
 using Booking.Models.Dao.ConnectionString;
-using Booking.Models.Entities;
 using Microsoft.Data.SqlClient;
 
 namespace Boocking.Models.Dao.VehicleDao
@@ -38,24 +37,149 @@ namespace Boocking.Models.Dao.VehicleDao
             }
         }
 
-        public void DeleteVehicle(int VehicleId)
+        public VehicleEntity GetVehicleById(int vehicleId)
         {
-            throw new NotImplementedException();
+            VehicleEntity vehicleReturned = new VehicleEntity();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicle WHERE VehicleId = @vehicleId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@vehicleId", vehicleId);
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if(reader.Read())
+                            {
+                                vehicleReturned.VEHICLEID = reader.GetInt32(0);
+                                vehicleReturned.NAME = reader.GetString(1);
+                                vehicleReturned.DESCRIPTION = reader.GetString(2);
+                                vehicleReturned.COSTUSAGEPERDAY = reader.GetDecimal(3);
+                                vehicleReturned.BRAND = reader.GetString(4);
+                                vehicleReturned.MODEL = reader.GetString(5);
+                                vehicleReturned.SERIALNUMBER = reader.GetString(6);
+                                vehicleReturned.PASSENGERCAPACITY = reader.GetInt32(7);
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            return vehicleReturned;
         }
 
         public List<VehicleEntity> GetAllVehicles()
         {
-            throw new NotImplementedException();
+            List<VehicleEntity> vehicles = new List<VehicleEntity>();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = "SELECT VehicleId, Name, Description, CostUsagePerDay, Brand, Model, SerialNumber, PassengerCapacity FROM Vehicle WHERE IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                VehicleEntity vehicle = new VehicleEntity();
+                                vehicle.VEHICLEID = reader.GetInt32(0);
+                                vehicle.NAME = reader.GetString(1);
+                                vehicle.DESCRIPTION = reader.GetString(2);
+                                vehicle.COSTUSAGEPERDAY = reader.GetDecimal(3);
+                                vehicle.BRAND = reader.GetString(4);
+                                vehicle.MODEL = reader.GetString(5);
+                                vehicle.SERIALNUMBER = reader.GetString(6);
+                                vehicle.PASSENGERCAPACITY = reader.GetInt32(7);
+                                vehicles.Add(vehicle);
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            return vehicles;
         }
 
-        public VehicleEntity GetVehicleById(int VehicleId)
+        public void DeleteVehicle(int vehicleId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = "UPDATE Vehicle SET IsDeleted = 1 WHERE VehicleId = @VehicleId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@VehicleId", vehicleId);
+
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected == 0)
+                        {
+                            throw new Exception("No se encontró el producto para borrar o ya está borrado.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al realizar el borrado lógico del producto", ex);
+                    }
+                }
+            }
         }
 
-        public void UpdateVehicle(int VehicleId, VehicleEntity vehicle)
+        public void UpdateVehicle(int vehicleId, VehicleEntity vehicle)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"UPDATE Vehicle SET 
+                                 Name = @Name,
+                                 Description = @Description,
+                                 CostUsagePerDay = @CostUsagePerDay,
+                                 Brand = @Brand,
+                                 Model = @Model,
+                                 SerialNumber = @SerialNumber,
+                                 PassengerCapacity = @PassengerCapacity
+                                 WHERE VehicleId = @VehicleId
+                                ";
+                
+                using (SqlCommand command = new SqlCommand (query, connection))
+                {
+                    command.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    command.Parameters.AddWithValue("@Name", vehicle.NAME);
+                    command.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
+                    command.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
+                    command.Parameters.AddWithValue("@Brand", vehicle.BRAND);
+                    command.Parameters.AddWithValue("@Model", vehicle.MODEL);
+                    command.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
+                    command.Parameters.AddWithValue("@SerialNumber", vehicle.SERIALNUMBER);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+
+            }
         }
     }
 }
