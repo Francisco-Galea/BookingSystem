@@ -47,8 +47,8 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnUpdate_Click_1(object sender, EventArgs e)
         {
-            int entityId = (int)dgvVehicles.SelectedRows[0].Cells["id"].Value;
-            VehicleUpdateView vehicleUpdateView = new VehicleUpdateView(entityId);
+            int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["id"].Value;
+            VehicleUpdateView vehicleUpdateView = new VehicleUpdateView(rentableId);
             vehicleUpdateView.ShowDialog();
             LoadVehicles();
         }

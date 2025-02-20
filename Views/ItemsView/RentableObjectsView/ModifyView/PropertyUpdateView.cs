@@ -8,13 +8,13 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
     {
 
         private readonly PropertyController propertyController = new PropertyController();
-        private readonly int propertyId;
+        private readonly int rentablePropertyId;
 
-        public PropertyUpdateView(int entityId)
+        public PropertyUpdateView(int rentableId)
         {
             InitializeComponent();
-            LoadOldPropertyData(entityId);
-            propertyId = entityId;
+            LoadOldPropertyData(rentableId);
+            this.rentablePropertyId = rentableId;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -23,21 +23,21 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
             string description = txtNewDescription.Text;
             string costUsage = txtNewCostUsage.Text;
             string location = txtNewLocation.Text;
-            propertyController.UpdateProperty(propertyId, propertyType, description, costUsage, location);
+            propertyController.UpdateProperty(rentablePropertyId, propertyType, description, costUsage, location);
             this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-        private void LoadOldPropertyData(int entityId)
+        private void LoadOldPropertyData(int rentableId)
         {
             try
             {
                 PropertyEntity oldPropertyData = new PropertyEntity();
-                oldPropertyData = propertyController.GetPropertyById(entityId);
+                oldPropertyData = propertyController.GetPropertyById(rentableId);
                 txtOldProperty.Text = oldPropertyData.NAME;
                 txtOldDescription.Text = oldPropertyData.DESCRIPTION;
                 txtOldCostUsage.Text = oldPropertyData.COSTUSAGEPERDAY.ToString();

@@ -66,11 +66,11 @@ namespace Boocking.Models.Dao.VehicleDao
                                 SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
                                 FROM Vehicles v
                                 INNER JOIN Rentables r ON v.RentableId = r.RentableId
-                                WHERE r.RentableId = @vehicleId AND r.IsDeleted = 0";
+                                WHERE r.RentableId = @RentableId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@vehicleId", rentableId);
+                    command.Parameters.AddWithValue("@RentableId", rentableId);
 
                     try
                     {

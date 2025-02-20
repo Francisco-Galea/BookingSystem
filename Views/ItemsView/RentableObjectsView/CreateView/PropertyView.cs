@@ -35,16 +35,16 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            int entityId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
-            PropertyUpdateView propertyUpdateView = new PropertyUpdateView(entityId);
+            int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+            PropertyUpdateView propertyUpdateView = new PropertyUpdateView(rentableId);
             propertyUpdateView.ShowDialog();
             LoadProperties();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int entityId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
-            propertyController.DeleteProperty(entityId);
+            int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+            propertyController.DeleteProperty(rentableId);
             LoadProperties();
         }
 
@@ -83,7 +83,7 @@ namespace Boocking.Views.RentableObjectsView
 
         private void CreateDataGridColumns()
         {
-            dgvProperties.Columns.Add("id", "Id");
+            dgvProperties.Columns.Add("RentableId", "Id");
             dgvProperties.Columns.Add("Name", "Propiedad");
             dgvProperties.Columns.Add("Description", "Descripción");
             dgvProperties.Columns.Add("CostUsagePerDay", "Costo por Día");

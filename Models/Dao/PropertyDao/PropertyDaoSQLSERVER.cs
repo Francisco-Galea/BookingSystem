@@ -50,7 +50,7 @@ namespace Boocking.Models.Dao.PropertyDao
             }
         }
 
-        public void DeleteProperty(int propertyId)
+        public void DeleteProperty(int rentableId)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -59,12 +59,6 @@ namespace Boocking.Models.Dao.PropertyDao
 
                 try
                 {
-                    string getRentableIdQuery = "SELECT RentableId FROM Properties WHERE PropertyId = @PropertyId";
-                    SqlCommand getRentableIdCommand = new SqlCommand(getRentableIdQuery, connection, transaction);
-                    getRentableIdCommand.Parameters.AddWithValue("@PropertyId", propertyId);
-
-                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());
-
                     string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
                     SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
                     deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
@@ -87,7 +81,7 @@ namespace Boocking.Models.Dao.PropertyDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
+                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
                                 FROM Properties p
                                 INNER JOIN Rentables r ON p.RentableId = r.RentableId
                                 WHERE r.IsDeleted = 0";
@@ -121,7 +115,7 @@ namespace Boocking.Models.Dao.PropertyDao
             return properties;
         }
 
-        public PropertyEntity GetPropertyById(int propertyId)
+        public PropertyEntity GetPropertyById(int rentableId)
         {
             PropertyEntity propertyReturned = null;
 
@@ -131,11 +125,11 @@ namespace Boocking.Models.Dao.PropertyDao
                                 SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
                                 FROM Properties p
                                 INNER JOIN Rentables r ON p.RentableId = r.RentableId
-                                WHERE p.PropertyId = @PropertyId AND r.IsDeleted = 0";
+                                WHERE p.PRentableId = @RentableId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@PropertyId", propertyId);
+                    command.Parameters.AddWithValue("@RentableId", rentableId);
 
                     try
                     {
@@ -163,7 +157,7 @@ namespace Boocking.Models.Dao.PropertyDao
             return propertyReturned;
         }
 
-        public void UpdateProperty(int propertyId, PropertyEntity property)
+        public void UpdateProperty(int rentableId, PropertyEntity property)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -174,19 +168,19 @@ namespace Boocking.Models.Dao.PropertyDao
                 {
                     string updatePropertyQuery = @"
                                                     UPDATE Properties SET Location = @Location 
-                                                    WHERE PropertyId = @PropertyId";
+                                                    WHERE WHERE RentableId = @RentableId";
 
                     SqlCommand updatePropertyCommand = new SqlCommand(updatePropertyQuery, connection, transaction);
-                    updatePropertyCommand.Parameters.AddWithValue("@PropertyId", propertyId);
+                    updatePropertyCommand.Parameters.AddWithValue("@RentableId", rentableId);
                     updatePropertyCommand.Parameters.AddWithValue("@Location", property.LOCATION);
                     updatePropertyCommand.ExecuteNonQuery();
 
                     string updateRentableQuery = @"
                                                     UPDATE Rentables SET Name = @Name, Description = @Description, CostUsagePerDay = @CostUsagePerDay 
-                                                    WHERE RentableId = (SELECT RentableId FROM Properties WHERE PropertyId = @PropertyId)";
+                                                    WHERE RentableId = @RentableId";
 
                     SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
-                    updateRentableCommand.Parameters.AddWithValue("@PropertyId", propertyId);
+                    updateRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
                     updateRentableCommand.Parameters.AddWithValue("@Name", property.NAME);
                     updateRentableCommand.Parameters.AddWithValue("@Description", property.DESCRIPTION);
                     updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);

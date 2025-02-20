@@ -7,21 +7,21 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
     {
         
         private readonly VehicleController vehicleController = new VehicleController();
-        private readonly int vehicleId;
+        private readonly int rentableVehicleId;
 
-        public VehicleUpdateView(int entityId)
+        public VehicleUpdateView(int rentableId)
         {
             InitializeComponent();
-            LoadOldVehicleData(entityId);
-            vehicleId = entityId;
+            LoadOldVehicleData(rentableId);
+            this.rentableVehicleId = rentableId;
         }
 
-        private void LoadOldVehicleData(int entityId)
+        private void LoadOldVehicleData(int rentableId)
         {
             try
             {
                 VehicleEntity oldVehicleData = new VehicleEntity();
-                oldVehicleData = vehicleController.GetVehicleById(entityId);
+                oldVehicleData = vehicleController.GetVehicleById(rentableId);
                 txtOldVehicle.Text = oldVehicleData.NAME;
                 txtOldBrand.Text = oldVehicleData.BRAND;
                 txtOldModel.Text = oldVehicleData.MODEL;
@@ -49,7 +49,7 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 string costUsage = txtNewCost.Text;
                 string serialNumber = txtNewSerialNumber.Text;
                 string passengerCapacity = txtNewPassenger.Text;
-                vehicleController.UpdateVehicle(vehicleId, vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                vehicleController.UpdateVehicle(rentableVehicleId, vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
                 this.Close();
             }
             catch
