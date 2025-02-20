@@ -28,32 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            comboBox1 = new ComboBox();
+            dgvEntities = new DataGridView();
             label1 = new Label();
-            btnFilter = new Button();
             btnUpdate = new Button();
-            button3 = new Button();
+            btnDelete = new Button();
             btnBack = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            btnVehicles = new Button();
+            btnProperties = new Button();
+            btnIndumentary = new Button();
+            btnElectronic = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvEntities).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvEntities
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 72);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(389, 366);
-            dataGridView1.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 38);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(289, 28);
-            comboBox1.TabIndex = 1;
+            dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEntities.Location = new Point(12, 72);
+            dgvEntities.Name = "dgvEntities";
+            dgvEntities.RowHeadersWidth = 51;
+            dgvEntities.Size = new Size(676, 366);
+            dgvEntities.TabIndex = 0;
             // 
             // label1
             // 
@@ -64,32 +58,23 @@
             label1.TabIndex = 2;
             label1.Text = "Buscar por";
             // 
-            // btnFilter
-            // 
-            btnFilter.Location = new Point(307, 37);
-            btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(94, 29);
-            btnFilter.TabIndex = 3;
-            btnFilter.Text = "Filtrar";
-            btnFilter.UseVisualStyleBackColor = true;
-            // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(407, 220);
+            btnUpdate.Location = new Point(694, 223);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(94, 29);
             btnUpdate.TabIndex = 4;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnDelete
             // 
-            button3.Location = new Point(407, 255);
-            button3.Name = "button3";
-            button3.Size = new Size(94, 29);
-            button3.TabIndex = 5;
-            button3.Text = "Eliminar";
-            button3.UseVisualStyleBackColor = true;
+            btnDelete.Location = new Point(694, 258);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(94, 29);
+            btnDelete.TabIndex = 5;
+            btnDelete.Text = "Eliminar";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnBack
             // 
@@ -100,33 +85,73 @@
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
             // 
+            // btnVehicles
+            // 
+            btnVehicles.Location = new Point(12, 37);
+            btnVehicles.Name = "btnVehicles";
+            btnVehicles.Size = new Size(112, 29);
+            btnVehicles.TabIndex = 7;
+            btnVehicles.Text = "Vehiculos";
+            btnVehicles.UseVisualStyleBackColor = true;
+            // 
+            // btnProperties
+            // 
+            btnProperties.Location = new Point(130, 37);
+            btnProperties.Name = "btnProperties";
+            btnProperties.Size = new Size(112, 29);
+            btnProperties.TabIndex = 8;
+            btnProperties.Text = "Propiedades";
+            btnProperties.UseVisualStyleBackColor = true;
+            // 
+            // btnIndumentary
+            // 
+            btnIndumentary.Location = new Point(248, 37);
+            btnIndumentary.Name = "btnIndumentary";
+            btnIndumentary.Size = new Size(112, 29);
+            btnIndumentary.TabIndex = 9;
+            btnIndumentary.Text = "Indumentaria";
+            btnIndumentary.UseVisualStyleBackColor = true;
+            // 
+            // btnElectronic
+            // 
+            btnElectronic.Location = new Point(366, 37);
+            btnElectronic.Name = "btnElectronic";
+            btnElectronic.Size = new Size(112, 29);
+            btnElectronic.TabIndex = 10;
+            btnElectronic.Text = "Electronica";
+            btnElectronic.UseVisualStyleBackColor = true;
+            // 
             // BookingsHistoricalView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnElectronic);
+            Controls.Add(btnIndumentary);
+            Controls.Add(btnProperties);
+            Controls.Add(btnVehicles);
             Controls.Add(btnBack);
-            Controls.Add(button3);
+            Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
-            Controls.Add(btnFilter);
             Controls.Add(label1);
-            Controls.Add(comboBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvEntities);
             Name = "BookingsHistoricalView";
             Text = "BookingsHistoricalView";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvEntities).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private ComboBox comboBox1;
+        private DataGridView dgvEntities;
         private Label label1;
-        private Button btnFilter;
         private Button btnUpdate;
-        private Button button3;
+        private Button btnDelete;
         private Button btnBack;
+        private Button btnVehicles;
+        private Button btnProperties;
+        private Button btnIndumentary;
+        private Button btnElectronic;
     }
 }

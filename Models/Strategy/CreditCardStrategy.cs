@@ -3,11 +3,12 @@ using Booking.Models.Strategy.Interface;
 
 namespace Booking.Models.Strategy
 {
-    public class ElectronicStrategy : IStrategyFinalPriceBooking
+    public class CreditCardStrategy : IStrategyFinalPriceBooking
     {
         public decimal CalculateTotalPriceBooking(RentableEntity rentable, int DaysBooked)
         {
-            return rentable.COSTUSAGEPERDAY * DaysBooked;
+            decimal totalPrice = rentable.COSTUSAGEPERDAY * DaysBooked;
+            return totalPrice * 1.35m;
         }
 
     }

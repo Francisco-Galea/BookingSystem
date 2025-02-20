@@ -16,6 +16,7 @@ namespace Booking
             ApplicationConfiguration.Initialize();
             //Application.Run(new MainView());
             Application.Run(new ItemsView());
+            //Application.Run(new BookingView());
         }
     }
 }

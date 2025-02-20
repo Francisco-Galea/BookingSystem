@@ -56,7 +56,7 @@ namespace Boocking.Models.Dao.VehicleDao
         }
 
 
-        public VehicleEntity GetVehicleById(int vehicleId)
+        public VehicleEntity GetVehicleById(int rentableId)
         {
             VehicleEntity vehicleReturned = null; 
 
@@ -66,11 +66,11 @@ namespace Boocking.Models.Dao.VehicleDao
                                 SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
                                 FROM Vehicles v
                                 INNER JOIN Rentables r ON v.RentableId = r.RentableId
-                                WHERE v.VehicleId = @vehicleId AND r.IsDeleted = 0";
+                                WHERE r.RentableId = @vehicleId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@vehicleId", vehicleId);
+                    command.Parameters.AddWithValue("@vehicleId", rentableId);
 
                     try
                     {
@@ -107,7 +107,7 @@ namespace Boocking.Models.Dao.VehicleDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
+                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
                                 FROM Vehicles v
                                 INNER JOIN Rentables r ON v.RentableId = r.RentableId
                                 WHERE r.IsDeleted = 0"; 
@@ -145,7 +145,7 @@ namespace Boocking.Models.Dao.VehicleDao
             return vehicles;
         }
 
-        public void DeleteVehicle(int vehicleId)
+        public void DeleteVehicle(int rentableId)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -154,11 +154,12 @@ namespace Boocking.Models.Dao.VehicleDao
 
                 try
                 {
+                    /*
                     string getRentableIdQuery = "SELECT RentableId FROM Vehicles WHERE VehicleId = @VehicleId";
                     SqlCommand getRentableIdCommand = new SqlCommand(getRentableIdQuery, connection, transaction);
                     getRentableIdCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
 
-                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());
+                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());*/
                     string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
                     SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
                     deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
@@ -174,7 +175,7 @@ namespace Boocking.Models.Dao.VehicleDao
             }
         }
 
-        public void UpdateVehicle(int vehicleId, VehicleEntity vehicle)
+        public void UpdateVehicle(int rentableId, VehicleEntity vehicle)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -189,11 +190,11 @@ namespace Boocking.Models.Dao.VehicleDao
                                                 Model = @Model,
                                                 PassengerCapacity = @PassengerCapacity,
                                                 SerialNumber = @SerialNumber
-                                                WHERE VehicleId = @VehicleId
+                                                WHERE RentableId = @RentableId
                                                 ";
 
                     SqlCommand updateVehicleCommand = new SqlCommand(updateVehicleQuery, connection, transaction);
-                    updateVehicleCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    updateVehicleCommand.Parameters.AddWithValue("@RentableId", rentableId);
                     updateVehicleCommand.Parameters.AddWithValue("@Brand", vehicle.BRAND);
                     updateVehicleCommand.Parameters.AddWithValue("@Model", vehicle.MODEL);
                     updateVehicleCommand.Parameters.AddWithValue("@PassengerCapacity", vehicle.PASSENGERCAPACITY);
@@ -205,11 +206,11 @@ namespace Boocking.Models.Dao.VehicleDao
                                                  Name = @Name,
                                                  Description = @Description,
                                                  CostUsagePerDay = @CostUsagePerDay
-                                                 WHERE RentableId = (SELECT RentableId FROM Vehicles WHERE VehicleId = @VehicleId)
+                                                 WHERE RentableId = @RentableId
                                                  ";
 
                     SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
-                    updateRentableCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
+                    updateRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
                     updateRentableCommand.Parameters.AddWithValue("@Name", vehicle.NAME);
                     updateRentableCommand.Parameters.AddWithValue("@Description", vehicle.DESCRIPTION);
                     updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);

@@ -4,7 +4,11 @@ namespace Booking.Controllers
     public class BookingController
     {
 
-        public 
+        public void CreateBooking()
+        {
+
+        }
+        
 
     }
 }

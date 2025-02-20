@@ -11,13 +11,9 @@ namespace Booking.Models.Entities
         private int daysBooked;
         private IStrategyFinalPriceBooking oFinalPriceBooking;
         private bool isPaid;
-        private bool isActive;
+        private bool isActiveToUpdate; //Para indicar si se puede modificar o no una reserva, como en el hotel
         private DateTime createdAt = DateTime.Now;
-        private UserEntity oCreatedBy;
-        private DateTime lastUpdatedAt;
-        private UserEntity? oLastUpdatedBy;
-        private DateTime? deletedAt;
-        private UserEntity? oDeletedBy;
+        private bool isDeleted; //El softDelete 
 
         public int BOOKINGID
         {
@@ -71,8 +67,8 @@ namespace Booking.Models.Entities
 
         public bool ISACTIVE
         {
-            get { return this.isActive; }
-            set { this.isActive = value; }
+            get { return this.isActiveToUpdate; }
+            set { this.isActiveToUpdate = value; }
         }
 
         
