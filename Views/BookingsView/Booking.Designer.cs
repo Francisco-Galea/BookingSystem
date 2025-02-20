@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            comboBox1 = new ComboBox();
-            dataGridViewEntities = new DataGridView();
+            cbOptions = new ComboBox();
+            dgvEntities = new DataGridView();
             btnSearch = new Button();
             btnToReserve = new Button();
-            mcInitReservation = new MonthCalendar();
-            mcEndReservation = new MonthCalendar();
             btnBack = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewEntities).BeginInit();
+            btnMyBookings = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvEntities).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -48,54 +47,42 @@
             label1.TabIndex = 0;
             label1.Text = "Buscar por";
             // 
-            // comboBox1
+            // cbOptions
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 32);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(292, 28);
-            comboBox1.TabIndex = 1;
+            cbOptions.FormattingEnabled = true;
+            cbOptions.Items.AddRange(new object[] { "Vehiculo", "Propiedad", "Indumentaria", "Electronica" });
+            cbOptions.Location = new Point(12, 32);
+            cbOptions.Name = "cbOptions";
+            cbOptions.Size = new Size(292, 28);
+            cbOptions.TabIndex = 1;
             // 
-            // dataGridViewEntities
+            // dgvEntities
             // 
-            dataGridViewEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewEntities.Location = new Point(12, 101);
-            dataGridViewEntities.Name = "dataGridViewEntities";
-            dataGridViewEntities.RowHeadersWidth = 51;
-            dataGridViewEntities.Size = new Size(292, 337);
-            dataGridViewEntities.TabIndex = 2;
+            dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEntities.Location = new Point(12, 66);
+            dgvEntities.Name = "dgvEntities";
+            dgvEntities.RowHeadersWidth = 51;
+            dgvEntities.Size = new Size(565, 372);
+            dgvEntities.TabIndex = 2;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(12, 66);
+            btnSearch.Location = new Point(310, 31);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(151, 29);
+            btnSearch.Size = new Size(181, 29);
             btnSearch.TabIndex = 3;
             btnSearch.Text = "Buscar";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // btnToReserve
             // 
-            btnToReserve.Location = new Point(310, 409);
+            btnToReserve.Location = new Point(583, 223);
             btnToReserve.Name = "btnToReserve";
-            btnToReserve.Size = new Size(94, 29);
+            btnToReserve.Size = new Size(124, 29);
             btnToReserve.TabIndex = 4;
             btnToReserve.Text = "Reservar";
             btnToReserve.UseVisualStyleBackColor = true;
-            // 
-            // mcInitReservation
-            // 
-            mcInitReservation.Location = new Point(316, 32);
-            mcInitReservation.MaxSelectionCount = 1;
-            mcInitReservation.Name = "mcInitReservation";
-            mcInitReservation.TabIndex = 5;
-            // 
-            // mcEndReservation
-            // 
-            mcEndReservation.Location = new Point(614, 32);
-            mcEndReservation.MaxSelectionCount = 1;
-            mcEndReservation.Name = "mcEndReservation";
-            mcEndReservation.TabIndex = 6;
             // 
             // btnBack
             // 
@@ -106,22 +93,30 @@
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
             // 
+            // btnMyBookings
+            // 
+            btnMyBookings.Location = new Point(583, 409);
+            btnMyBookings.Name = "btnMyBookings";
+            btnMyBookings.Size = new Size(124, 29);
+            btnMyBookings.TabIndex = 8;
+            btnMyBookings.Text = "Mis reservas";
+            btnMyBookings.UseVisualStyleBackColor = true;
+            // 
             // Booking
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(911, 450);
+            Controls.Add(btnMyBookings);
             Controls.Add(btnBack);
-            Controls.Add(mcEndReservation);
-            Controls.Add(mcInitReservation);
             Controls.Add(btnToReserve);
             Controls.Add(btnSearch);
-            Controls.Add(dataGridViewEntities);
-            Controls.Add(comboBox1);
+            Controls.Add(dgvEntities);
+            Controls.Add(cbOptions);
             Controls.Add(label1);
             Name = "Booking";
             Text = "Booking";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewEntities).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvEntities).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -129,12 +124,11 @@
         #endregion
 
         private Label label1;
-        private ComboBox comboBox1;
-        private DataGridView dataGridViewEntities;
+        private ComboBox cbOptions;
+        private DataGridView dgvEntities;
         private Button btnSearch;
         private Button btnToReserve;
-        private MonthCalendar mcInitReservation;
-        private MonthCalendar mcEndReservation;
         private Button btnBack;
+        private Button btnMyBookings;
     }
 }

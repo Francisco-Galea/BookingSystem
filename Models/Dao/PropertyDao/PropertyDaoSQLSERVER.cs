@@ -13,24 +13,39 @@ namespace Boocking.Models.Dao.PropertyDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "INSERT INTO Properties (Name, Description, CostUsagePerDay, Location) VALUES (@Name, @Description, @CostUsagePerDay, @Location)";
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@Name", property.NAME);
-                    command.Parameters.AddWithValue("@Description", property.DESCRIPTION);
-                    command.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);
-                    command.Parameters.AddWithValue("@Location", property.LOCATION);
+                    string rentableQuery = @"
+                                            INSERT INTO Rentables (Name, Description, CostUsagePerDay) 
+                                            OUTPUT INSERTED.RentableId
+                                            VALUES (@Name, @Description, @CostUsagePerDay)";
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error al crear el producto en la base de datos", ex);
-                    }
+                    SqlCommand rentableCommand = new SqlCommand(rentableQuery, connection, transaction);
+                    rentableCommand.Parameters.AddWithValue("@Name", property.NAME);
+                    rentableCommand.Parameters.AddWithValue("@Description", property.DESCRIPTION);
+                    rentableCommand.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);
+
+                    int rentableId = Convert.ToInt32(rentableCommand.ExecuteScalar());
+
+                    string propertyQuery = @"
+                                            INSERT INTO Properties (RentableId, Location) 
+                                            VALUES (@RentableId, @Location)";
+
+                    SqlCommand propertyCommand = new SqlCommand(propertyQuery, connection, transaction);
+                    propertyCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                    propertyCommand.Parameters.AddWithValue("@Location", property.LOCATION);
+
+                    propertyCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al crear la propiedad", ex);
                 }
             }
         }
@@ -39,22 +54,28 @@ namespace Boocking.Models.Dao.PropertyDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "UPDATE Properties SET IsDeleted = 1 WHERE PropertyId = @PropertyId";
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@PropertyId", propertyId);
+                    string getRentableIdQuery = "SELECT RentableId FROM Properties WHERE PropertyId = @PropertyId";
+                    SqlCommand getRentableIdCommand = new SqlCommand(getRentableIdQuery, connection, transaction);
+                    getRentableIdCommand.Parameters.AddWithValue("@PropertyId", propertyId);
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());
 
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al realizar el borrado lógico del producto", ex);
-                    }
+                    string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
+                    SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
+                    deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                    deleteRentableCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al realizar el borrado lógico de la propiedad", ex);
                 }
             }
         }
@@ -65,7 +86,11 @@ namespace Boocking.Models.Dao.PropertyDao
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT PropertyId, Name, Description, CostUsagePerDay, Location FROM Properties WHERE IsDeleted = 0";
+                string query = @"
+                                SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
+                                FROM Properties p
+                                INNER JOIN Rentables r ON p.RentableId = r.RentableId
+                                WHERE r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -86,26 +111,32 @@ namespace Boocking.Models.Dao.PropertyDao
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        throw new Exception("Error al obtener las propiedades", ex);
                     }
                 }
             }
+
             return properties;
         }
 
         public PropertyEntity GetPropertyById(int propertyId)
         {
-            PropertyEntity propertyReturned = new PropertyEntity();
+            PropertyEntity propertyReturned = null;
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = "SELECT PropertyId, Name, Description, CostUsagePerDay, Location FROM Properties WHERE PropertyId = @PropertyId";
+                string query = @"
+                                SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
+                                FROM Properties p
+                                INNER JOIN Rentables r ON p.RentableId = r.RentableId
+                                WHERE p.PropertyId = @PropertyId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@PropertyId", propertyId);
+
                     try
                     {
                         connection.Open();
@@ -113,20 +144,22 @@ namespace Boocking.Models.Dao.PropertyDao
                         {
                             if (reader.Read())
                             {
+                                propertyReturned = new PropertyEntity();
                                 propertyReturned.PROPERTYID = reader.GetInt32(0);
                                 propertyReturned.NAME = reader.GetString(1);
                                 propertyReturned.DESCRIPTION = reader.GetString(2);
-                                propertyReturned.COSTUSAGEPERDAY= reader.GetDecimal(3); 
+                                propertyReturned.COSTUSAGEPERDAY = reader.GetDecimal(3);
                                 propertyReturned.LOCATION = reader.GetString(4);
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        throw new Exception("Error al obtener la propiedad", ex);
                     }
                 }
             }
+
             return propertyReturned;
         }
 
@@ -134,35 +167,40 @@ namespace Boocking.Models.Dao.PropertyDao
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
-                string query = @"UPDATE Properties SET 
-                                 Name = @Name,
-                                 Description = @Description,
-                                 CostUsagePerDay = @CostUsagePerDay,
-                                 Location = @Location
-                                 WHERE PropertyId = @PropertyId
-                                ";
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@PropertyId", propertyId);
-                    command.Parameters.AddWithValue("@Name", property.NAME);
-                    command.Parameters.AddWithValue("@Description", property.DESCRIPTION);
-                    command.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);
-                    command.Parameters.AddWithValue("@Location", property.LOCATION);
+                    string updatePropertyQuery = @"
+                                                    UPDATE Properties SET Location = @Location 
+                                                    WHERE PropertyId = @PropertyId";
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch
-                    {
+                    SqlCommand updatePropertyCommand = new SqlCommand(updatePropertyQuery, connection, transaction);
+                    updatePropertyCommand.Parameters.AddWithValue("@PropertyId", propertyId);
+                    updatePropertyCommand.Parameters.AddWithValue("@Location", property.LOCATION);
+                    updatePropertyCommand.ExecuteNonQuery();
 
-                    }
+                    string updateRentableQuery = @"
+                                                    UPDATE Rentables SET Name = @Name, Description = @Description, CostUsagePerDay = @CostUsagePerDay 
+                                                    WHERE RentableId = (SELECT RentableId FROM Properties WHERE PropertyId = @PropertyId)";
+
+                    SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
+                    updateRentableCommand.Parameters.AddWithValue("@PropertyId", propertyId);
+                    updateRentableCommand.Parameters.AddWithValue("@Name", property.NAME);
+                    updateRentableCommand.Parameters.AddWithValue("@Description", property.DESCRIPTION);
+                    updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", property.COSTUSAGEPERDAY);
+                    updateRentableCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
                 }
-
-
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al actualizar la propiedad", ex);
+                }
             }
         }
+
     }
 }
