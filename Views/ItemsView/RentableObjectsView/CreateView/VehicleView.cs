@@ -40,8 +40,8 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int entityId = (int)dgvVehicles.SelectedRows[0].Cells["id"].Value;
-            vehicleController.DeleteVehicle(entityId);
+            int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["id"].Value;
+            vehicleController.DeleteVehicle(rentableId);
             LoadVehicles();
         }
 
@@ -102,7 +102,7 @@ namespace Boocking.Views.RentableObjectsView
 
         private void CreateDataGridColumns()
         {
-            dgvVehicles.Columns.Add("id", "Id");
+            dgvVehicles.Columns.Add("Rentableid", "Id rentable");
             dgvVehicles.Columns.Add("Name", "Nombre");
             dgvVehicles.Columns.Add("Description", "Descripción");
             dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");

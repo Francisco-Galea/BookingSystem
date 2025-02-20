@@ -30,7 +30,7 @@ namespace Boocking.Controllers.EntitiesController
             }
         }
 
-        public void UpdateVehicle(int vehicleId, string vehicleType, string vehicleDescription, string costUsage, string vehicleBrand, string vehicleModel, string passengerCapacity, string serialNumber)
+        public void UpdateVehicle(int rentableId, string vehicleType, string vehicleDescription, string costUsage, string vehicleBrand, string vehicleModel, string passengerCapacity, string serialNumber)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Boocking.Controllers.EntitiesController
                 int parsedPassengerCapacty = parseController.ParseToInt(passengerCapacity);
 
                 VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
-                vehicleDao.UpdateVehicle(vehicleId, vehicle);
+                vehicleDao.UpdateVehicle(rentableId, vehicle);
                 MessageBox.Show("Vehiculo actualizado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
@@ -48,9 +48,9 @@ namespace Boocking.Controllers.EntitiesController
 
         }
 
-        public VehicleEntity GetVehicleById(int vehicleId)
+        public VehicleEntity GetVehicleById(int rentableId)
         {
-            return vehicleDao.GetVehicleById(vehicleId);
+            return vehicleDao.GetVehicleById(rentableId);
         }
 
         public List<VehicleEntity> GetAllVehicles()
@@ -58,9 +58,9 @@ namespace Boocking.Controllers.EntitiesController
             return vehicleDao.GetAllVehicles();
         }
         
-        public void DeleteVehicle(int vehicleId)
+        public void DeleteVehicle(int rentableId)
         {
-            vehicleDao.DeleteVehicle(vehicleId);
+            vehicleDao.DeleteVehicle(rentableId);
         }
 
     }

@@ -154,12 +154,6 @@ namespace Boocking.Models.Dao.VehicleDao
 
                 try
                 {
-                    /*
-                    string getRentableIdQuery = "SELECT RentableId FROM Vehicles WHERE VehicleId = @VehicleId";
-                    SqlCommand getRentableIdCommand = new SqlCommand(getRentableIdQuery, connection, transaction);
-                    getRentableIdCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
-
-                    int rentableId = Convert.ToInt32(getRentableIdCommand.ExecuteScalar());*/
                     string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
                     SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
                     deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
