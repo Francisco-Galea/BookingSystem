@@ -5,6 +5,8 @@ namespace Booking.Models.Dao.BookingDao
 {
     public interface IBookingDao : IGenericDao<BookingEntity>
     {
-        
+        bool CheckAvailabilityForEntity(int entityToRentId, DateOnly initBooking, DateOnly endBooking);
+
+
     }
 }

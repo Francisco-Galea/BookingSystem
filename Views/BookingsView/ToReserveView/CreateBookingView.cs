@@ -25,12 +25,18 @@ namespace Boocking.Views.BookingsView.ToReserveView
                 string paymentMethod = cbPaymentMethod.Text;
                 IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
                 bool isChecked = checkBoxIsPayed.Checked;
+                bool isAvailable = bookingController.CheckEntityAvailability(entityToRentId, initBooking, endBooking);
+                if (!isAvailable)
+                {
+                    MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
+                    return;
+                }
                 bookingController.CreateBooking(entityToRentId, initBooking, endBooking, paymentSelected, isChecked);
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Ocurrió un error: " + ex.Message);
             }
         }
 

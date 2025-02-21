@@ -14,14 +14,66 @@ namespace Booking.Controllers
 
         public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
         {
-            int daysBooked = GetDaysBooked(initBooking, endBooking);
-            DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
-            DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
-            decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
-            decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-            BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
-            bookingDao.InsertEntity(booking);
-            //MessageBox.Show($"Costo de reserva: {finalPrice}");
+            try
+            {
+                int daysBooked = GetDaysBooked(initBooking, endBooking);
+                DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
+                decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
+                decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
+                BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+                bookingDao.InsertEntity(booking);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public bool CheckEntityAvailability(int entityToRentId, DateTime initBooking, DateTime endBooking)
+        {
+            try
+            {
+                DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
+                return bookingDao.CheckAvailabilityForEntity(entityToRentId, initBookingParsed, endBookingParsed);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al verificar disponibilidad", ex);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<BookingEntity> GetAllBookings()
+        {
+            return bookingDao.GetAllEntities();
+        }
+
+        public BookingEntity GetBookingById(int bookingId)
+        {
+            return bookingDao.GetEntityById(bookingId);
+        }
+
+        public void DeleteBooking(int bookingId)
+        {
+            bookingDao.DeleteEntity(bookingId);
+        }
+
+        public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
+        {
+
         }
 
         public int GetDaysBooked(DateTime initBooking, DateTime endBooking)

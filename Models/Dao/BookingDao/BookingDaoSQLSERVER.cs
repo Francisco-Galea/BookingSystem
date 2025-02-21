@@ -64,5 +64,41 @@ namespace Booking.Models.Dao.BookingDao
         {
             throw new NotImplementedException();
         }
+
+        public bool CheckAvailabilityForEntity(int entityToRentId, DateOnly initBooking, DateOnly endBooking)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                connection.Open();
+
+                try
+                {
+                    string query = @"
+                    SELECT COUNT(*) 
+                    FROM Bookings 
+                    WHERE RentableId = @RentableId
+                    AND (
+                        (@InitBooking BETWEEN InitBooking AND EndBooking) -- El inicio de la nueva reserva se encuentra entre el rango de la reserva existente
+                        OR (@EndBooking BETWEEN InitBooking AND EndBooking) -- El fin de la nueva reserva se encuentra entre el rango de la reserva existente
+                        OR (InitBooking BETWEEN @InitBooking AND @EndBooking) -- El rango de la reserva existente se encuentra dentro de la nueva reserva
+                    )";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@RentableId", entityToRentId);
+                    command.Parameters.AddWithValue("@InitBooking", initBooking.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@EndBooking", endBooking.ToString("yyyy-MM-dd"));
+
+                    int count = (int)command.ExecuteScalar();
+
+                    return count == 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al comprobar la disponibilidad en la base de datos", ex);
+                }
+            }
+        }
+
+
     }
 }
