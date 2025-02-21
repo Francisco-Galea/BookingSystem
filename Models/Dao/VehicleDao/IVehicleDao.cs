@@ -1,13 +1,10 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Models.Dao.GenericDaoInterface;
 
 namespace Boocking.Models.Dao.VehicleDao
 {
-    public interface IVehicleDao
+    public interface IVehicleDao : IGenericDao<VehicleEntity>
     {
-        void CreateVehicle(VehicleEntity vehicle);
-        void UpdateVehicle(int VehicleId, VehicleEntity vehicle);
-        VehicleEntity GetVehicleById(int VehicleId);
-        List<VehicleEntity> GetAllVehicles();
-        void DeleteVehicle(int VehicleId);
+       
     }
 }

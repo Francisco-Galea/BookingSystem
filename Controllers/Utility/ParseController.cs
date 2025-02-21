@@ -29,5 +29,18 @@
             }
         }
 
+        public DateOnly ParseToDateOnly(DateTime input)
+        {
+            try
+            {
+                return DateOnly.FromDateTime(input);
+            }
+            catch
+            {
+                MessageBox.Show($"No se puede convertir '{input}' en DateOnly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new FormatException($"Cannot parse '{input}' into DateOnly");
+            }
+        }
+
     }
 }

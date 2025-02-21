@@ -20,7 +20,7 @@ namespace Booking.Controllers.EntitiesController
                 decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
                 
                 PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
-                propertyDao.CreateProperty(property);
+                propertyDao.InsertEntity(property);
                 MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
@@ -29,14 +29,14 @@ namespace Booking.Controllers.EntitiesController
             }
         }
 
-        public void UpdateProperty(int propertyId, string propertyType, string description, string costUsage, string location)
+        public void UpdateProperty(int rentableId, string propertyType, string description, string costUsage, string location)
         {
             try
             {
                 decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
 
                 PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
-                propertyDao.UpdateProperty(propertyId, property);
+                propertyDao.UpdateEntity(rentableId, property);
                 MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
@@ -45,19 +45,19 @@ namespace Booking.Controllers.EntitiesController
             }
         }
 
-        public void DeleteProperty(int propertyId)
+        public void DeleteProperty(int rentableId)
         {
-            propertyDao.DeleteProperty(propertyId);
+            propertyDao.DeleteEntity(rentableId);
         }
 
-        public PropertyEntity GetPropertyById(int propertyId)
+        public PropertyEntity GetPropertyById(int rentableId)
         {
-            return propertyDao.GetPropertyById(propertyId);
+            return propertyDao.GetEntityById(rentableId);
         }
 
         public List<PropertyEntity> GetAllProperties()
         {
-            return propertyDao.GetAllProperties();
+            return propertyDao.GetAllEntities();
         }
 
     }

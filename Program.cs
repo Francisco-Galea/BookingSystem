@@ -1,5 +1,6 @@
 using Boocking.Views;
 using Boocking.Views.BookingsView;
+using Boocking.Views.BookingsView.ToReserveView;
 
 namespace Booking
 {
@@ -15,8 +16,8 @@ namespace Booking
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new MainView());
-            Application.Run(new ItemsView());
-            //Application.Run(new BookingView());
+            //Application.Run(new ItemsView());
+            Application.Run(new BookingView());
         }
     }
 }

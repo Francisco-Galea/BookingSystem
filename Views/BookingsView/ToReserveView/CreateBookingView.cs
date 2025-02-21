@@ -1,4 +1,5 @@
 ﻿using Booking.Controllers;
+using Booking.Models.Strategy.Interface;
 
 namespace Boocking.Views.BookingsView.ToReserveView
 {
@@ -7,6 +8,7 @@ namespace Boocking.Views.BookingsView.ToReserveView
 
         private readonly int entityToRentId;
         private readonly BookingController bookingController = new BookingController();
+        private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
 
         public CreateBookingView(int entityId)
         {
@@ -16,9 +18,12 @@ namespace Boocking.Views.BookingsView.ToReserveView
 
         private void btnCreateBooking_Click(object sender, EventArgs e)
         {
-            string initBooking = dtpInitReservation.Text;
-            string endBooking = dtpEndReservation.Text;
+            DateTime initBooking = dtpInitReservation.Value;
+            DateTime endBooking = dtpEndReservation.Value;
             string paymentMethod = cbPaymentMethod.Text;
+            IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+            bool isChecked = checkBoxIsPayed.Checked;
+            bookingController.CreateBooking(entityToRentId, initBooking, endBooking, paymentSelected, isChecked);
         }
 
        

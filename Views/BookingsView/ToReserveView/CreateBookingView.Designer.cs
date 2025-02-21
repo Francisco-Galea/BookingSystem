@@ -36,6 +36,7 @@
             btnCancel = new Button();
             cbPaymentMethod = new ComboBox();
             label3 = new Label();
+            checkBoxIsPayed = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -72,7 +73,7 @@
             // 
             // btnCreateBooking
             // 
-            btnCreateBooking.Location = new Point(187, 209);
+            btnCreateBooking.Location = new Point(187, 249);
             btnCreateBooking.Name = "btnCreateBooking";
             btnCreateBooking.Size = new Size(94, 29);
             btnCreateBooking.TabIndex = 12;
@@ -81,7 +82,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(87, 209);
+            btnCancel.Location = new Point(87, 249);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 10;
@@ -106,11 +107,22 @@
             label3.TabIndex = 14;
             label3.Text = "Medio de pago";
             // 
+            // checkBoxIsPayed
+            // 
+            checkBoxIsPayed.AutoSize = true;
+            checkBoxIsPayed.Location = new Point(13, 179);
+            checkBoxIsPayed.Name = "checkBoxIsPayed";
+            checkBoxIsPayed.Size = new Size(97, 24);
+            checkBoxIsPayed.TabIndex = 15;
+            checkBoxIsPayed.Text = "Está pago";
+            checkBoxIsPayed.UseVisualStyleBackColor = true;
+            // 
             // CreateBookingView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(292, 252);
+            ClientSize = new Size(292, 290);
+            Controls.Add(checkBoxIsPayed);
             Controls.Add(label3);
             Controls.Add(cbPaymentMethod);
             Controls.Add(btnCancel);
@@ -134,5 +146,6 @@
         private Button btnCancel;
         private ComboBox cbPaymentMethod;
         private Label label3;
+        private CheckBox checkBoxIsPayed;
     }
 }

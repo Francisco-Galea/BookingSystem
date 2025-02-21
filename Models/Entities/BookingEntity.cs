@@ -5,15 +5,25 @@ namespace Booking.Models.Entities
     public class BookingEntity
     {
         private int bookingId;
-        private RentableEntity oRentable;
+        private int rentableEntityId;
         private DateOnly initBooking;
         private DateOnly endBooking;
-        private int daysBooked;
-        private IStrategyFinalPriceBooking oFinalPriceBooking;
+        private IStrategyFinalPriceBooking oStrategySelected;
+        private decimal finalPrice;
         private bool isPaid;
         private bool isActiveToUpdate; //Para indicar si se puede modificar o no una reserva, como en el hotel
         private DateTime createdAt = DateTime.Now;
         private bool isDeleted; //El softDelete 
+
+        public BookingEntity(int RENTABLENEITYTID, DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, decimal FINALPRICE, bool ISPAID)
+        {
+            this.rentableEntityId = RENTABLENEITYTID;
+            this.initBooking = INITBOOKING;
+            this.endBooking = ENDBOOKING;
+            this.oStrategySelected = OSELECTEDSTRATEGY;
+            this.finalPrice = FINALPRICE;
+            this.isPaid = ISPAID;
+        }
 
         public int BOOKINGID
         {
@@ -47,22 +57,22 @@ namespace Booking.Models.Entities
             }
         }
 
-        public int DAYSBOOKED
-        {
-            get { return this.daysBooked; }
-            set { this.daysBooked = value; }
-        }
-
         public bool ISPAID
         {
             get { return this.isPaid; }
             set { this.isPaid = value; }
         }
 
-        public IStrategyFinalPriceBooking FINALPRICEBOOKING
+        public IStrategyFinalPriceBooking OSELECTEDSTRATEGY
         {
-            get { return this.oFinalPriceBooking; }
-            set { this.oFinalPriceBooking = value; }
+            get { return this.oStrategySelected; }
+            set { this.oStrategySelected = value; }
+        }
+
+        public decimal FINALPRICE
+        {
+            get { return this.finalPrice; }
+            set { this.finalPrice = value; }
         }
 
         public bool ISACTIVE

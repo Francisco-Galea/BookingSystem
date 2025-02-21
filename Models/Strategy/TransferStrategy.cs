@@ -1,13 +1,13 @@
-﻿using Booking.Models.Entities;
-using Booking.Models.Strategy.Interface;
+﻿using Booking.Models.Strategy.Interface;
 
 namespace Booking.Models.Strategy
 {
     public class TransferStrategy : IStrategyFinalPriceBooking
     {
-        public decimal CalculateTotalPriceBooking(RentableEntity rentable, int DaysBooked)
+        public decimal CalculateTotalPriceBooking(decimal entityCostUsage, int daysBooked)
         {
-            return rentable.COSTUSAGEPERDAY * DaysBooked;
+            decimal basePrice = entityCostUsage * daysBooked;
+            return basePrice + (basePrice * 0 / 100);
         }
 
     }

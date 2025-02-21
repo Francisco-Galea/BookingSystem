@@ -9,7 +9,7 @@ namespace Boocking.Models.Dao.VehicleDao
 
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateVehicle(VehicleEntity vehicle)
+        public void InsertEntity(VehicleEntity vehicle)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -56,7 +56,7 @@ namespace Boocking.Models.Dao.VehicleDao
         }
 
 
-        public VehicleEntity GetVehicleById(int rentableId)
+        public VehicleEntity GetEntityById(int rentableId)
         {
             VehicleEntity vehicleReturned = null; 
 
@@ -100,7 +100,7 @@ namespace Boocking.Models.Dao.VehicleDao
             return vehicleReturned; 
         }
 
-        public List<VehicleEntity> GetAllVehicles()
+        public List<VehicleEntity> GetAllEntities()
         {
             List<VehicleEntity> vehicles = new List<VehicleEntity>();
 
@@ -145,7 +145,7 @@ namespace Boocking.Models.Dao.VehicleDao
             return vehicles;
         }
 
-        public void DeleteVehicle(int rentableId)
+        public void DeleteEntity(int rentableId)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -169,7 +169,7 @@ namespace Boocking.Models.Dao.VehicleDao
             }
         }
 
-        public void UpdateVehicle(int rentableId, VehicleEntity vehicle)
+        public void UpdateEntity(int rentableId, VehicleEntity vehicle)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {

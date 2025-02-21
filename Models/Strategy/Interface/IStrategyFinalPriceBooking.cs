@@ -4,6 +4,7 @@ namespace Booking.Models.Strategy.Interface
 {
     public interface IStrategyFinalPriceBooking
     {
-        decimal CalculateTotalPriceBooking(RentableEntity rentable, int DaysBooked);
+        decimal CalculateTotalPriceBooking(decimal entityCostUsage, int daysBooked);
+
     }
 }

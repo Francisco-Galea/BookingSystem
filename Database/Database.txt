@@ -1,3 +1,6 @@
+CREATE DATABASE BookingSystem;
+GO;
+
 -- Create the base table for RentableEntity
 CREATE TABLE Rentables (
     RentableId INT PRIMARY KEY IDENTITY(1,1),
@@ -27,3 +30,39 @@ CREATE TABLE Properties (
     CONSTRAINT FK_Properties_Rentables FOREIGN KEY (RentableId) 
         REFERENCES Rentables(RentableId)
 )
+
+CREATE TABLE Booking (
+    BookingId INT PRIMARY KEY IDENTITY(1,1),
+    RentableId INT NOT NULL,
+    InitBooking DATE NOT NULL,
+    EndBooking DATE NOT NULL,
+    DaysBooked AS DATEDIFF(DAY, InitBooking, EndBooking) PERSISTED,
+    PaymentMethodId INT NOT NULL, -- Relación con PaymentMethods
+    TotalPrice DECIMAL(18,2) NOT NULL, -- Precio total con recargo o descuento aplicado
+    IsPaid BIT NOT NULL,
+    IsActiveToUpdate BIT NOT NULL, -- Si se puede modificar o no
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    IsDeleted BIT NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Booking_Rentable FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId),
+    CONSTRAINT FK_Booking_PaymentMethod FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethods(PaymentMethodId)
+);
+
+SELECT * FROM Bookings
+SELECT * FROM Rentables
+SELECT * FROM Vehicles
+SELECT * FROM Properties
+
+INSERT INTO Bookings 
+    (RentableId, InitBooking, EndBooking, DaysBooked, FinalPrice, IsPaid, IsActiveToUpdate)
+VALUES 
+    (4, '2025-02-22', '2025-02-25', 4, 400.00, 1, 1);
+
+CREATE TABLE PaymentMethods (
+    PaymentMethodId INT PRIMARY KEY IDENTITY(1,1),
+    MethodName NVARCHAR(50) UNIQUE NOT NULL, -- Ej: "Efectivo", "Transferencia", "Tarjeta de Crédito"
+    RechargeOrDiscount DECIMAL(5,2) NOT NULL -- Porcentaje (+ para recargo, - para descuento)
+);
+
+INSERT INTO PaymentMethods (MethodName, RechargeOrDiscount) VALUES ('Efectivo', -10); -- 10% de descuento
+INSERT INTO PaymentMethods (MethodName, RechargeOrDiscount) VALUES ('Transferencia', 0); -- Sin cambio
+INSERT INTO PaymentMethods (MethodName, RechargeOrDiscount) VALUES ('Tarjeta de Crédito', 10); -- 10% de recargo

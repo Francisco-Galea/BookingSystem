@@ -9,7 +9,7 @@ namespace Boocking.Models.Dao.PropertyDao
 
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void CreateProperty(PropertyEntity property)
+        public void InsertEntity(PropertyEntity property)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -50,7 +50,7 @@ namespace Boocking.Models.Dao.PropertyDao
             }
         }
 
-        public void DeleteProperty(int rentableId)
+        public void DeleteEntity(int rentableId)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -74,7 +74,7 @@ namespace Boocking.Models.Dao.PropertyDao
             }
         }
 
-        public List<PropertyEntity> GetAllProperties()
+        public List<PropertyEntity> GetAllEntities()
         {
             List<PropertyEntity> properties = new List<PropertyEntity>();
 
@@ -115,7 +115,7 @@ namespace Boocking.Models.Dao.PropertyDao
             return properties;
         }
 
-        public PropertyEntity GetPropertyById(int rentableId)
+        public PropertyEntity GetEntityById(int rentableId)
         {
             PropertyEntity propertyReturned = null;
 
@@ -157,7 +157,7 @@ namespace Boocking.Models.Dao.PropertyDao
             return propertyReturned;
         }
 
-        public void UpdateProperty(int rentableId, PropertyEntity property)
+        public void UpdateEntity(int rentableId, PropertyEntity property)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
