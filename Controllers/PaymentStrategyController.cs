@@ -1,15 +1,10 @@
-﻿
-using Booking.Models.Dao.PaymentStrategyDao;
-using Booking.Models.Strategy;
+﻿using Booking.Models.Strategy;
 using Booking.Models.Strategy.Interface;
 
 namespace Booking.Controllers
 {
     public class PaymentStrategyController
     {
-
-        private readonly IPaymentStrategyDao paymentStrategyDao = new PaymentStrategyDaoSQLSERVER();
-
         public IStrategyFinalPriceBooking GetPaymentData(string paymentType)
         {
             int paymentStrategyId = 0;

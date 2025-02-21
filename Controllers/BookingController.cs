@@ -18,6 +18,7 @@ namespace Booking.Controllers
             decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
             decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
             BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, finalPrice, isChecked);
+            MessageBox.Show($"Costo de reserva: {finalPrice}");
         }
 
         public int GetDaysBooked(DateTime initBooking, DateTime endBooking)

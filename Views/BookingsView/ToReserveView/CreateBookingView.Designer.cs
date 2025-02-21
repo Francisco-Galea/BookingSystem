@@ -92,7 +92,7 @@
             // cbPaymentMethod
             // 
             cbPaymentMethod.FormattingEnabled = true;
-            cbPaymentMethod.Items.AddRange(new object[] { "Tarjeta de credito", "Transferencia / Deposito", "Efectivo" });
+            cbPaymentMethod.Items.AddRange(new object[] { "Tarjeta de credito", "Transferencia", "Efectivo" });
             cbPaymentMethod.Location = new Point(13, 145);
             cbPaymentMethod.Name = "cbPaymentMethod";
             cbPaymentMethod.Size = new Size(268, 28);
