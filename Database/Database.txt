@@ -1,5 +1,6 @@
 CREATE DATABASE BookingSystem;
-GO;
+
+USE BookingSystem;
 
 -- Create the base table for RentableEntity
 CREATE TABLE Rentables (
@@ -31,23 +32,17 @@ CREATE TABLE Properties (
         REFERENCES Rentables(RentableId)
 )
 
-CREATE TABLE Booking (
+CREATE TABLE Bookings (
     BookingId INT PRIMARY KEY IDENTITY(1,1),
     RentableId INT NOT NULL,
     InitBooking DATE NOT NULL,
     EndBooking DATE NOT NULL,
-    DaysBooked AS DATEDIFF(DAY, InitBooking, EndBooking) PERSISTED,
-    PaymentMethodId INT NOT NULL, -- Relación con PaymentMethods
+    DaysBooked INT NOT NULL,
+    PaymentMethod NVARCHAR(100) NOT NULL, -- Relación con PaymentMethods
     TotalPrice DECIMAL(18,2) NOT NULL, -- Precio total con recargo o descuento aplicado
     IsPaid BIT NOT NULL,
-    IsActiveToUpdate BIT NOT NULL, -- Si se puede modificar o no
-    CreatedAt DATETIME DEFAULT GETDATE(),
+    IsActiveToUpdate BIT NOT NULL DEFAULT 1, -- Si se puede modificar o no
+    CreatedAt DATETIME NOT NULL,
     IsDeleted BIT NOT NULL DEFAULT 0,
     CONSTRAINT FK_Booking_Rentable FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId),
-    CONSTRAINT FK_Booking_PaymentMethod FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethods(PaymentMethodId)
 );
-
-SELECT * FROM Bookings
-SELECT * FROM Rentables
-SELECT * FROM Vehicles
-SELECT * FROM Properties
