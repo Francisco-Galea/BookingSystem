@@ -9,18 +9,21 @@ namespace Booking.Models.Entities
         private DateOnly initBooking;
         private DateOnly endBooking;
         private IStrategyFinalPriceBooking oStrategySelected;
+        private int daysBooked;
         private decimal finalPrice;
         private bool isPaid;
         private bool isActiveToUpdate; //Para indicar si se puede modificar o no una reserva, como en el hotel
         private DateTime createdAt = DateTime.Now;
+        private DateTime deletedAt;
         private bool isDeleted; //El softDelete 
 
-        public BookingEntity(int RENTABLENEITYTID, DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, decimal FINALPRICE, bool ISPAID)
+        public BookingEntity(int RENTABLENEITYTID, DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
         {
             this.rentableEntityId = RENTABLENEITYTID;
             this.initBooking = INITBOOKING;
             this.endBooking = ENDBOOKING;
             this.oStrategySelected = OSELECTEDSTRATEGY;
+            this.daysBooked = DAYSBOOKED;
             this.finalPrice = FINALPRICE;
             this.isPaid = ISPAID;
         }
@@ -31,30 +34,28 @@ namespace Booking.Models.Entities
             set { this.bookingId = value; } 
         }
 
+        public int DAYSBOOKED
+        {
+            get { return this.daysBooked; }
+            set { this.daysBooked = value; }
+        }
+
+        public int RENTABLEID
+        {
+            get { return this.rentableEntityId; }
+            set { this.rentableEntityId = value; }
+        }
+
         public DateOnly INITBOOKING
         {
             get { return this.initBooking; }
             set { this.initBooking = value; }
         }
 
-        public DateOnly? ENDBOOKING
+        public DateOnly ENDBOOKING
         {
             get { return this.endBooking; }
-            set
-            {
-                try
-                {
-                    if(value < initBooking)
-                    {
-                        throw new Exception("La fecha de fin de reserva no puede ser antes de la fecha de inicio de reserva");
-                    }
-                    this.endBooking = (DateOnly)value;    
-                }
-                catch
-                {
-                    throw;
-                }
-            }
+            set {this.endBooking = value; }
         }
 
         public bool ISPAID

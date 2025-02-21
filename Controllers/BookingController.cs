@@ -1,4 +1,5 @@
 ﻿using Booking.Controllers.Utility;
+using Booking.Models.Dao.BookingDao;
 using Booking.Models.Entities;
 using Booking.Models.Strategy.Interface;
 
@@ -9,6 +10,7 @@ namespace Booking.Controllers
 
         private readonly ParseController parseController = new ParseController();
         private readonly RentableEntityController rentableEntityController = new RentableEntityController();
+        private readonly IBookingDao bookingDao = new BookingDaoSQLSERVER();
 
         public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
         {
@@ -17,14 +19,15 @@ namespace Booking.Controllers
             DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
             decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
             decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-            BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, finalPrice, isChecked);
-            MessageBox.Show($"Costo de reserva: {finalPrice}");
+            BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+            bookingDao.InsertEntity(booking);
+            //MessageBox.Show($"Costo de reserva: {finalPrice}");
         }
 
         public int GetDaysBooked(DateTime initBooking, DateTime endBooking)
         {
             int daysBooked;
-            daysBooked = (initBooking - endBooking).Days;
+            daysBooked = (endBooking - initBooking).Days;
             if (daysBooked <= 0)
             {
                 throw new ArgumentException("El número de días reservados debe ser mayor a 0.");

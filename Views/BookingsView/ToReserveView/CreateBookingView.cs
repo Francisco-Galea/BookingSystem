@@ -18,12 +18,20 @@ namespace Boocking.Views.BookingsView.ToReserveView
 
         private void btnCreateBooking_Click(object sender, EventArgs e)
         {
-            DateTime initBooking = dtpInitReservation.Value;
-            DateTime endBooking = dtpEndReservation.Value;
-            string paymentMethod = cbPaymentMethod.Text;
-            IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
-            bool isChecked = checkBoxIsPayed.Checked;
-            bookingController.CreateBooking(entityToRentId, initBooking, endBooking, paymentSelected, isChecked);
+            try
+            {
+                DateTime initBooking = dtpInitReseservation.Value;
+                DateTime endBooking = dtpEndReservation.Value;
+                string paymentMethod = cbPaymentMethod.Text;
+                IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+                bool isChecked = checkBoxIsPayed.Checked;
+                bookingController.CreateBooking(entityToRentId, initBooking, endBooking, paymentSelected, isChecked);
+                this.Close();
+            }
+            catch
+            {
+
+            }
         }
 
        

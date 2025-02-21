@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            dtpInitReservation = new DateTimePicker();
+            dtpInitReseservation = new DateTimePicker();
             dtpEndReservation = new DateTimePicker();
             label2 = new Label();
             btnCreateBooking = new Button();
@@ -42,49 +42,55 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 68);
+            label1.Location = new Point(13, 9);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(51, 20);
+            label1.Size = new Size(62, 25);
             label1.TabIndex = 2;
             label1.Text = "Desde";
             // 
-            // dtpInitReservation
+            // dtpInitReseservation
             // 
-            dtpInitReservation.Location = new Point(12, 92);
-            dtpInitReservation.Name = "dtpInitReservation";
-            dtpInitReservation.Size = new Size(269, 27);
-            dtpInitReservation.TabIndex = 3;
+            dtpInitReseservation.Location = new Point(13, 39);
+            dtpInitReseservation.Margin = new Padding(4);
+            dtpInitReseservation.Name = "dtpInitReseservation";
+            dtpInitReseservation.Size = new Size(335, 31);
+            dtpInitReseservation.TabIndex = 3;
             // 
             // dtpEndReservation
             // 
-            dtpEndReservation.Location = new Point(12, 38);
+            dtpEndReservation.Location = new Point(16, 103);
+            dtpEndReservation.Margin = new Padding(4);
             dtpEndReservation.Name = "dtpEndReservation";
-            dtpEndReservation.Size = new Size(269, 27);
+            dtpEndReservation.Size = new Size(335, 31);
             dtpEndReservation.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 14);
+            label2.Location = new Point(13, 74);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(47, 20);
+            label2.Size = new Size(57, 25);
             label2.TabIndex = 5;
             label2.Text = "Hasta";
             // 
             // btnCreateBooking
             // 
-            btnCreateBooking.Location = new Point(187, 249);
+            btnCreateBooking.Location = new Point(234, 311);
+            btnCreateBooking.Margin = new Padding(4);
             btnCreateBooking.Name = "btnCreateBooking";
-            btnCreateBooking.Size = new Size(94, 29);
+            btnCreateBooking.Size = new Size(118, 36);
             btnCreateBooking.TabIndex = 12;
             btnCreateBooking.Text = "Crear";
             btnCreateBooking.Click += btnCreateBooking_Click;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(87, 249);
+            btnCancel.Location = new Point(109, 311);
+            btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(94, 29);
+            btnCancel.Size = new Size(118, 36);
             btnCancel.TabIndex = 10;
             btnCancel.Text = "Cancelar";
             btnCancel.Click += btnCancel_Click;
@@ -92,36 +98,39 @@
             // cbPaymentMethod
             // 
             cbPaymentMethod.FormattingEnabled = true;
-            cbPaymentMethod.Items.AddRange(new object[] { "Tarjeta de credito", "Transferencia", "Efectivo" });
-            cbPaymentMethod.Location = new Point(13, 145);
+            cbPaymentMethod.Items.AddRange(new object[] { "Tarjeta de Crédito", "Transferencia", "Efectivo" });
+            cbPaymentMethod.Location = new Point(16, 181);
+            cbPaymentMethod.Margin = new Padding(4);
             cbPaymentMethod.Name = "cbPaymentMethod";
-            cbPaymentMethod.Size = new Size(268, 28);
+            cbPaymentMethod.Size = new Size(334, 33);
             cbPaymentMethod.TabIndex = 13;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(13, 122);
+            label3.Location = new Point(16, 152);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(112, 20);
+            label3.Size = new Size(135, 25);
             label3.TabIndex = 14;
             label3.Text = "Medio de pago";
             // 
             // checkBoxIsPayed
             // 
             checkBoxIsPayed.AutoSize = true;
-            checkBoxIsPayed.Location = new Point(13, 179);
+            checkBoxIsPayed.Location = new Point(16, 224);
+            checkBoxIsPayed.Margin = new Padding(4);
             checkBoxIsPayed.Name = "checkBoxIsPayed";
-            checkBoxIsPayed.Size = new Size(97, 24);
+            checkBoxIsPayed.Size = new Size(117, 29);
             checkBoxIsPayed.TabIndex = 15;
             checkBoxIsPayed.Text = "Está pago";
             checkBoxIsPayed.UseVisualStyleBackColor = true;
             // 
             // CreateBookingView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(292, 290);
+            ClientSize = new Size(365, 362);
             Controls.Add(checkBoxIsPayed);
             Controls.Add(label3);
             Controls.Add(cbPaymentMethod);
@@ -129,8 +138,9 @@
             Controls.Add(btnCreateBooking);
             Controls.Add(label2);
             Controls.Add(dtpEndReservation);
-            Controls.Add(dtpInitReservation);
+            Controls.Add(dtpInitReseservation);
             Controls.Add(label1);
+            Margin = new Padding(4);
             Name = "CreateBookingView";
             Text = "ToReserveView";
             ResumeLayout(false);
@@ -139,7 +149,7 @@
 
         #endregion
         private Label label1;
-        private DateTimePicker dtpInitReservation;
+        private DateTimePicker dtpInitReseservation;
         private DateTimePicker dtpEndReservation;
         private Label label2;
         private Button btnCreateBooking;

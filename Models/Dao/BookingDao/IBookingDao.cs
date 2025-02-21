@@ -1,13 +1,10 @@
-﻿using Booking.Models.Entities;
+﻿using Booking.Models.Dao.GenericDaoInterface;
+using Booking.Models.Entities;
 
 namespace Booking.Models.Dao.BookingDao
 {
-    public interface IBookingDao
+    public interface IBookingDao : IGenericDao<BookingEntity>
     {
-        void CreateBooking(BookingEntity booking);
-        void UpdateBooking(int BookingId, BookingEntity booking);
-        BookingEntity GetBookingById(int BookingId);
-        List<BookingEntity> GetAllBookings();
-        void DeleteBooking(int BookingId);
+        
     }
 }

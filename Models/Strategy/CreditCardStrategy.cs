@@ -10,5 +10,10 @@ namespace Booking.Models.Strategy
             return basePrice + (basePrice * 40 / 100);
         }
 
+        public override string ToString()
+        {
+            return $"Tarjeta de Credito";
+        }
+
     }
 }
