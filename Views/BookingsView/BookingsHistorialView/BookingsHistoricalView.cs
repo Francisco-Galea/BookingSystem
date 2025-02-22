@@ -16,5 +16,15 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
         {
             InitializeComponent();
         }
+
+        private void btnVehicles_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProperties_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

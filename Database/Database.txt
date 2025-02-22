@@ -1,8 +1,11 @@
-CREATE DATABASE BookingSystem;
+CREATE TABLE BookingRentable (
+    BookingRentableId INT IDENTITY(1,1) PRIMARY KEY,
+    BookingId INT NOT NULL,
+    RentableId INT NOT NULL,
+    FOREIGN KEY (BookingId) REFERENCES Bookings(BookingId) ON DELETE CASCADE,
+    FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId) ON DELETE CASCADE
+);
 
-USE BookingSystem;
-
--- Create the base table for RentableEntity
 CREATE TABLE Rentables (
     RentableId INT PRIMARY KEY IDENTITY(1,1),
     Name NVARCHAR(100) NOT NULL,
@@ -33,16 +36,14 @@ CREATE TABLE Properties (
 )
 
 CREATE TABLE Bookings (
-    BookingId INT PRIMARY KEY IDENTITY(1,1),
-    RentableId INT NOT NULL,
+    BookingId INT IDENTITY(1,1) PRIMARY KEY,
     InitBooking DATE NOT NULL,
     EndBooking DATE NOT NULL,
     DaysBooked INT NOT NULL,
-    PaymentMethod NVARCHAR(100) NOT NULL, -- Relación con PaymentMethods
-    TotalPrice DECIMAL(18,2) NOT NULL, -- Precio total con recargo o descuento aplicado
-    IsPaid BIT NOT NULL,
-    IsActiveToUpdate BIT NOT NULL DEFAULT 1, -- Si se puede modificar o no
-    CreatedAt DATETIME NOT NULL,
+    PaymentMethod NVARCHAR(100) NOT NULL,
+    TotalPrice DECIMAL(18,2) NOT NULL,
+    IsPaid BIT NOT NULL DEFAULT 0,
+	IsActiveToUpdate BIT NOT NULL DEFAULT 1, -- Si se puede modificar o no
+    CreatedAt DATETIME DEFAULT GETDATE(),
     IsDeleted BIT NOT NULL DEFAULT 0,
-    CONSTRAINT FK_Booking_Rentable FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId),
 );

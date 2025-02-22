@@ -16,7 +16,8 @@ namespace Booking.Controllers
         {
             try
             {
-                int daysBooked = GetDaysBooked(initBooking, endBooking);
+                int daysBooked = 1;
+                daysBooked += GetDaysBooked(initBooking, endBooking);
                 DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
                 DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
@@ -45,18 +46,12 @@ namespace Booking.Controllers
         }
 
 
+        public List<BookingEntity> GetVehicleBookings()
+        {
+            return bookingDao.GetAllEntities();
+        }
 
-
-
-
-
-
-
-
-
-
-
-        public List<BookingEntity> GetAllBookings()
+        public List<BookingEntity> GetPropertiesBookings()
         {
             return bookingDao.GetAllEntities();
         }
@@ -78,8 +73,8 @@ namespace Booking.Controllers
 
         public int GetDaysBooked(DateTime initBooking, DateTime endBooking)
         {
-            int daysBooked;
-            daysBooked = (endBooking - initBooking).Days;
+            int daysBooked = 1;
+            daysBooked += (endBooking - initBooking).Days;
             if (daysBooked <= 0)
             {
                 throw new ArgumentException("El número de días reservados debe ser mayor a 0.");

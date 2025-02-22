@@ -18,29 +18,41 @@ namespace Booking.Models.Dao.BookingDao
 
                 try
                 {
-                    string rentableQuery = @"
-                    INSERT INTO Bookings (RentableId, InitBooking, EndBooking, DaysBooked, PaymentMethod, TotalPrice, IsPaid, CreatedAt) 
-                    VALUES (@RentableId, @InitBooking, @EndBooking, @DaysBooked, @PaymentMethod, @TotalPrice, @IsPaid, @CreatedAt)";
+                    string bookingQuery = @"
+                                          INSERT INTO Bookings (InitBooking, EndBooking, DaysBooked, PaymentMethod, TotalPrice, IsPaid, IsActiveToUpdate, CreatedAt, IsDeleted) 
+                                          VALUES (@InitBooking, @EndBooking, @DaysBooked, @PaymentMethod, @TotalPrice, @IsPaid, @IsActiveToUpdate, @CreatedAt, @IsDeleted);
+                                          SELECT SCOPE_IDENTITY();";  // Obtiene el ID recién insertado
 
-                    SqlCommand bookingCommand = new SqlCommand(rentableQuery, connection, transaction);
-                    bookingCommand.Parameters.AddWithValue("@RentableId", booking.RENTABLEID);
+                    SqlCommand bookingCommand = new SqlCommand(bookingQuery, connection, transaction);
                     bookingCommand.Parameters.AddWithValue("@InitBooking", booking.INITBOOKING);
                     bookingCommand.Parameters.AddWithValue("@EndBooking", booking.ENDBOOKING);
                     bookingCommand.Parameters.AddWithValue("@DaysBooked", booking.DAYSBOOKED);
                     bookingCommand.Parameters.AddWithValue("@PaymentMethod", booking.OSELECTEDSTRATEGY.ToString());
                     bookingCommand.Parameters.AddWithValue("@TotalPrice", booking.FINALPRICE);
                     bookingCommand.Parameters.AddWithValue("@IsPaid", booking.ISPAID);
+                    bookingCommand.Parameters.AddWithValue("@IsActiveToUpdate", true);
                     bookingCommand.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
+                    bookingCommand.Parameters.AddWithValue("@IsDeleted", false);
+
+                    int bookingId = Convert.ToInt32(bookingCommand.ExecuteScalar()); // Obtiene el ID
+
+                   
+                        string bookingRentableQuery = @"
+                INSERT INTO BookingRentable (BookingId, RentableId) 
+                VALUES (@BookingId, @RentableId)";
+
+                        SqlCommand bookingRentableCommand = new SqlCommand(bookingRentableQuery, connection, transaction);
+                        bookingRentableCommand.Parameters.AddWithValue("@BookingId", bookingId);
+                        bookingRentableCommand.Parameters.AddWithValue("@RentableId", booking.RENTABLEID);
+                        bookingRentableCommand.ExecuteNonQuery();
                     
-                    bookingCommand.ExecuteNonQuery();
 
                     transaction.Commit();
-
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Error al crear el vehiculo", ex);
+                    throw new Exception("Error al crear la reserva y su relación con rentables", ex);
                 }
             }
         }
@@ -74,14 +86,16 @@ namespace Booking.Models.Dao.BookingDao
                 try
                 {
                     string query = @"
-                    SELECT COUNT(*) 
-                    FROM Bookings 
-                    WHERE RentableId = @RentableId
-                    AND (
-                        (@InitBooking BETWEEN InitBooking AND EndBooking) -- El inicio de la nueva reserva se encuentra entre el rango de la reserva existente
-                        OR (@EndBooking BETWEEN InitBooking AND EndBooking) -- El fin de la nueva reserva se encuentra entre el rango de la reserva existente
-                        OR (InitBooking BETWEEN @InitBooking AND @EndBooking) -- El rango de la reserva existente se encuentra dentro de la nueva reserva
-                    )";
+            SELECT COUNT(*)
+            FROM BookingRentable br
+            INNER JOIN Bookings b ON br.BookingId = b.BookingId
+            WHERE br.RentableId = @RentableId
+            AND b.IsDeleted = 0 -- Aseguramos que la reserva sigue activa
+            AND (
+                (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) -- Nueva reserva comienza dentro de una reserva existente
+                OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking) -- Nueva reserva termina dentro de una reserva existente
+                OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking) -- Reserva existente está contenida en la nueva reserva
+            )";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@RentableId", entityToRentId);
