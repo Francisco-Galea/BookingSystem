@@ -9,7 +9,6 @@ namespace Booking.Controllers.EntitiesController
     public class PropertyController
     {
 
-        private readonly ParseController parseController = new ParseController();
         private readonly IPropertyFactory propertyFactory = new PropertyFactory();
         private readonly IPropertyDao propertyDao = new PropertyDaoSQLSERVER();
 
@@ -17,7 +16,7 @@ namespace Booking.Controllers.EntitiesController
         {
             try
             {
-                decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
                 
                 PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
                 propertyDao.InsertEntity(property);
@@ -33,7 +32,7 @@ namespace Booking.Controllers.EntitiesController
         {
             try
             {
-                decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
 
                 PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
                 propertyDao.UpdateEntity(rentableId, property);

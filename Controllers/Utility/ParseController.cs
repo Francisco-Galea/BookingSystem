@@ -1,9 +1,9 @@
 ﻿namespace Booking.Controllers.Utility
 {
-    public class ParseController
+    public static class ParseController
     {
 
-        public int ParseToInt(string input)
+        public static int ParseToInt(string input)
         {
             try
             {
@@ -16,7 +16,7 @@
             }
         }
 
-        public decimal ParseToDecimal(string input)
+        public static decimal ParseToDecimal(string input)
         {
             try
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public DateOnly ParseToDateOnly(DateTime input)
+        public static DateOnly ParseToDateOnly(DateTime input)
         {
             try
             {

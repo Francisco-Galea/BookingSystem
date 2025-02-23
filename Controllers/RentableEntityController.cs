@@ -1,6 +1,4 @@
-﻿
-
-using Booking.Models.Dao.RentableEntity;
+﻿using Booking.Models.Dao.RentableEntity;
 
 namespace Booking.Controllers
 {

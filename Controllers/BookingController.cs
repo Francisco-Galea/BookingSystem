@@ -10,7 +10,6 @@ namespace Booking.Controllers
     public class BookingController
     {
 
-        private readonly ParseController parseController = new ParseController();
         private readonly RentableEntityController rentableEntityController = new RentableEntityController();
         private readonly IBookingDao bookingDao = new BookingDaoSQLSERVER();
 
@@ -20,8 +19,8 @@ namespace Booking.Controllers
             {
                 int daysBooked = 0;
                 daysBooked += GetDaysBooked(initBooking, endBooking);
-                DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
-                DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
+                DateOnly initBookingParsed = ParseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
                 BookingEntity booking = new BookingEntity(initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
@@ -37,8 +36,8 @@ namespace Booking.Controllers
         {
             try
             {
-                DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
-                DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
+                DateOnly initBookingParsed = ParseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 return bookingDao.CheckAvailabilityForEntity(entityToRentId, initBookingParsed, endBookingParsed);
             }
             catch (Exception ex)

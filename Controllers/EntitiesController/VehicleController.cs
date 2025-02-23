@@ -9,7 +9,6 @@ namespace Boocking.Controllers.EntitiesController
     public class VehicleController
     {
 
-        private readonly ParseController parseController = new ParseController();
         private readonly IVehicleFactory vehicleFactory = new VehicleFactory();
         private readonly IVehicleDao vehicleDao = new VehicleDaoSQLSERVER();
 
@@ -17,8 +16,8 @@ namespace Boocking.Controllers.EntitiesController
         {
             try
             {
-                decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
-                int parsedPassengerCapacty = parseController.ParseToInt(passengerCapacity);
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
+                int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
 
                 VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
                 vehicleDao.InsertEntity(vehicle);
@@ -34,8 +33,8 @@ namespace Boocking.Controllers.EntitiesController
         {
             try
             {
-                decimal parsedCostUsage = parseController.ParseToDecimal(costUsage);
-                int parsedPassengerCapacty = parseController.ParseToInt(passengerCapacity);
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
+                int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
 
                 VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
                 vehicleDao.UpdateEntity(rentableId, vehicle);
