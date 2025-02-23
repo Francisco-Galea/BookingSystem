@@ -103,7 +103,28 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void LoadPropertiesBookedData(List<BookingPropertyDTO> bookingPropertiesDTOs)
         {
+            try
+            {
+                foreach (BookingPropertyDTO propertyBooked in bookingPropertiesDTOs)
+                {
+                    dgvEntities.Rows.Add(
+                        propertyBooked.bookingId,
+                        propertyBooked.rentableName,
+                        propertyBooked.rentableId,
+                        propertyBooked.initBooking,
+                        propertyBooked.endBooking,
+                        propertyBooked.daysBooked,
+                        propertyBooked.totalPrice,
+                        propertyBooked.isPaid,
+                        propertyBooked.paymentMethod,
+                        propertyBooked.Location
+                        );
+                }
+            }
+            catch
+            {
 
+            }
         }
 
         private void ClearDataGrid()

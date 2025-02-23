@@ -141,7 +141,8 @@ namespace Booking.Models.Dao.BookingDao
                                 INNER JOIN Vehicles v ON v.RentableId = br.RentableId
                                 INNER JOIN Bookings b ON b.BookingId = br.BookingId
                                 INNER JOIN Rentables r ON r.RentableId = br.RentableId
-                                WHERE b.IsDeleted = 0";
+                                WHERE b.IsDeleted = 0
+                                ORDER BY b.EndBooking DESC";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -181,7 +182,51 @@ namespace Booking.Models.Dao.BookingDao
 
         public List<BookingPropertyDTO> GetPropertiesBooked()
         {
-            throw new NotImplementedException();
+            List<BookingPropertyDTO> propertiesBooked = new List<BookingPropertyDTO>();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location
+                                FROM  BookingRentable br
+                                INNER JOIN Properties p ON p.RentableId = br.RentableId
+                                INNER JOIN Bookings b ON b.BookingId = br.BookingId
+                                INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                WHERE b.IsDeleted = 0
+                                ORDER BY b.EndBooking DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookingPropertyDTO propertyBooked = new BookingPropertyDTO();
+                                propertyBooked.bookingId = reader.GetInt32(0);
+                                propertyBooked.initBooking = reader.GetDateTime(1);
+                                propertyBooked.endBooking = reader.GetDateTime(2);
+                                propertyBooked.daysBooked = reader.GetInt32(3);
+                                propertyBooked.paymentMethod = reader.GetString(4);
+                                propertyBooked.totalPrice = reader.GetDecimal(5);
+                                propertyBooked.isPaid = reader.GetBoolean(6);
+                                propertyBooked.rentableId = reader.GetInt32(7);
+                                propertyBooked.rentableName = reader.GetString(8);
+                                propertyBooked.Location = reader.GetString(9);
+                                propertiesBooked.Add(propertyBooked);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener los vehículos", ex);
+                    }
+                }
+            }
+
+            return propertiesBooked;
         }
 
 
