@@ -112,7 +112,52 @@ namespace Booking.Models.Dao.BookingDao
 
         public List<BookingVehicleDTO> GetVehiclesBooked()
         {
-            throw new NotImplementedException();
+            List<BookingVehicleDTO> vehiclesBooked = new List<BookingVehicleDTO>();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, v.Brand, v.Model, v.SerialNumber
+                                FROM  BookingRentable br
+                                INNER JOIN Vehicles v ON v.RentableId = br.RentableId
+                                INNER JOIN Bookings b ON b.BookingId = br.BookingId
+                                INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                WHERE b.IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookingVehicleDTO vehicleBooked = new BookingVehicleDTO();
+                                vehicleBooked.bookingId = reader.GetInt32(0);
+                                vehicleBooked.initBooking = reader.GetDateTime(1);
+                                vehicleBooked.endBooking = reader.GetDateTime(2);
+                                vehicleBooked.daysBooked = reader.GetInt32(3);
+                                vehicleBooked.paymentMethod = reader.GetString(4);
+                                vehicleBooked.totalPrice = reader.GetDecimal(5);
+                                vehicleBooked.isPaid = reader.GetBoolean(6);
+                                vehicleBooked.rentableId = reader.GetInt32(7);
+                                vehicleBooked.rentableName = reader.GetString(8);
+                                vehicleBooked.brand = reader.GetString(9);
+                                vehicleBooked.model = reader.GetString(10);
+                                vehicleBooked.serialNumber = reader.GetString(11);
+                                vehiclesBooked.Add(vehicleBooked);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener los vehículos", ex);
+                    }
+                }
+            }
+
+            return vehiclesBooked;
         }
 
         public List<BookingPropertyDTO> GetPropertiesBooked()
