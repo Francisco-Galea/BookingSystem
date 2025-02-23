@@ -1,4 +1,6 @@
-﻿using Booking.Models.Dao.ConnectionString;
+﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Dtos;
+using Booking.Models.Dao.ConnectionString;
 using Booking.Models.Entities;
 using Microsoft.Data.SqlClient;
 
@@ -9,7 +11,7 @@ namespace Booking.Models.Dao.BookingDao
 
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
 
-        public void InsertEntity(BookingEntity booking)
+        public void InsertEntity(BookingEntity booking, int entityToRent)
         {
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -38,12 +40,12 @@ namespace Booking.Models.Dao.BookingDao
 
                    
                         string bookingRentableQuery = @"
-                INSERT INTO BookingRentable (BookingId, RentableId) 
-                VALUES (@BookingId, @RentableId)";
+                                                      INSERT INTO BookingRentable (BookingId, RentableId) 
+                                                      VALUES (@BookingId, @RentableId)";
 
                         SqlCommand bookingRentableCommand = new SqlCommand(bookingRentableQuery, connection, transaction);
                         bookingRentableCommand.Parameters.AddWithValue("@BookingId", bookingId);
-                        bookingRentableCommand.Parameters.AddWithValue("@RentableId", booking.RENTABLEID);
+                        bookingRentableCommand.Parameters.AddWithValue("@RentableId", entityToRent);
                         bookingRentableCommand.ExecuteNonQuery();
                     
 
@@ -58,11 +60,6 @@ namespace Booking.Models.Dao.BookingDao
         }
 
         public void DeleteEntity(int BookingId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<BookingEntity> GetAllEntities()
         {
             throw new NotImplementedException();
         }
@@ -86,16 +83,16 @@ namespace Booking.Models.Dao.BookingDao
                 try
                 {
                     string query = @"
-            SELECT COUNT(*)
-            FROM BookingRentable br
-            INNER JOIN Bookings b ON br.BookingId = b.BookingId
-            WHERE br.RentableId = @RentableId
-            AND b.IsDeleted = 0 -- Aseguramos que la reserva sigue activa
-            AND (
-                (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) -- Nueva reserva comienza dentro de una reserva existente
-                OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking) -- Nueva reserva termina dentro de una reserva existente
-                OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking) -- Reserva existente está contenida en la nueva reserva
-            )";
+                                   SELECT COUNT(*)
+                                   FROM BookingRentable br
+                                   INNER JOIN Bookings b ON br.BookingId = b.BookingId
+                                   WHERE br.RentableId = @RentableId
+                                   AND b.IsDeleted = 0 
+                                   AND (
+                                   (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) 
+                                   OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking)
+                                   OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking) 
+                                   )";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@RentableId", entityToRentId);
@@ -112,6 +109,17 @@ namespace Booking.Models.Dao.BookingDao
                 }
             }
         }
+
+        public List<BookingVehicleDTO> GetVehiclesBooked()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BookingPropertyDTO> GetPropertiesBooked()
+        {
+            throw new NotImplementedException();
+        }
+
 
 
     }

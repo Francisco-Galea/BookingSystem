@@ -5,7 +5,6 @@ namespace Booking.Models.Entities
     public class BookingEntity
     {
         private int bookingId;
-        private int rentableEntityId;
         private DateOnly initBooking;
         private DateOnly endBooking;
         private IStrategyFinalPriceBooking oStrategySelected;
@@ -17,9 +16,8 @@ namespace Booking.Models.Entities
         private DateTime deletedAt;
         private bool isDeleted; //El softDelete 
 
-        public BookingEntity(int RENTABLENEITYTID, DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
+        public BookingEntity(DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
         {
-            this.rentableEntityId = RENTABLENEITYTID;
             this.initBooking = INITBOOKING;
             this.endBooking = ENDBOOKING;
             this.oStrategySelected = OSELECTEDSTRATEGY;
@@ -38,12 +36,6 @@ namespace Booking.Models.Entities
         {
             get { return this.daysBooked; }
             set { this.daysBooked = value; }
-        }
-
-        public int RENTABLEID
-        {
-            get { return this.rentableEntityId; }
-            set { this.rentableEntityId = value; }
         }
 
         public DateOnly INITBOOKING

@@ -1,4 +1,6 @@
-﻿using Booking.Controllers.Utility;
+﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Controllers.Utility;
+using Booking.Dtos;
 using Booking.Models.Dao.BookingDao;
 using Booking.Models.Entities;
 using Booking.Models.Strategy.Interface;
@@ -16,14 +18,14 @@ namespace Booking.Controllers
         {
             try
             {
-                int daysBooked = 1;
+                int daysBooked = 0;
                 daysBooked += GetDaysBooked(initBooking, endBooking);
                 DateOnly initBookingParsed = parseController.ParseToDateOnly(initBooking);
                 DateOnly endBookingParsed = parseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-                BookingEntity booking = new BookingEntity(entityToRentId, initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
-                bookingDao.InsertEntity(booking);
+                BookingEntity booking = new BookingEntity(initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+                bookingDao.InsertEntity(booking, entityToRentId);
             }
             catch
             {
@@ -46,14 +48,14 @@ namespace Booking.Controllers
         }
 
 
-        public List<BookingEntity> GetVehicleBookings()
+        public List<BookingVehicleDTO> GetVehicleBookings()
         {
-            return bookingDao.GetAllEntities();
+            return bookingDao.GetVehiclesBooked();
         }
 
-        public List<BookingEntity> GetPropertiesBookings()
+        public List<BookingPropertyDTO> GetPropertyBookings()
         {
-            return bookingDao.GetAllEntities();
+            return bookingDao.GetPropertiesBooked();
         }
 
         public BookingEntity GetBookingById(int bookingId)

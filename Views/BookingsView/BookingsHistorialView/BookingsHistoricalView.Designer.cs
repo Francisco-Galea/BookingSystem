@@ -33,10 +33,10 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             btnBack = new Button();
-            btnVehicles = new Button();
+            btnElectronic = new Button();
             btnProperties = new Button();
             btnIndumentary = new Button();
-            btnElectronic = new Button();
+            btnVehicles = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvEntities).BeginInit();
             SuspendLayout();
             // 
@@ -44,7 +44,7 @@
             // 
             dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEntities.Location = new Point(15, 90);
-            dgvEntities.Margin = new Padding(4, 4, 4, 4);
+            dgvEntities.Margin = new Padding(4);
             dgvEntities.Name = "dgvEntities";
             dgvEntities.RowHeadersWidth = 51;
             dgvEntities.Size = new Size(845, 458);
@@ -63,48 +63,50 @@
             // btnUpdate
             // 
             btnUpdate.Location = new Point(868, 279);
-            btnUpdate.Margin = new Padding(4, 4, 4, 4);
+            btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(118, 36);
             btnUpdate.TabIndex = 4;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
             btnDelete.Location = new Point(868, 322);
-            btnDelete.Margin = new Padding(4, 4, 4, 4);
+            btnDelete.Margin = new Padding(4);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(118, 36);
             btnDelete.TabIndex = 5;
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnBack
             // 
             btnBack.Location = new Point(868, 511);
-            btnBack.Margin = new Padding(4, 4, 4, 4);
+            btnBack.Margin = new Padding(4);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(118, 36);
             btnBack.TabIndex = 6;
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
-            // btnVehicles
+            // btnElectronic
             // 
-            btnVehicles.Location = new Point(15, 46);
-            btnVehicles.Margin = new Padding(4, 4, 4, 4);
-            btnVehicles.Name = "btnVehicles";
-            btnVehicles.Size = new Size(140, 36);
-            btnVehicles.TabIndex = 7;
-            btnVehicles.Text = "Vehiculos";
-            btnVehicles.UseVisualStyleBackColor = true;
-            btnVehicles.Click += btnVehicles_Click;
+            btnElectronic.Location = new Point(458, 46);
+            btnElectronic.Margin = new Padding(4);
+            btnElectronic.Name = "btnElectronic";
+            btnElectronic.Size = new Size(140, 36);
+            btnElectronic.TabIndex = 10;
+            btnElectronic.Text = "Electronica";
+            btnElectronic.UseVisualStyleBackColor = true;
             // 
             // btnProperties
             // 
             btnProperties.Location = new Point(162, 46);
-            btnProperties.Margin = new Padding(4, 4, 4, 4);
+            btnProperties.Margin = new Padding(4);
             btnProperties.Name = "btnProperties";
             btnProperties.Size = new Size(140, 36);
             btnProperties.TabIndex = 8;
@@ -115,22 +117,23 @@
             // btnIndumentary
             // 
             btnIndumentary.Location = new Point(310, 46);
-            btnIndumentary.Margin = new Padding(4, 4, 4, 4);
+            btnIndumentary.Margin = new Padding(4);
             btnIndumentary.Name = "btnIndumentary";
             btnIndumentary.Size = new Size(140, 36);
             btnIndumentary.TabIndex = 9;
             btnIndumentary.Text = "Indumentaria";
             btnIndumentary.UseVisualStyleBackColor = true;
             // 
-            // btnElectronic
+            // btnVehicles
             // 
-            btnElectronic.Location = new Point(458, 46);
-            btnElectronic.Margin = new Padding(4, 4, 4, 4);
-            btnElectronic.Name = "btnElectronic";
-            btnElectronic.Size = new Size(140, 36);
-            btnElectronic.TabIndex = 10;
-            btnElectronic.Text = "Electronica";
-            btnElectronic.UseVisualStyleBackColor = true;
+            btnVehicles.Location = new Point(15, 46);
+            btnVehicles.Margin = new Padding(4);
+            btnVehicles.Name = "btnVehicles";
+            btnVehicles.Size = new Size(140, 36);
+            btnVehicles.TabIndex = 7;
+            btnVehicles.Text = "Vehiculos";
+            btnVehicles.UseVisualStyleBackColor = true;
+            btnVehicles.Click += btnVehicles_Click;
             // 
             // BookingsHistoricalView
             // 
@@ -146,7 +149,7 @@
             Controls.Add(btnUpdate);
             Controls.Add(label1);
             Controls.Add(dgvEntities);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "BookingsHistoricalView";
             Text = "BookingsHistoricalView";
             ((System.ComponentModel.ISupportInitialize)dgvEntities).EndInit();
@@ -161,9 +164,9 @@
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnBack;
-        private Button btnVehicles;
+        private Button btnElectronic;
         private Button btnProperties;
         private Button btnIndumentary;
-        private Button btnElectronic;
+        private Button btnVehicles;
     }
 }
