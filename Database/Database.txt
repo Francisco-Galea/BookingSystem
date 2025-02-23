@@ -47,3 +47,6 @@ CREATE TABLE Bookings (
     CreatedAt DATETIME DEFAULT GETDATE(),
     IsDeleted BIT NOT NULL DEFAULT 0,
 );
+
+SELECT * FROM BookingRentable
+SELECT * FROM Bookings
