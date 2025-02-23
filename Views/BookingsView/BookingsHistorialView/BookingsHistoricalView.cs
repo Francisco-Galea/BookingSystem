@@ -1,7 +1,7 @@
 ﻿using Booking.Views.BookingsView.UpdateBookingView;
 using System.Diagnostics;
 using Booking.Controllers;
-using Booking.Dtos;
+using Booking.Dtos.BookedEntities;
 
 namespace Boocking.Views.BookingsView.BookingsHistorialView
 {

@@ -93,7 +93,7 @@ namespace Booking.Models.Dao.BookingDao
             {
                 string query = @"
                                 SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid
-                                FROM  Booking b
+                                FROM  Bookings b
                                 WHERE b.IsDeleted = 0 AND b.BookingId = @BookingId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))

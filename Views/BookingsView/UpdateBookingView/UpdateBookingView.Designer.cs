@@ -38,7 +38,6 @@
             label2 = new Label();
             label3 = new Label();
             dtpEndBooking = new DateTimePicker();
-            cbOldPaymentMethod = new ComboBox();
             label4 = new Label();
             checkBoxOldIsPaid = new CheckBox();
             btnUpdate = new Button();
@@ -52,32 +51,36 @@
             cbNewPaymentMethod = new ComboBox();
             label9 = new Label();
             checkBoxNewIsPaid = new CheckBox();
+            txtOldPaymentMethod = new TextBox();
+            label8 = new Label();
+            btnUnselect = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvEntities).BeginInit();
             SuspendLayout();
             // 
             // dgvEntities
             // 
             dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEntities.Location = new Point(383, 50);
+            dgvEntities.Location = new Point(445, 71);
             dgvEntities.Margin = new Padding(2);
             dgvEntities.Name = "dgvEntities";
             dgvEntities.RowHeadersWidth = 62;
-            dgvEntities.Size = new Size(730, 578);
+            dgvEntities.Size = new Size(668, 557);
             dgvEntities.TabIndex = 0;
             // 
             // btnVehicles
             // 
-            btnVehicles.Location = new Point(611, 11);
+            btnVehicles.Location = new Point(673, 40);
             btnVehicles.Margin = new Padding(2);
             btnVehicles.Name = "btnVehicles";
             btnVehicles.Size = new Size(110, 27);
             btnVehicles.TabIndex = 1;
             btnVehicles.Text = "Vehiculos";
             btnVehicles.UseVisualStyleBackColor = true;
+            btnVehicles.Click += btnVehicles_Click;
             // 
             // btnProperties
             // 
-            btnProperties.Location = new Point(383, 11);
+            btnProperties.Location = new Point(445, 40);
             btnProperties.Margin = new Padding(2);
             btnProperties.Name = "btnProperties";
             btnProperties.Size = new Size(110, 27);
@@ -87,7 +90,7 @@
             // 
             // btnIndumentary
             // 
-            btnIndumentary.Location = new Point(497, 11);
+            btnIndumentary.Location = new Point(559, 40);
             btnIndumentary.Margin = new Padding(2);
             btnIndumentary.Name = "btnIndumentary";
             btnIndumentary.Size = new Size(110, 27);
@@ -97,7 +100,7 @@
             // 
             // btnElectronic
             // 
-            btnElectronic.Location = new Point(725, 11);
+            btnElectronic.Location = new Point(787, 40);
             btnElectronic.Margin = new Padding(2);
             btnElectronic.Name = "btnElectronic";
             btnElectronic.Size = new Size(110, 27);
@@ -107,6 +110,7 @@
             // 
             // dtpInitBooking
             // 
+            dtpInitBooking.Enabled = false;
             dtpInitBooking.Location = new Point(11, 61);
             dtpInitBooking.Margin = new Padding(2);
             dtpInitBooking.Name = "dtpInitBooking";
@@ -145,20 +149,12 @@
             // 
             // dtpEndBooking
             // 
+            dtpEndBooking.Enabled = false;
             dtpEndBooking.Location = new Point(11, 110);
             dtpEndBooking.Margin = new Padding(2);
             dtpEndBooking.Name = "dtpEndBooking";
             dtpEndBooking.Size = new Size(280, 27);
             dtpEndBooking.TabIndex = 10;
-            // 
-            // cbOldPaymentMethod
-            // 
-            cbOldPaymentMethod.FormattingEnabled = true;
-            cbOldPaymentMethod.Location = new Point(11, 159);
-            cbOldPaymentMethod.Margin = new Padding(2);
-            cbOldPaymentMethod.Name = "cbOldPaymentMethod";
-            cbOldPaymentMethod.Size = new Size(280, 28);
-            cbOldPaymentMethod.TabIndex = 11;
             // 
             // label4
             // 
@@ -173,7 +169,8 @@
             // checkBoxOldIsPaid
             // 
             checkBoxOldIsPaid.AutoSize = true;
-            checkBoxOldIsPaid.Location = new Point(10, 191);
+            checkBoxOldIsPaid.Enabled = false;
+            checkBoxOldIsPaid.Location = new Point(14, 191);
             checkBoxOldIsPaid.Margin = new Padding(2);
             checkBoxOldIsPaid.Name = "checkBoxOldIsPaid";
             checkBoxOldIsPaid.Size = new Size(97, 24);
@@ -209,11 +206,12 @@
             btnCancel.TabIndex = 18;
             btnCancel.Text = "Cancelar";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 241);
+            label5.Location = new Point(14, 285);
             label5.Name = "label5";
             label5.Size = new Size(99, 20);
             label5.TabIndex = 19;
@@ -221,7 +219,7 @@
             // 
             // dtpNewInitBooking
             // 
-            dtpNewInitBooking.Location = new Point(12, 284);
+            dtpNewInitBooking.Location = new Point(14, 328);
             dtpNewInitBooking.Name = "dtpNewInitBooking";
             dtpNewInitBooking.Size = new Size(279, 27);
             dtpNewInitBooking.TabIndex = 20;
@@ -229,7 +227,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(11, 261);
+            label6.Location = new Point(13, 305);
             label6.Name = "label6";
             label6.Size = new Size(45, 20);
             label6.TabIndex = 21;
@@ -238,7 +236,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(12, 314);
+            label7.Location = new Point(14, 358);
             label7.Name = "label7";
             label7.Size = new Size(28, 20);
             label7.TabIndex = 22;
@@ -246,7 +244,7 @@
             // 
             // dtpNewEndBooking
             // 
-            dtpNewEndBooking.Location = new Point(12, 337);
+            dtpNewEndBooking.Location = new Point(14, 381);
             dtpNewEndBooking.Name = "dtpNewEndBooking";
             dtpNewEndBooking.Size = new Size(279, 27);
             dtpNewEndBooking.TabIndex = 23;
@@ -254,7 +252,8 @@
             // cbNewPaymentMethod
             // 
             cbNewPaymentMethod.FormattingEnabled = true;
-            cbNewPaymentMethod.Location = new Point(12, 390);
+            cbNewPaymentMethod.Items.AddRange(new object[] { "Tarjeta de Crédito", "Transferencia", "Efectivo" });
+            cbNewPaymentMethod.Location = new Point(14, 434);
             cbNewPaymentMethod.Name = "cbNewPaymentMethod";
             cbNewPaymentMethod.Size = new Size(279, 28);
             cbNewPaymentMethod.TabIndex = 26;
@@ -262,7 +261,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(12, 367);
+            label9.Location = new Point(14, 411);
             label9.Name = "label9";
             label9.Size = new Size(112, 20);
             label9.TabIndex = 27;
@@ -271,18 +270,48 @@
             // checkBoxNewIsPaid
             // 
             checkBoxNewIsPaid.AutoSize = true;
-            checkBoxNewIsPaid.Location = new Point(12, 424);
+            checkBoxNewIsPaid.Location = new Point(14, 468);
             checkBoxNewIsPaid.Name = "checkBoxNewIsPaid";
             checkBoxNewIsPaid.Size = new Size(97, 24);
             checkBoxNewIsPaid.TabIndex = 28;
             checkBoxNewIsPaid.Text = "Está pago";
             checkBoxNewIsPaid.UseVisualStyleBackColor = true;
             // 
+            // txtOldPaymentMethod
+            // 
+            txtOldPaymentMethod.Enabled = false;
+            txtOldPaymentMethod.Location = new Point(12, 159);
+            txtOldPaymentMethod.Name = "txtOldPaymentMethod";
+            txtOldPaymentMethod.Size = new Size(279, 27);
+            txtOldPaymentMethod.TabIndex = 29;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(447, 18);
+            label8.Name = "label8";
+            label8.Size = new Size(666, 20);
+            label8.TabIndex = 30;
+            label8.Text = "Si no se selecciona una entidad, se actualizará la reserva con el articulo originalmente seleccionado";
+            // 
+            // btnUnselect
+            // 
+            btnUnselect.Location = new Point(445, 633);
+            btnUnselect.Name = "btnUnselect";
+            btnUnselect.Size = new Size(110, 29);
+            btnUnselect.TabIndex = 31;
+            btnUnselect.Text = "Deseleccionar";
+            btnUnselect.UseVisualStyleBackColor = true;
+            btnUnselect.Click += btnUnselect_Click;
+            // 
             // UpdateBookingView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1124, 670);
+            Controls.Add(btnUnselect);
+            Controls.Add(label8);
+            Controls.Add(txtOldPaymentMethod);
             Controls.Add(checkBoxNewIsPaid);
             Controls.Add(label9);
             Controls.Add(cbNewPaymentMethod);
@@ -296,7 +325,6 @@
             Controls.Add(btnUpdate);
             Controls.Add(checkBoxOldIsPaid);
             Controls.Add(label4);
-            Controls.Add(cbOldPaymentMethod);
             Controls.Add(dtpEndBooking);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -327,7 +355,6 @@
         private Label label2;
         private Label label3;
         private DateTimePicker dtpEndBooking;
-        private ComboBox cbOldPaymentMethod;
         private Label label4;
         private CheckBox checkBoxOldIsPaid;
         private Button btnUpdate;
@@ -341,5 +368,8 @@
         private ComboBox cbNewPaymentMethod;
         private Label label9;
         private CheckBox checkBoxNewIsPaid;
+        private TextBox txtOldPaymentMethod;
+        private Label label8;
+        private Button btnUnselect;
     }
 }
