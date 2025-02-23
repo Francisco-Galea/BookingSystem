@@ -1,5 +1,6 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
-using Booking.Dtos;
+using Booking.Dtos.BookedEntities;
+using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.GenericDaoInterface;
 using Booking.Models.Entities;
 
@@ -14,5 +15,6 @@ namespace Booking.Models.Dao.BookingDao
         void UpdateEntity(int bookingId, BookingEntity booking);
         List<BookingPropertyDTO> GetPropertiesBooked();
         List<BookingVehicleDTO> GetVehiclesBooked();
+        BookingCoreDataDto GetBookingCoreData(int bookingId);
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Booking.Dtos
+﻿namespace Booking.Dtos.BookedEntities
 {
     public class BookingPropertyDTO : BookingBaseDTO
     {

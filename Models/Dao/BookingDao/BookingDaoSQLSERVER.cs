@@ -1,5 +1,6 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
-using Booking.Dtos;
+using Booking.Dtos.BookedEntities;
+using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.ConnectionString;
 using Booking.Models.Entities;
 using Microsoft.Data.SqlClient;
@@ -83,7 +84,48 @@ namespace Booking.Models.Dao.BookingDao
             }
         }
 
-        public BookingEntity GetEntityById(int BookingId)
+
+        public BookingCoreDataDto GetBookingCoreData(int bookingId)
+        {
+            BookingCoreDataDto bookingData = new BookingCoreDataDto();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid
+                                FROM  Booking b
+                                WHERE b.IsDeleted = 0 AND b.BookingId = @BookingId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@BookingId", bookingId);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                bookingData.initBooking = reader.GetDateTime(0);
+                                bookingData.endBooking = reader.GetDateTime(1);
+                                bookingData.paymentMethod = reader.GetString(2);
+                                bookingData.isPaid = reader.GetBoolean(3);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener el vehículo", ex);
+                    }
+                }
+            }
+
+            return bookingData;
+        }
+
+
+        public BookingEntity GetEntityById(int bookingId)
         {
             throw new NotImplementedException();
         }

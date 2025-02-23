@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Booking.Dtos
+namespace Booking.Dtos.BookedEntities
 {
     public class BookingBaseDTO
     {
@@ -14,7 +14,7 @@ namespace Booking.Dtos
         public int daysBooked { get; set; } //
         public string paymentMethod { get; set; }
         public decimal totalPrice { get; set; } //
-        public bool isPaid { get; set; } 
+        public bool isPaid { get; set; }
         public int rentableId { get; set; } //
         public string rentableName { get; set; } //
 

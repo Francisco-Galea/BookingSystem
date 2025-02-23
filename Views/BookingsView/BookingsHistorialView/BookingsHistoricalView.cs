@@ -1,4 +1,4 @@
-﻿
+﻿using Booking.Views.BookingsView.UpdateBookingView;
 using System.Diagnostics;
 using Booking.Controllers;
 using Booking.Dtos;
@@ -52,7 +52,16 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int bookingId = (int)dgvEntities.SelectedRows[0].Cells["bookingId"].Value;
+                UpdateBookingView updateBookingView = new UpdateBookingView(bookingId);
+                updateBookingView.ShowDialog();
+            }
+            catch
+            {
 
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

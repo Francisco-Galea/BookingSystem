@@ -1,20 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿
+
+using Booking.Controllers;
+using Booking.Dtos.CoreDataBooking;
 
 namespace Booking.Views.BookingsView.UpdateBookingView
 {
     public partial class UpdateBookingView : Form
     {
-        public UpdateBookingView()
+
+        private readonly int bookingEntityId;
+        private readonly BookingController bookingController = new BookingController();
+
+        public UpdateBookingView(int bookingId)
         {
             InitializeComponent();
+            this.bookingEntityId = bookingId;
         }
+
+        private void GetOldBookingData()
+        {
+            try
+            {
+                BookingCoreDataDto bookingData = new BookingCoreDataDto();
+                bookingData = bookingController.GetBookingCoreData(bookingEntityId);
+                LoadOldBookingData(bookingData);
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void LoadOldBookingData(BookingCoreDataDto bookingData) 
+        {
+            try
+            {
+
+            }
+            catch
+            {
+
+            }
+        }
+
+
     }
 }

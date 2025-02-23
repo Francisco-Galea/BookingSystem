@@ -1,6 +1,7 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers.Utility;
-using Booking.Dtos;
+using Booking.Dtos.BookedEntities;
+using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.BookingDao;
 using Booking.Models.Entities;
 using Booking.Models.Strategy.Interface;
@@ -83,6 +84,10 @@ namespace Booking.Controllers
             return daysBooked;
         }
 
+        public BookingCoreDataDto GetBookingCoreData(int bookingId)
+        {
+            return bookingDao.GetBookingCoreData(bookingId);
+        }
 
     }
 }
