@@ -1,6 +1,6 @@
 ﻿namespace Boocking.Views.BookingsView
 {
-    partial class ItemsView
+    partial class RentablesView
     {
         /// <summary>
         /// Required designer variable.

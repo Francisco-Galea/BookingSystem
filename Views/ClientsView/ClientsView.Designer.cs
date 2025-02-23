@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvClients = new DataGridView();
+            ClientId = new DataGridViewTextBoxColumn();
+            ClientName = new DataGridViewTextBoxColumn();
+            ClientLastName = new DataGridViewTextBoxColumn();
+            ClientPhoneNumber = new DataGridViewTextBoxColumn();
             btnBack = new Button();
             btnCreateClient = new Button();
             btnUpdateClient = new Button();
@@ -36,109 +40,22 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            ClientId = new DataGridViewTextBoxColumn();
-            ClientName = new DataGridViewTextBoxColumn();
-            ClientLastName = new DataGridViewTextBoxColumn();
-            ClientPhoneNumber = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            txtName = new TextBox();
+            txtLastName = new TextBox();
+            txtPhoneNumber = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvClients
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ClientId, ClientName, ClientLastName, ClientPhoneNumber });
-            dataGridView1.Location = new Point(234, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(554, 390);
-            dataGridView1.TabIndex = 0;
-            // 
-            // btnBack
-            // 
-            btnBack.Location = new Point(694, 409);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(94, 29);
-            btnBack.TabIndex = 1;
-            btnBack.Text = "Volver";
-            btnBack.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateClient
-            // 
-            btnCreateClient.Location = new Point(12, 187);
-            btnCreateClient.Name = "btnCreateClient";
-            btnCreateClient.Size = new Size(94, 29);
-            btnCreateClient.TabIndex = 2;
-            btnCreateClient.Text = "Crear";
-            btnCreateClient.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdateClient
-            // 
-            btnUpdateClient.Location = new Point(12, 237);
-            btnUpdateClient.Name = "btnUpdateClient";
-            btnUpdateClient.Size = new Size(94, 29);
-            btnUpdateClient.TabIndex = 3;
-            btnUpdateClient.Text = "Modificar";
-            btnUpdateClient.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteClient
-            // 
-            btnDeleteClient.Location = new Point(12, 289);
-            btnDeleteClient.Name = "btnDeleteClient";
-            btnDeleteClient.Size = new Size(94, 29);
-            btnDeleteClient.TabIndex = 4;
-            btnDeleteClient.Text = "Eliminar";
-            btnDeleteClient.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(64, 20);
-            label1.TabIndex = 5;
-            label1.Text = "Nombre";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 62);
-            label2.Name = "label2";
-            label2.Size = new Size(66, 20);
-            label2.TabIndex = 6;
-            label2.Text = "Apellido";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(14, 115);
-            label3.Name = "label3";
-            label3.Size = new Size(144, 20);
-            label3.TabIndex = 7;
-            label3.Text = "Número de telefono";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(14, 32);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(214, 27);
-            textBox1.TabIndex = 8;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(14, 85);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(214, 27);
-            textBox2.TabIndex = 9;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(14, 138);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(214, 27);
-            textBox3.TabIndex = 10;
+            dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvClients.Columns.AddRange(new DataGridViewColumn[] { ClientId, ClientName, ClientLastName, ClientPhoneNumber });
+            dgvClients.Location = new Point(292, 15);
+            dgvClients.Margin = new Padding(4);
+            dgvClients.Name = "dgvClients";
+            dgvClients.RowHeadersWidth = 51;
+            dgvClients.Size = new Size(692, 488);
+            dgvClients.TabIndex = 0;
             // 
             // ClientId
             // 
@@ -168,14 +85,110 @@
             ClientPhoneNumber.Name = "ClientPhoneNumber";
             ClientPhoneNumber.Width = 125;
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(868, 511);
+            btnBack.Margin = new Padding(4);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(118, 36);
+            btnBack.TabIndex = 1;
+            btnBack.Text = "Volver";
+            btnBack.UseVisualStyleBackColor = true;
+            // 
+            // btnCreateClient
+            // 
+            btnCreateClient.Location = new Point(15, 234);
+            btnCreateClient.Margin = new Padding(4);
+            btnCreateClient.Name = "btnCreateClient";
+            btnCreateClient.Size = new Size(118, 36);
+            btnCreateClient.TabIndex = 2;
+            btnCreateClient.Text = "Crear";
+            btnCreateClient.UseVisualStyleBackColor = true;
+            btnCreateClient.Click += btnCreateClient_Click;
+            // 
+            // btnUpdateClient
+            // 
+            btnUpdateClient.Location = new Point(15, 296);
+            btnUpdateClient.Margin = new Padding(4);
+            btnUpdateClient.Name = "btnUpdateClient";
+            btnUpdateClient.Size = new Size(118, 36);
+            btnUpdateClient.TabIndex = 3;
+            btnUpdateClient.Text = "Modificar";
+            btnUpdateClient.UseVisualStyleBackColor = true;
+            btnUpdateClient.Click += btnUpdateClient_Click;
+            // 
+            // btnDeleteClient
+            // 
+            btnDeleteClient.Location = new Point(15, 361);
+            btnDeleteClient.Margin = new Padding(4);
+            btnDeleteClient.Name = "btnDeleteClient";
+            btnDeleteClient.Size = new Size(118, 36);
+            btnDeleteClient.TabIndex = 4;
+            btnDeleteClient.Text = "Eliminar";
+            btnDeleteClient.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(15, 11);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(78, 25);
+            label1.TabIndex = 5;
+            label1.Text = "Nombre";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(15, 78);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(78, 25);
+            label2.TabIndex = 6;
+            label2.Text = "Apellido";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(18, 144);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(173, 25);
+            label3.TabIndex = 7;
+            label3.Text = "Número de telefono";
+            // 
+            // txtName
+            // 
+            txtName.Location = new Point(18, 40);
+            txtName.Margin = new Padding(4);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(266, 31);
+            txtName.TabIndex = 8;
+            // 
+            // txtLastName
+            // 
+            txtLastName.Location = new Point(18, 106);
+            txtLastName.Margin = new Padding(4);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(266, 31);
+            txtLastName.TabIndex = 9;
+            // 
+            // txtPhoneNumber
+            // 
+            txtPhoneNumber.Location = new Point(18, 172);
+            txtPhoneNumber.Margin = new Padding(4);
+            txtPhoneNumber.Name = "txtPhoneNumber";
+            txtPhoneNumber.Size = new Size(266, 31);
+            txtPhoneNumber.TabIndex = 10;
+            // 
             // ClientsView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            ClientSize = new Size(1000, 562);
+            Controls.Add(txtPhoneNumber);
+            Controls.Add(txtLastName);
+            Controls.Add(txtName);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -183,17 +196,18 @@
             Controls.Add(btnUpdateClient);
             Controls.Add(btnCreateClient);
             Controls.Add(btnBack);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvClients);
+            Margin = new Padding(4);
             Name = "ClientsView";
             Text = "ClientsView";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvClients;
         private Button btnBack;
         private Button btnCreateClient;
         private Button btnUpdateClient;
@@ -201,9 +215,9 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txtName;
+        private TextBox txtLastName;
+        private TextBox txtPhoneNumber;
         private DataGridViewTextBoxColumn ClientId;
         private DataGridViewTextBoxColumn ClientName;
         private DataGridViewTextBoxColumn ClientLastName;

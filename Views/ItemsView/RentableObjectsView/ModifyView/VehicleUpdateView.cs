@@ -30,7 +30,10 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 txtOldSerialNumber.Text = oldVehicleData.SERIALNUMBER;
                 txtOldPassenger.Text = oldVehicleData.PASSENGERCAPACITY.ToString();
             }
-            catch { }
+            catch 
+            { 
+            
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

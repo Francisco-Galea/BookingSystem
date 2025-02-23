@@ -48,5 +48,14 @@ CREATE TABLE Bookings (
     IsDeleted BIT NOT NULL DEFAULT 0,
 );
 
+CREATE TABLE Clients (
+    ClientId INT IDENTITY(1,1) PRIMARY KEY, 
+    Name NVARCHAR(100) NOT NULL, 
+    LastName NVARCHAR(100) NOT NULL, 
+    PhoneNumber NVARCHAR(15) NOT NULL, 
+    CreatedAt DATETIME NOT NULL,
+    IsDeleted BIT NOT NULL DEFAULT 0 
+);
+
 SELECT * FROM BookingRentable
 SELECT * FROM Bookings

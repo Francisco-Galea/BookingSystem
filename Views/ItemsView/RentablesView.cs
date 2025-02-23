@@ -2,10 +2,10 @@
 
 namespace Boocking.Views.BookingsView
 {
-    public partial class ItemsView : Form
+    public partial class RentablesView : Form
     {
 
-        public ItemsView()
+        public RentablesView()
         {
             InitializeComponent();
         }

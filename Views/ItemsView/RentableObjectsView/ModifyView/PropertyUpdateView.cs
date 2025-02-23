@@ -1,5 +1,4 @@
-﻿using Boocking.Controllers.EntitiesController;
-using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers.EntitiesController;
 
 namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
@@ -19,17 +18,19 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            string propertyType = txtNewPropertyType.Text;
-            string description = txtNewDescription.Text;
-            string costUsage = txtNewCostUsage.Text;
-            string location = txtNewLocation.Text;
-            propertyController.UpdateProperty(rentablePropertyId, propertyType, description, costUsage, location);
-            this.Close();
-        }
+            try
+            {
+                string propertyType = txtNewPropertyType.Text;
+                string description = txtNewDescription.Text;
+                string costUsage = txtNewCostUsage.Text;
+                string location = txtNewLocation.Text;
+                propertyController.UpdateProperty(rentablePropertyId, propertyType, description, costUsage, location);
+                this.Close();
+            }
+            catch
+            {
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            }
         }
 
         private void LoadOldPropertyData(int rentableId)
@@ -43,7 +44,14 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 txtOldCostUsage.Text = oldPropertyData.COSTUSAGEPERDAY.ToString();
                 txtOldLocation.Text = oldPropertyData.LOCATION;
             }
-            catch { }
+            catch
+            {
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

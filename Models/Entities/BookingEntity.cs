@@ -11,7 +11,6 @@ namespace Booking.Models.Entities
         private int daysBooked;
         private decimal finalPrice;
         private bool isPaid;
-        private bool isActiveToUpdate; //Para indicar si se puede modificar o no una reserva, como en el hotel
         private DateTime createdAt = DateTime.Now;
         private bool isDeleted; //El softDelete 
 
@@ -65,12 +64,6 @@ namespace Booking.Models.Entities
         {
             get { return this.finalPrice; }
             set { this.finalPrice = value; }
-        }
-
-        public bool ISACTIVE
-        {
-            get { return this.isActiveToUpdate; }
-            set { this.isActiveToUpdate = value; }
         }
 
     }
