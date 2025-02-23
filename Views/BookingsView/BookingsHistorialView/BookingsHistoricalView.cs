@@ -57,7 +57,15 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int bookingId = (int)dgvEntities.SelectedRows[0].Cells["bookingId"].Value;
+                bookingController.DeleteBooking(bookingId);
+            }
+            catch
+            {
 
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -116,7 +124,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void GenerateVehiclesBookedColumns()
         {
-            dgvEntities.Columns.Add("bookinId", "Id");
+            dgvEntities.Columns.Add("bookingId", "Id");
             dgvEntities.Columns.Add("rentableName", "Articulo");
             dgvEntities.Columns.Add("rentableId", "Id Articulo");
             dgvEntities.Columns.Add("initBooking", "Inicio de reserva");

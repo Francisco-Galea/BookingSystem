@@ -59,9 +59,28 @@ namespace Booking.Models.Dao.BookingDao
             }
         }
 
-        public void DeleteEntity(int BookingId)
+        public void DeleteEntity(int bookingId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    string deleteBookingQuery = "UPDATE Bookings SET IsDeleted = 1 WHERE BookingId = @BookingId";
+                    SqlCommand deleteRentableCommand = new SqlCommand(deleteBookingQuery, connection, transaction);
+                    deleteRentableCommand.Parameters.AddWithValue("@BookingId", bookingId);
+                    deleteRentableCommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al realizar el borrado lógico del vehículo", ex);
+                }
+            }
         }
 
         public BookingEntity GetEntityById(int BookingId)
