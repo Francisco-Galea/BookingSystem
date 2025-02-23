@@ -3,7 +3,6 @@ using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Strategy.Interface;
-using System.Windows.Forms;
 
 namespace Booking.Views.BookingsView.UpdateBookingView
 {
@@ -154,5 +153,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
 
             }
         }
+
     }
 }

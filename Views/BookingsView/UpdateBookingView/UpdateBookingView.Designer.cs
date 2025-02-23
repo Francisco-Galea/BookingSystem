@@ -41,7 +41,6 @@
             label4 = new Label();
             checkBoxOldIsPaid = new CheckBox();
             btnUpdate = new Button();
-            btnEndBooking = new Button();
             btnCancel = new Button();
             label5 = new Label();
             dtpNewInitBooking = new DateTimePicker();
@@ -189,16 +188,6 @@
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
-            // btnEndBooking
-            // 
-            btnEndBooking.Location = new Point(135, 632);
-            btnEndBooking.Margin = new Padding(2);
-            btnEndBooking.Name = "btnEndBooking";
-            btnEndBooking.Size = new Size(90, 27);
-            btnEndBooking.TabIndex = 17;
-            btnEndBooking.Text = "Cerrar";
-            btnEndBooking.UseVisualStyleBackColor = true;
-            // 
             // btnCancel
             // 
             btnCancel.Location = new Point(1018, 633);
@@ -322,7 +311,6 @@
             Controls.Add(dtpNewInitBooking);
             Controls.Add(label5);
             Controls.Add(btnCancel);
-            Controls.Add(btnEndBooking);
             Controls.Add(btnUpdate);
             Controls.Add(checkBoxOldIsPaid);
             Controls.Add(label4);
@@ -359,7 +347,6 @@
         private Label label4;
         private CheckBox checkBoxOldIsPaid;
         private Button btnUpdate;
-        private Button btnEndBooking;
         private Button btnCancel;
         private Label label5;
         private DateTimePicker dtpNewInitBooking;
