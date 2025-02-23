@@ -66,7 +66,7 @@
             // 
             // btnClients
             // 
-            btnClients.Location = new Point(12, 186);
+            btnClients.Location = new Point(260, 154);
             btnClients.Name = "btnClients";
             btnClients.Size = new Size(146, 29);
             btnClients.TabIndex = 3;
