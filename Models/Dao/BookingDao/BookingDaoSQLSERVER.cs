@@ -130,9 +130,52 @@ namespace Booking.Models.Dao.BookingDao
             throw new NotImplementedException();
         }
 
-        public void UpdateEntity(int BookingId, BookingEntity booking)
+        public void UpdateEntity(int bookingId, BookingEntity bookingEntity, int entityToRentId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    string updateBookingQuery = @"
+                                                UPDATE Bookings SET 
+                                                InitBooking = @initBooking,
+                                                EndBooking = @endBooking,
+                                                DaysBooked = @daysBooked,
+                                                TotalPrice = @totalPrice,
+                                                IsPaid = @isPaid,
+                                                WHERE BookingId = @bookingId
+                                                ";
+
+                    SqlCommand updateBookingCommand = new SqlCommand(updateBookingQuery, connection, transaction);
+                    updateBookingCommand.Parameters.AddWithValue("@bookingId", bookingId);
+                    updateBookingCommand.Parameters.AddWithValue("@initBooking", bookingEntity.INITBOOKING);
+                    updateBookingCommand.Parameters.AddWithValue("@endBooking", bookingEntity.ENDBOOKING);
+                    updateBookingCommand.Parameters.AddWithValue("@daysBooked", bookingEntity.DAYSBOOKED);
+                    updateBookingCommand.Parameters.AddWithValue("@totalPrice", bookingEntity.FINALPRICE);
+                    updateBookingCommand.Parameters.AddWithValue("@isPaid", bookingEntity.ISPAID);
+                    updateBookingCommand.ExecuteNonQuery();
+
+                    string updateRentableQuery = @"
+                                                 UPDATE BookingRentable SET 
+                                                 RentableId = @entityToRentId,
+                                                 WHERE BookingId = @bookingId
+                                                 ";
+
+                    SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
+                    updateRentableCommand.Parameters.AddWithValue("@bookingId", bookingId);
+                    updateBookingCommand.Parameters.AddWithValue("@entityToRentId", entityToRentId);
+                    updateRentableCommand.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error al actualizar el vehículo", ex);
+                }
+            }
         }
 
         public bool CheckAvailabilityForEntity(int entityToRentId, DateOnly initBooking, DateOnly endBooking)

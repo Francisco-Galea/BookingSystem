@@ -187,6 +187,7 @@
             btnUpdate.TabIndex = 15;
             btnUpdate.Text = "Actualizar";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnEndBooking
             // 
@@ -290,9 +291,9 @@
             label8.AutoSize = true;
             label8.Location = new Point(447, 18);
             label8.Name = "label8";
-            label8.Size = new Size(666, 20);
+            label8.Size = new Size(154, 20);
             label8.TabIndex = 30;
-            label8.Text = "Si no se selecciona una entidad, se actualizará la reserva con el articulo originalmente seleccionado";
+            label8.Text = "Seleccione un articulo";
             // 
             // btnUnselect
             // 

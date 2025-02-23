@@ -70,7 +70,21 @@ namespace Booking.Controllers
 
         public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
         {
+            try
+            {
+                int daysBooked = 0;
+                daysBooked += GetDaysBooked(initBooking, endBooking);
+                DateOnly initBookingParsed = ParseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
+                decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
+                decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
+                BookingEntity bookingEntity = new BookingEntity(initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+                bookingDao.UpdateEntity(bookingId, bookingEntity, entityToRentId);
+            }
+            catch
+            {
 
+            }
         }
 
         public int GetDaysBooked(DateTime initBooking, DateTime endBooking)

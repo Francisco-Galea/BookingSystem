@@ -2,6 +2,8 @@
 using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
 using Booking.Dtos.CoreDataBooking;
+using Booking.Models.Strategy.Interface;
+using System.Windows.Forms;
 
 namespace Booking.Views.BookingsView.UpdateBookingView
 {
@@ -11,6 +13,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly int bookingEntityId;
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
+        private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
 
         public UpdateBookingView(int bookingId)
         {
@@ -123,6 +126,33 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private void btnUnselect_Click(object sender, EventArgs e)
         {
             dgvEntities.ClearSelection();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime initBooking = dtpNewInitBooking.Value;
+                DateTime endBooking = dtpNewEndBooking.Value;
+                string paymentMethod = cbNewPaymentMethod.Text;
+                IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+                bool isPaid = checkBoxNewIsPaid.Checked;
+                int selectedEntity = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
+
+                bool isAvailable = bookingController.CheckEntityAvailability(selectedEntity, initBooking, endBooking);
+                if (!isAvailable)
+                {
+                    MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
+                    return;
+                }
+
+                bookingController.UpdateBooking(bookingEntityId, selectedEntity, initBooking, endBooking, paymentSelected, isPaid);
+                this.Close();
+            }
+            catch
+            {
+
+            }
         }
     }
 }

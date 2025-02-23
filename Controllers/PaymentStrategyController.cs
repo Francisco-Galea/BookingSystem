@@ -1,17 +1,13 @@
-﻿using Booking.Models.Dao.StrategyDao;
-using Booking.Models.Strategy;
+﻿using Booking.Models.Strategy;
 using Booking.Models.Strategy.Interface;
 
 namespace Booking.Controllers
 {
     public class PaymentStrategyController
     {
-
-        private readonly IStrategyDao strategyDao = new StrategyDaoSQLSERVER();
-
         public IStrategyFinalPriceBooking GetPaymentData(string paymentType)
         {
-            IStrategyFinalPriceBooking? strategySelected = null;
+            IStrategyFinalPriceBooking strategySelected = new CashStrategy();
             switch (paymentType)
             {
                 case "Efectivo":
@@ -26,11 +22,7 @@ namespace Booking.Controllers
                     strategySelected = new CreditCardStrategy();
                     break;
             }
-
             return strategySelected;
         }
-
-        
-
     }
 }

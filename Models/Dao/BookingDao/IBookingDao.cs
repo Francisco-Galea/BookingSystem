@@ -12,7 +12,7 @@ namespace Booking.Models.Dao.BookingDao
         void InsertEntity(BookingEntity booking, int entityToRent);
         BookingEntity GetEntityById(int bookingId);
         void DeleteEntity(int bookingId);
-        void UpdateEntity(int bookingId, BookingEntity booking);
+        void UpdateEntity(int bookingId, BookingEntity booking, int entityToRentId);
         List<BookingPropertyDTO> GetPropertiesBooked();
         List<BookingVehicleDTO> GetVehiclesBooked();
         BookingCoreDataDto GetBookingCoreData(int bookingId);
