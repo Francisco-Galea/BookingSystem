@@ -97,5 +97,10 @@
             set { this.createdAt = value; }
         }
 
+        public override string ToString()
+        {
+            return $"{name} {lastName} - {phoneNumber}";
+        }
+
     }
 }

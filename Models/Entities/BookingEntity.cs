@@ -1,4 +1,5 @@
-﻿using Booking.Models.Strategy.Interface;
+﻿using Boocking.Models.Entities;
+using Booking.Models.Strategy.Interface;
 
 namespace Booking.Models.Entities
 {
@@ -7,6 +8,7 @@ namespace Booking.Models.Entities
         private int bookingId;
         private DateOnly initBooking;
         private DateOnly endBooking;
+        private ClientEntity oClient;
         private IStrategyFinalPriceBooking oStrategySelected;
         private int daysBooked;
         private decimal finalPrice;
@@ -14,10 +16,11 @@ namespace Booking.Models.Entities
         private DateTime createdAt = DateTime.Now;
         private bool isDeleted; //El softDelete 
 
-        public BookingEntity(DateOnly INITBOOKING, DateOnly ENDBOOKING, IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
+        public BookingEntity(DateOnly INITBOOKING, DateOnly ENDBOOKING, ClientEntity OCLIENT ,IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
         {
             this.initBooking = INITBOOKING;
             this.endBooking = ENDBOOKING;
+            this.oClient = OCLIENT;
             this.oStrategySelected = OSELECTEDSTRATEGY;
             this.daysBooked = DAYSBOOKED;
             this.finalPrice = FINALPRICE;
@@ -46,6 +49,12 @@ namespace Booking.Models.Entities
         {
             get { return this.endBooking; }
             set {this.endBooking = value; }
+        }
+
+        public ClientEntity OCLIENT
+        {
+            get { return this.oClient; }
+            set { this.oClient = value; }
         }
 
         public bool ISPAID

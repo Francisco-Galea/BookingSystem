@@ -37,6 +37,7 @@
             cbPaymentMethod = new ComboBox();
             label3 = new Label();
             checkBoxIsPayed = new CheckBox();
+            cbClients = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -77,7 +78,7 @@
             // 
             // btnCreateBooking
             // 
-            btnCreateBooking.Location = new Point(234, 311);
+            btnCreateBooking.Location = new Point(230, 370);
             btnCreateBooking.Margin = new Padding(4);
             btnCreateBooking.Name = "btnCreateBooking";
             btnCreateBooking.Size = new Size(118, 36);
@@ -87,7 +88,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(109, 311);
+            btnCancel.Location = new Point(105, 370);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -126,11 +127,20 @@
             checkBoxIsPayed.Text = "Está pago";
             checkBoxIsPayed.UseVisualStyleBackColor = true;
             // 
+            // cbClients
+            // 
+            cbClients.FormattingEnabled = true;
+            cbClients.Location = new Point(16, 260);
+            cbClients.Name = "cbClients";
+            cbClients.Size = new Size(332, 33);
+            cbClients.TabIndex = 16;
+            // 
             // CreateBookingView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(365, 362);
+            ClientSize = new Size(365, 419);
+            Controls.Add(cbClients);
             Controls.Add(checkBoxIsPayed);
             Controls.Add(label3);
             Controls.Add(cbPaymentMethod);
@@ -157,5 +167,6 @@
         private ComboBox cbPaymentMethod;
         private Label label3;
         private CheckBox checkBoxIsPayed;
+        private ComboBox cbClients;
     }
 }

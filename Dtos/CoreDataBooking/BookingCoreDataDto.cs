@@ -12,5 +12,9 @@ namespace Booking.Dtos.CoreDataBooking
         public DateTime endBooking { get; set; }
         public string paymentMethod { get; set; }
         public bool isPaid { get; set; }
+        public string ClientName { get; set; }
+        public string LastName {  get; set; }
+        public string PhoneNumber { get; set; }
+
     }
 }

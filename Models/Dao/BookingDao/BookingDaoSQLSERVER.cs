@@ -22,13 +22,14 @@ namespace Booking.Models.Dao.BookingDao
                 try
                 {
                     string bookingQuery = @"
-                                          INSERT INTO Bookings (InitBooking, EndBooking, DaysBooked, PaymentMethod, TotalPrice, IsPaid, IsActiveToUpdate, CreatedAt, IsDeleted) 
-                                          VALUES (@InitBooking, @EndBooking, @DaysBooked, @PaymentMethod, @TotalPrice, @IsPaid, @IsActiveToUpdate, @CreatedAt, @IsDeleted);
+                                          INSERT INTO Bookings (InitBooking, EndBooking, ClientId ,DaysBooked, PaymentMethod, TotalPrice, IsPaid, IsActiveToUpdate, CreatedAt, IsDeleted) 
+                                          VALUES (@InitBooking, @EndBooking, @ClientId, @DaysBooked, @PaymentMethod, @TotalPrice, @IsPaid, @IsActiveToUpdate, @CreatedAt, @IsDeleted);
                                           SELECT SCOPE_IDENTITY();";  // Obtiene el ID recién insertado
 
                     SqlCommand bookingCommand = new SqlCommand(bookingQuery, connection, transaction);
                     bookingCommand.Parameters.AddWithValue("@InitBooking", booking.INITBOOKING);
                     bookingCommand.Parameters.AddWithValue("@EndBooking", booking.ENDBOOKING);
+                    bookingCommand.Parameters.AddWithValue("@ClientId", booking.OCLIENT.CLIENTID);
                     bookingCommand.Parameters.AddWithValue("@DaysBooked", booking.DAYSBOOKED);
                     bookingCommand.Parameters.AddWithValue("@PaymentMethod", booking.OSELECTEDSTRATEGY.ToString());
                     bookingCommand.Parameters.AddWithValue("@TotalPrice", booking.FINALPRICE);
@@ -92,8 +93,9 @@ namespace Booking.Models.Dao.BookingDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid
+                                SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid, c.Name, c.LastName, c.PhoneNumber 
                                 FROM  Bookings b
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
                                 WHERE b.IsDeleted = 0 AND b.BookingId = @BookingId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -111,6 +113,9 @@ namespace Booking.Models.Dao.BookingDao
                                 bookingData.endBooking = reader.GetDateTime(1);
                                 bookingData.paymentMethod = reader.GetString(2);
                                 bookingData.isPaid = reader.GetBoolean(3);
+                                bookingData.ClientName = reader.GetString(4);
+                                bookingData.LastName = reader.GetString(5);
+                                bookingData.PhoneNumber = reader.GetString(6);
                             }
                         }
                     }
@@ -143,6 +148,7 @@ namespace Booking.Models.Dao.BookingDao
                                                 UPDATE Bookings SET 
                                                 InitBooking = @initBooking,
                                                 EndBooking = @endBooking,
+                                                ClientId = @clientId,
                                                 DaysBooked = @daysBooked,
                                                 TotalPrice = @totalPrice,
                                                 IsPaid = @isPaid,
@@ -153,6 +159,7 @@ namespace Booking.Models.Dao.BookingDao
                     updateBookingCommand.Parameters.AddWithValue("@bookingId", bookingId);
                     updateBookingCommand.Parameters.AddWithValue("@initBooking", bookingEntity.INITBOOKING);
                     updateBookingCommand.Parameters.AddWithValue("@endBooking", bookingEntity.ENDBOOKING);
+                    updateBookingCommand.Parameters.AddWithValue("@clientId", bookingEntity.OCLIENT.CLIENTID);
                     updateBookingCommand.Parameters.AddWithValue("@daysBooked", bookingEntity.DAYSBOOKED);
                     updateBookingCommand.Parameters.AddWithValue("@totalPrice", bookingEntity.FINALPRICE);
                     updateBookingCommand.Parameters.AddWithValue("@isPaid", bookingEntity.ISPAID);

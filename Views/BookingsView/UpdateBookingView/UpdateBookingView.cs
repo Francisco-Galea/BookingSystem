@@ -1,4 +1,5 @@
 ﻿using Boocking.Controllers.EntitiesController;
+using Boocking.Models.Entities;
 using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
 using Booking.Dtos.CoreDataBooking;
@@ -13,6 +14,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
+        private readonly ClientController clientController = new ClientController();
 
         public UpdateBookingView(int bookingId)
         {
@@ -135,6 +137,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                 DateTime endBooking = dtpNewEndBooking.Value;
                 string paymentMethod = cbNewPaymentMethod.Text;
                 IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+                ClientEntity clientSelected = (ClientEntity)cbNewClient.SelectedItem;
                 bool isPaid = checkBoxNewIsPaid.Checked;
                 int selectedEntity = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
 
@@ -145,7 +148,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                     return;
                 }
 
-                bookingController.UpdateBooking(bookingEntityId, selectedEntity, initBooking, endBooking, paymentSelected, isPaid);
+                bookingController.UpdateBooking(bookingEntityId, selectedEntity, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
                 this.Close();
             }
             catch

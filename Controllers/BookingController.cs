@@ -1,4 +1,5 @@
-﻿using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Models.Entities;
+using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers.Utility;
 using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
@@ -14,7 +15,7 @@ namespace Booking.Controllers
         private readonly RentableEntityController rentableEntityController = new RentableEntityController();
         private readonly IBookingDao bookingDao = new BookingDaoSQLSERVER();
 
-        public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
+        public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client,  IStrategyFinalPriceBooking strategySelected, bool isChecked)
         {
             try
             {
@@ -24,7 +25,7 @@ namespace Booking.Controllers
                 DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-                BookingEntity booking = new BookingEntity(initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+                BookingEntity booking = new BookingEntity(initBookingParsed, endBookingParsed, client, strategySelected, daysBooked, finalPrice, isChecked);
                 bookingDao.InsertEntity(booking, entityToRentId);
             }
             catch
@@ -68,7 +69,7 @@ namespace Booking.Controllers
             bookingDao.DeleteEntity(bookingId);
         }
 
-        public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, IStrategyFinalPriceBooking strategySelected, bool isChecked)
+        public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client, IStrategyFinalPriceBooking strategySelected, bool isChecked)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace Booking.Controllers
                 DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-                BookingEntity bookingEntity = new BookingEntity(initBookingParsed, endBookingParsed, strategySelected, daysBooked, finalPrice, isChecked);
+                BookingEntity bookingEntity = new BookingEntity(initBookingParsed, endBookingParsed, client,strategySelected, daysBooked, finalPrice, isChecked);
                 bookingDao.UpdateEntity(bookingId, bookingEntity, entityToRentId);
             }
             catch
