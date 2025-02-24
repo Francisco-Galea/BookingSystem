@@ -1,4 +1,5 @@
-﻿using Boocking.Models.Entities.RentableEntities;
+﻿using Boocking.Models.Entities;
+using Boocking.Models.Entities.RentableEntities;
 using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.ConnectionString;
@@ -89,6 +90,7 @@ namespace Booking.Models.Dao.BookingDao
         public BookingCoreDataDto GetBookingCoreData(int bookingId)
         {
             BookingCoreDataDto bookingData = new BookingCoreDataDto();
+            ClientEntity client = new ClientEntity();
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -113,9 +115,10 @@ namespace Booking.Models.Dao.BookingDao
                                 bookingData.endBooking = reader.GetDateTime(1);
                                 bookingData.paymentMethod = reader.GetString(2);
                                 bookingData.isPaid = reader.GetBoolean(3);
-                                bookingData.ClientName = reader.GetString(4);
-                                bookingData.LastName = reader.GetString(5);
-                                bookingData.PhoneNumber = reader.GetString(6);
+                                client.NAME = reader.GetString(4);
+                                client.LASTNAME = reader.GetString(5);
+                                client.PHONENUMBER = reader.GetString(6);
+                                bookingData.oClient = client;
                             }
                         }
                     }
@@ -151,7 +154,7 @@ namespace Booking.Models.Dao.BookingDao
                                                 ClientId = @clientId,
                                                 DaysBooked = @daysBooked,
                                                 TotalPrice = @totalPrice,
-                                                IsPaid = @isPaid,
+                                                IsPaid = @isPaid
                                                 WHERE BookingId = @bookingId
                                                 ";
 
@@ -167,13 +170,13 @@ namespace Booking.Models.Dao.BookingDao
 
                     string updateRentableQuery = @"
                                                  UPDATE BookingRentable SET 
-                                                 RentableId = @entityToRentId,
+                                                 RentableId = @entityToRentId
                                                  WHERE BookingId = @bookingId
                                                  ";
 
                     SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
                     updateRentableCommand.Parameters.AddWithValue("@bookingId", bookingId);
-                    updateBookingCommand.Parameters.AddWithValue("@entityToRentId", entityToRentId);
+                    updateRentableCommand.Parameters.AddWithValue("@entityToRentId", entityToRentId);
                     updateRentableCommand.ExecuteNonQuery();
                     transaction.Commit();
                 }

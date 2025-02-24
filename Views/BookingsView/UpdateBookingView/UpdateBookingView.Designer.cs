@@ -282,10 +282,10 @@
             // 
             // txtOldPaymentMethod
             // 
-            txtOldPaymentMethod.Enabled = false;
             txtOldPaymentMethod.Location = new Point(15, 199);
             txtOldPaymentMethod.Margin = new Padding(4);
             txtOldPaymentMethod.Name = "txtOldPaymentMethod";
+            txtOldPaymentMethod.ReadOnly = true;
             txtOldPaymentMethod.Size = new Size(348, 31);
             txtOldPaymentMethod.TabIndex = 29;
             // 

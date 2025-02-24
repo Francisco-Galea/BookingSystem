@@ -1,5 +1,4 @@
 ﻿using Booking.Views.BookingsView.UpdateBookingView;
-using System.Diagnostics;
 using Booking.Controllers;
 using Booking.Dtos.BookedEntities;
 
@@ -7,8 +6,6 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 {
     public partial class BookingsHistoricalView : Form
     {
-
-        private readonly string? entityTypeSelected;
         private readonly BookingController bookingController = new BookingController();
 
         public BookingsHistoricalView()

@@ -21,6 +21,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             InitializeComponent();
             this.bookingEntityId = bookingId;
             GetOldBookingData(bookingEntityId);
+            GetClients();
         }
 
         private void GetOldBookingData(int bookingEntityId)
@@ -45,6 +46,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                 dtpEndBooking.Value = bookingData.endBooking;
                 txtOldPaymentMethod.Text = bookingData.paymentMethod;
                 checkBoxOldIsPaid.Checked = bookingData.isPaid;
+                txtOldClient.Text = bookingData.oClient.ToString();
             }
             catch
             {
@@ -150,6 +152,32 @@ namespace Booking.Views.BookingsView.UpdateBookingView
 
                 bookingController.UpdateBooking(bookingEntityId, selectedEntity, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
                 this.Close();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void GetClients()
+        {
+            try
+            {
+                List<ClientEntity> clients = new List<ClientEntity>();
+                clients = clientController.GetClients();
+                LoadClients(clients);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void LoadClients(List<ClientEntity> clients)
+        {
+            try
+            {
+                cbNewClient.DataSource = clients;
             }
             catch
             {

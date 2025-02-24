@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Boocking.Models.Entities;
 
 namespace Booking.Dtos.CoreDataBooking
 {
@@ -12,9 +13,7 @@ namespace Booking.Dtos.CoreDataBooking
         public DateTime endBooking { get; set; }
         public string paymentMethod { get; set; }
         public bool isPaid { get; set; }
-        public string ClientName { get; set; }
-        public string LastName {  get; set; }
-        public string PhoneNumber { get; set; }
+        public ClientEntity oClient { get; set; }
 
     }
 }
