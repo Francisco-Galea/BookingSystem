@@ -86,18 +86,20 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                 foreach(BookingVehicleDTO vehicleBooked in  bookingVehicleDTOs)
                 {
                     dgvEntities.Rows.Add(
-                        vehicleBooked.bookingId,
                         vehicleBooked.rentableName,
-                        vehicleBooked.rentableId,
+                        vehicleBooked.brand,
+                        vehicleBooked.model,
+                        vehicleBooked.serialNumber,
                         vehicleBooked.initBooking,
                         vehicleBooked.endBooking,
+                        $"{vehicleBooked.oClient.NAME} {vehicleBooked.oClient.LASTNAME}",
+                        vehicleBooked.oClient.PHONENUMBER,
                         vehicleBooked.daysBooked,
                         vehicleBooked.totalPrice,
                         vehicleBooked.isPaid,
                         vehicleBooked.paymentMethod,
-                        vehicleBooked.brand,
-                        vehicleBooked.model,
-                        vehicleBooked.serialNumber
+                        vehicleBooked.rentableId,
+                        vehicleBooked.bookingId
                         );
                 }
             }
@@ -151,18 +153,21 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void GenerateVehiclesBookedColumns()
         {
-            dgvEntities.Columns.Add("bookingId", "Id");
             dgvEntities.Columns.Add("rentableName", "Articulo");
-            dgvEntities.Columns.Add("rentableId", "Id Articulo");
+            dgvEntities.Columns.Add("brand", "Marca");
+            dgvEntities.Columns.Add("model", "Modelo");
+            dgvEntities.Columns.Add("serialNumber", "Número de Serie");
             dgvEntities.Columns.Add("initBooking", "Inicio de reserva");
             dgvEntities.Columns.Add("endBooking", "Fin de reserva");
+            dgvEntities.Columns.Add("client", "Cliente");
+            dgvEntities.Columns.Add("clientPhoneNumber", "Celular");
             dgvEntities.Columns.Add("daysBooked", "Dias reservado");
             dgvEntities.Columns.Add("totalPrice", "Precio total");
             dgvEntities.Columns.Add("isPaid", "Pagado");
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
-            dgvEntities.Columns.Add("Brand", "Marca");
-            dgvEntities.Columns.Add("Model", "Modelo");
-            dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
+            dgvEntities.Columns.Add("bookingId", "Id");
+            dgvEntities.Columns.Add("rentableId", "Id Articulo");
+
         }
 
         private void GeneratePropertiesBookedColumns()

@@ -141,16 +141,16 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                 IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
                 ClientEntity clientSelected = (ClientEntity)cbNewClient.SelectedItem;
                 bool isPaid = checkBoxNewIsPaid.Checked;
-                int selectedEntity = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
+                int selectedEntityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
 
-                bool isAvailable = bookingController.CheckEntityAvailability(selectedEntity, initBooking, endBooking);
+                bool isAvailable = bookingController.CheckAvailabilityForExistingBooking(selectedEntityId, bookingEntityId, initBooking, endBooking);
                 if (!isAvailable)
                 {
                     MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
                     return;
                 }
 
-                bookingController.UpdateBooking(bookingEntityId, selectedEntity, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
+                bookingController.UpdateBooking(bookingEntityId, selectedEntityId, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
                 this.Close();
             }
             catch

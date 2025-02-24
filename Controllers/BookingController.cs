@@ -104,5 +104,19 @@ namespace Booking.Controllers
             return bookingDao.GetBookingCoreData(bookingId);
         }
 
+        public bool CheckAvailabilityForExistingBooking(int entityToRentId, int currentBookingId, DateTime initBooking, DateTime endBooking)
+        {
+            try
+            {
+                DateOnly initBookingParsed = ParseController.ParseToDateOnly(initBooking);
+                DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
+                return bookingDao.CheckAvailabilityForExistingBooking(entityToRentId, currentBookingId, initBookingParsed, endBookingParsed);
+            }
+            catch
+            {
+                throw new Exception("Error al verificar disponibilidad");
+            }
+        }
+
     }
 }

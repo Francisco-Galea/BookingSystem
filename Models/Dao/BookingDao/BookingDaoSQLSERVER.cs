@@ -224,18 +224,61 @@ namespace Booking.Models.Dao.BookingDao
             }
         }
 
+        public bool CheckAvailabilityForExistingBooking(int entityToRentId, int currentBookingId, DateOnly initBooking, DateOnly endBooking)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                connection.Open();
+                try
+                {
+                    string query = @"
+                SELECT COUNT(*)
+                FROM BookingRentable br
+                INNER JOIN Bookings b ON br.BookingId = b.BookingId
+                WHERE br.RentableId = @RentableId
+                AND b.IsDeleted = 0
+                AND b.BookingId <> @CurrentBookingId  -- Se excluye la reserva actual
+                AND (
+                    (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) 
+                    OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking)
+                    OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking)
+                )";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@RentableId", entityToRentId);
+                    command.Parameters.AddWithValue("@CurrentBookingId", currentBookingId);
+                    command.Parameters.AddWithValue("@InitBooking", initBooking.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@EndBooking", endBooking.ToString("yyyy-MM-dd"));
+
+                    int count = (int)command.ExecuteScalar();
+                    return count == 0; // Devuelve true si está disponible
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al comprobar la disponibilidad", ex);
+                }
+            }
+        }
+
+
+
+
+
+
         public List<BookingVehicleDTO> GetVehiclesBooked()
         {
             List<BookingVehicleDTO> vehiclesBooked = new List<BookingVehicleDTO>();
+            ClientEntity client = new ClientEntity();
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, v.Brand, v.Model, v.SerialNumber
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, v.Brand, v.Model, v.SerialNumber, c.Name, c.LastName, c.PhoneNumber
                                 FROM  BookingRentable br
                                 INNER JOIN Vehicles v ON v.RentableId = br.RentableId
                                 INNER JOIN Bookings b ON b.BookingId = br.BookingId
                                 INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
                                 WHERE b.IsDeleted = 0
                                 ORDER BY b.EndBooking DESC";
 
@@ -261,6 +304,10 @@ namespace Booking.Models.Dao.BookingDao
                                 vehicleBooked.brand = reader.GetString(9);
                                 vehicleBooked.model = reader.GetString(10);
                                 vehicleBooked.serialNumber = reader.GetString(11);
+                                client.NAME = reader.GetString(12);
+                                client.LASTNAME = reader.GetString(13);
+                                client.PHONENUMBER = reader.GetString(14);
+                                vehicleBooked.oClient = client;
                                 vehiclesBooked.Add(vehicleBooked);
                             }
                         }
@@ -278,15 +325,17 @@ namespace Booking.Models.Dao.BookingDao
         public List<BookingPropertyDTO> GetPropertiesBooked()
         {
             List<BookingPropertyDTO> propertiesBooked = new List<BookingPropertyDTO>();
+            ClientEntity client = new ClientEntity();
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location, c.Name, c.LastName, c.PhoneNumber
                                 FROM  BookingRentable br
                                 INNER JOIN Properties p ON p.RentableId = br.RentableId
                                 INNER JOIN Bookings b ON b.BookingId = br.BookingId
                                 INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
                                 WHERE b.IsDeleted = 0
                                 ORDER BY b.EndBooking DESC";
 
@@ -310,6 +359,10 @@ namespace Booking.Models.Dao.BookingDao
                                 propertyBooked.rentableId = reader.GetInt32(7);
                                 propertyBooked.rentableName = reader.GetString(8);
                                 propertyBooked.Location = reader.GetString(9);
+                                client.NAME = reader.GetString(10);
+                                client.LASTNAME = reader.GetString(11);
+                                client.PHONENUMBER = reader.GetString(12);
+                                propertyBooked.oClient = client;
                                 propertiesBooked.Add(propertyBooked);
                             }
                         }
@@ -323,7 +376,6 @@ namespace Booking.Models.Dao.BookingDao
 
             return propertiesBooked;
         }
-
 
 
     }
