@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Boocking.Models.Entities;
 using Booking.Controllers;
 
 namespace Booking.Views.ClientsView
@@ -15,6 +16,7 @@ namespace Booking.Views.ClientsView
         {
             InitializeComponent();
             this.clientSelectedId = clientId;
+            GetOldClientData(clientSelectedId);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -37,6 +39,35 @@ namespace Booking.Views.ClientsView
             
             }
         } 
+
+        private void GetOldClientData(int clientSelectedId)
+        {
+            try
+            {
+                ClientEntity oldClient = new ClientEntity();
+                oldClient = clientController.GetClient(clientSelectedId);
+                LoadOldClientData(oldClient);
+            }
+            catch 
+            { 
+
+            }
+        }
+
+        private void LoadOldClientData(ClientEntity oldClient)
+        {
+            try
+            {
+                txtOldName.Text = oldClient.NAME;
+                txtOldLastName.Text = oldClient.LASTNAME;
+                txtOldNumber.Text = oldClient.PHONENUMBER;
+            }
+            catch
+            {
+
+            }
+        }
+
 
     }
 }

@@ -12,21 +12,22 @@ namespace Boocking.Views
 
         private void btnBookings_Click(object sender, EventArgs e)
         {
-            ClientsView clientsView = new ClientsView();
-            clientsView.Show();
-            this.Close();
+            BookingView bookingsView = new BookingView();
+            this.Hide();
+            bookingsView.Show();
         }
         private void btnClients_Click(object sender, EventArgs e)
         {
-            BookingView bookingsView = new BookingView();
-            bookingsView.Show();
-            this.Close();
+            ClientsView clientsView = new ClientsView();
+            this.Hide();
+            clientsView.Show();
         }
         private void btnArticles_Click(object sender, EventArgs e)
         {
             RentablesView rentableItemsView = new RentablesView();
+            this.Hide();
             rentableItemsView.Show();
-            this.Close();
         }
+
     }
 }

@@ -9,6 +9,12 @@
         private DateTime createdAt;
         private bool isDeleted;
 
+
+        public ClientEntity()
+        {
+
+        }
+
         public ClientEntity(string NAME, string LASTNAME, string PHONENUMBER)
         {
             this.name = NAME;
