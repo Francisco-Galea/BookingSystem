@@ -12,6 +12,7 @@ namespace Booking.Controllers.EntitiesController
         private readonly IPropertyFactory propertyFactory = new PropertyFactory();
         private readonly IPropertyDao propertyDao = new PropertyDaoSQLSERVER();
 
+        #region Create Property
         public void CreateProperty(string propertyType, string description, string costUsage, string location)
         {
             try
@@ -31,7 +32,9 @@ namespace Booking.Controllers.EntitiesController
                 throw;
             }
         }
+        #endregion
 
+        #region Update Property
         public void UpdateProperty(int rentableId, string propertyType, string description, string costUsage, string location)
         {
             try
@@ -51,12 +54,16 @@ namespace Booking.Controllers.EntitiesController
                 throw;
             }
         }
+        #endregion
 
+        #region Delete Property
         public void DeleteProperty(int rentableId)
         {
             propertyDao.DeleteEntity(rentableId);
         }
+        #endregion
 
+        #region Get Property Methods
         public PropertyEntity GetPropertyById(int rentableId)
         {
             return propertyDao.GetEntityById(rentableId);
@@ -66,6 +73,7 @@ namespace Booking.Controllers.EntitiesController
         {
             return propertyDao.GetAllEntities();
         }
+        #endregion
 
     }
 }

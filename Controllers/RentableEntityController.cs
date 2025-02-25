@@ -7,6 +7,7 @@ namespace Booking.Controllers
 
         private readonly IRentableEntityDao rentableEntityDao = new RentableEntityDaoSQLSERVER();
 
+        //A refactiruzar y eliminar
         public decimal GetEntityCostUsage(int rentableEntityId)
         {
             return rentableEntityDao.GetEntityCostUsage(rentableEntityId);

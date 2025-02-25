@@ -5,6 +5,8 @@ namespace Booking.Controllers
 {
     public class PaymentStrategyController
     {
+
+        //A refactorizar y eliminar
         public IStrategyFinalPriceBooking GetPaymentData(string paymentType)
         {
             IStrategyFinalPriceBooking strategySelected = new CashStrategy();

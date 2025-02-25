@@ -12,6 +12,7 @@ namespace Boocking.Controllers.EntitiesController
         private readonly IVehicleFactory vehicleFactory = new VehicleFactory();
         private readonly IVehicleDao vehicleDao = new VehicleDaoSQLSERVER();
 
+        #region Create Vehicle
         public void CreateVehicle(string vehicleType,string vehicleDescription,string costUsage,string vehicleBrand,string vehicleModel,string passengerCapacity,string serialNumber)
         {
             try
@@ -35,7 +36,9 @@ namespace Boocking.Controllers.EntitiesController
                 throw new Exception("Error al agregar un vehiculo: " + ex.Message);
             }
         }
+        #endregion
 
+        #region Update Vehicle
         public void UpdateVehicle(int rentableId, string vehicleType, string vehicleDescription, string costUsage, string vehicleBrand, string vehicleModel, string passengerCapacity, string serialNumber)
         {
             try
@@ -58,9 +61,10 @@ namespace Boocking.Controllers.EntitiesController
             {
                 throw;
             }
-
         }
+        #endregion
 
+        #region Get Vehicles Methods
         public VehicleEntity GetVehicleById(int rentableId)
         {
             return vehicleDao.GetEntityById(rentableId);
@@ -70,11 +74,14 @@ namespace Boocking.Controllers.EntitiesController
         {
             return vehicleDao.GetAllEntities();
         }
-        
+        #endregion
+
+        #region Delete Vehicle
         public void DeleteVehicle(int rentableId)
         {
             vehicleDao.DeleteEntity(rentableId);
         }
+        #endregion
 
     }
 }

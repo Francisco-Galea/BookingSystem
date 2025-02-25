@@ -9,6 +9,7 @@ namespace Booking.Controllers
 
         private readonly IClientDao clientDao = new ClientDaoSQLSERVER();
 
+        #region Create Client
         public void CreateClient(string clientName, string lastName, string phoneNumber)
         {
             try
@@ -30,7 +31,9 @@ namespace Booking.Controllers
                 throw new Exception("Ocurrió un error inesperado al agregar el cliente.", ex);
             }
         }
+        #endregion
 
+        #region Update Client
         public void UpdateClient(int clientId, string name, string lastName, string phoneNumber)
         {
             try
@@ -50,7 +53,9 @@ namespace Booking.Controllers
                 throw new Exception("Ocurrió un error inesperado al agregar el cliente.", ex);
             }
         }
+        #endregion
 
+        #region Delete Client
         public void DeleteClient(int clientId)
         {
             try
@@ -66,7 +71,9 @@ namespace Booking.Controllers
                 throw new Exception("Ocurrió un error inesperado al eliminar el cliente.", ex);
             }
         }
+        #endregion
 
+        #region Get Client Methods
         public ClientEntity GetClient(int clientId)
         {
             try
@@ -98,6 +105,7 @@ namespace Booking.Controllers
                 throw new Exception("Ocurrió un error inesperado al obtener la lista de clientes.", ex);
             }
         }
+        #endregion
 
     }
 }
