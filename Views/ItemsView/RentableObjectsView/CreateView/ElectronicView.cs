@@ -1,11 +1,16 @@
-﻿
+﻿using Boocking.Views.BookingsView;
+
 namespace Boocking.Views.RentableObjectsView
 {
     public partial class ElectronicView : Form
     {
-        public ElectronicView()
+
+        private readonly RentablesView rentablesView;
+
+        public ElectronicView(RentablesView rentablesView)
         {
             InitializeComponent();
+            this.rentablesView = rentablesView;
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -13,9 +18,10 @@ namespace Boocking.Views.RentableObjectsView
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
+            rentablesView.Show();
         }
     }
 }

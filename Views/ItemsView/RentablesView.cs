@@ -1,4 +1,5 @@
-﻿using Boocking.Views.RentableObjectsView;
+﻿using Boocking.Views.ItemsView.RentableObjectsView;
+using Boocking.Views.RentableObjectsView;
 
 namespace Boocking.Views.BookingsView
 {
@@ -6,6 +7,10 @@ namespace Boocking.Views.BookingsView
     {
 
         private MainView mainView;
+        private VehicleView vehicleView;
+        private PropertyView propertyView;
+        private IndumentaryView indumentaryView;
+        private ElectronicView electronicView;
 
         public RentablesView(MainView mainView)
         {
@@ -15,21 +20,32 @@ namespace Boocking.Views.BookingsView
 
         private void btnShowIndumentary_Click(object sender, EventArgs e)
         {
-
+            if (indumentaryView == null || indumentaryView.IsDisposed)
+            {
+                indumentaryView = new IndumentaryView(this);
+            }
+            this.Hide();
+            indumentaryView.Show();
         }
 
         private void btnShowVehicles_Click(object sender, EventArgs e)
         {
-            VehicleView vehicleView = new VehicleView();
-            vehicleView.Show();
+            if (vehicleView == null || vehicleView.IsDisposed)
+            {
+                vehicleView = new VehicleView(this);  
+            }
             this.Hide();
+            vehicleView.Show();
         }
 
         private void btnShowProperties_Click(object sender, EventArgs e)
         {
-            PropertyView propertyView = new PropertyView();
-            propertyView.Show();
+            if (propertyView == null || propertyView.IsDisposed)
+            {
+                propertyView = new PropertyView(this); 
+            }
             this.Hide();
+            propertyView.Show();
         }
 
         private void btnShowElectronics_Click(object sender, EventArgs e)
@@ -42,5 +58,6 @@ namespace Boocking.Views.BookingsView
             this.Hide();
             mainView.Show();
         }
+
     }
 }

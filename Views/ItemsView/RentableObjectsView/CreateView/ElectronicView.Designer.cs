@@ -40,8 +40,8 @@
             txtBrand = new TextBox();
             txtModel = new TextBox();
             txtSerialNumber = new TextBox();
-            btnCancel = new Button();
             btnCreate = new Button();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // label1
@@ -152,17 +152,6 @@
             txtSerialNumber.Size = new Size(176, 31);
             txtSerialNumber.TabIndex = 11;
             // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(12, 526);
-            btnCancel.Margin = new Padding(2);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
-            btnCancel.TabIndex = 12;
-            btnCancel.Text = "Cancelar";
-            btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
-            // 
             // btnCreate
             // 
             btnCreate.Location = new Point(250, 526);
@@ -174,13 +163,23 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(3, 526);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(112, 34);
+            btnBack.TabIndex = 14;
+            btnBack.Text = "Volver";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // ElectronicView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(374, 572);
+            Controls.Add(btnBack);
             Controls.Add(btnCreate);
-            Controls.Add(btnCancel);
             Controls.Add(txtSerialNumber);
             Controls.Add(txtModel);
             Controls.Add(txtBrand);
@@ -214,7 +213,7 @@
         private TextBox txtBrand;
         private TextBox txtModel;
         private TextBox txtSerialNumber;
-        private Button btnCancel;
         private Button btnCreate;
+        private Button btnBack;
     }
 }

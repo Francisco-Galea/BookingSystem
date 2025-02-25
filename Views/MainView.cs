@@ -17,12 +17,12 @@ namespace Boocking.Views
 
         private void btnBookings_Click(object sender, EventArgs e)
         {
-            if (rentablesView == null || rentablesView.IsDisposed)
+            if (bookingView == null || bookingView.IsDisposed)
             {
-                rentablesView = new RentablesView(this);  // Creamos una nueva vista si no existe
+                bookingView = new BookingView(this);  // Creamos una nueva vista si no existe
             }
             this.Hide();
-            rentablesView.Show();
+            bookingView.Show();
         }
 
         private void btnClients_Click(object sender, EventArgs e)
@@ -37,12 +37,12 @@ namespace Boocking.Views
 
         private void btnArticles_Click(object sender, EventArgs e)
         {
-            if (bookingView == null || bookingView.IsDisposed)
+            if (rentablesView == null || rentablesView.IsDisposed)
             {
-                bookingView = new BookingView(this);  // Creamos una nueva vista si no existe
+                rentablesView = new RentablesView(this);  // Creamos una nueva vista si no existe
             }
             this.Hide();
-            bookingView.Show();
+            rentablesView.Show();
         }
 
     }

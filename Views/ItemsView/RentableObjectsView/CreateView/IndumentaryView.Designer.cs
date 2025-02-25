@@ -38,8 +38,8 @@
             txtCostUsage = new TextBox();
             txtSize = new TextBox();
             txtGenre = new TextBox();
-            btnCancel = new Button();
             btnCreate = new Button();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // label1
@@ -132,20 +132,9 @@
             txtGenre.Size = new Size(180, 31);
             txtGenre.TabIndex = 9;
             // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(12, 368);
-            btnCancel.Margin = new Padding(2);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
-            btnCancel.TabIndex = 10;
-            btnCancel.Text = "Cancelar";
-            btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
-            // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(285, 368);
+            btnCreate.Location = new Point(11, 377);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(112, 34);
@@ -154,13 +143,23 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(284, 376);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(112, 34);
+            btnBack.TabIndex = 12;
+            btnBack.Text = "Volver";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // IndumentaryView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(408, 422);
+            Controls.Add(btnBack);
             Controls.Add(btnCreate);
-            Controls.Add(btnCancel);
             Controls.Add(txtGenre);
             Controls.Add(txtSize);
             Controls.Add(txtCostUsage);
@@ -190,7 +189,7 @@
         private TextBox txtCostUsage;
         private TextBox txtSize;
         private TextBox txtGenre;
-        private Button btnCancel;
         private Button btnCreate;
+        private Button btnBack;
     }
 }

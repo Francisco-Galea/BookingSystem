@@ -1,4 +1,5 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
+using Boocking.Views.BookingsView;
 using Booking.Controllers.EntitiesController;
 using Booking.Views.ItemsView.RentableObjectsView.ModifyView;
 
@@ -8,10 +9,12 @@ namespace Boocking.Views.RentableObjectsView
     {
 
         private readonly PropertyController propertyController = new PropertyController();
+        private readonly RentablesView rentablesView;
 
-        public PropertyView()
+        public PropertyView(RentablesView rentablesView)
         {
             InitializeComponent();
+            this.rentablesView = rentablesView;
             CreateDataGridColumns();
             LoadProperties();
         }
@@ -52,7 +55,8 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            rentablesView.Show();
         }
 
         private void LoadProperties()
