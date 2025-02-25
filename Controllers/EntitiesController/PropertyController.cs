@@ -3,6 +3,7 @@ using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory.Interfaces;
 using Booking.Models.Factory;
 using Booking.Utility;
+using Microsoft.Data.SqlClient;
 
 namespace Booking.Controllers.EntitiesController
 {
@@ -26,9 +27,9 @@ namespace Booking.Controllers.EntitiesController
                 property.LOCATION = location;
                 propertyDao.InsertEntity(property);
             }
-            catch
+            catch (ArgumentException ex)
             {
-                throw;
+                throw new Exception("Error al agregar una propiedad: " + ex.Message);
             }
         }
         #endregion
@@ -56,9 +57,23 @@ namespace Booking.Controllers.EntitiesController
         #endregion
 
         #region Delete Property
-        public void DeleteProperty(int rentableId)
+        public void DeleteProperty(int rentableId, DialogResult result)
         {
-            propertyDao.DeleteEntity(rentableId);
+            try
+            {
+                if (result == DialogResult.Yes)
+                {
+                    propertyDao.DeleteEntity(rentableId);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al eliminar el vehiculo.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al eliminar el vehiculo.", ex);
+            }
         }
         #endregion
 

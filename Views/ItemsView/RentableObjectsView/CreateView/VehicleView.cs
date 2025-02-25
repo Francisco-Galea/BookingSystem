@@ -89,36 +89,38 @@ namespace Boocking.Views.RentableObjectsView
             rentablesView.Show();
         }
 
-        private void ClearRows()
-        {
-            dgvVehicles.Rows.Clear();
-        }
-
+        
         private void LoadVehicles()
         {
-            try
+            ClearRows();
+            List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
+            foreach (VehicleEntity vehicle in vehicles)
             {
-                ClearRows();
-                List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
-                foreach (VehicleEntity vehicle in vehicles)
-                {
-                    dgvVehicles.Rows.Add(
-                        
-                        vehicle.NAME,
-                        vehicle.BRAND,
-                        vehicle.MODEL,
-                        vehicle.PASSENGERCAPACITY,
-                        vehicle.COSTUSAGEPERDAY,
-                        vehicle.DESCRIPTION,
-                        vehicle.SERIALNUMBER,
-                        vehicle.VEHICLEID
-                        );
-                }
+                dgvVehicles.Rows.Add
+                    (
+                    vehicle.NAME,
+                    vehicle.BRAND,
+                    vehicle.MODEL,
+                    vehicle.PASSENGERCAPACITY,
+                    vehicle.COSTUSAGEPERDAY,
+                    vehicle.DESCRIPTION,
+                    vehicle.SERIALNUMBER,
+                    vehicle.VEHICLEID
+                    );
             }
-            catch (Exception ex)
-            {
+        }
 
-            }
+        #region Utility Methods
+        private void CreateDataGridColumns()
+        {
+            dgvVehicles.Columns.Add("Name", "Nombre");
+            dgvVehicles.Columns.Add("Brand", "Marca");
+            dgvVehicles.Columns.Add("Model", "Modelo");
+            dgvVehicles.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
+            dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvVehicles.Columns.Add("Description", "Descripción");
+            dgvVehicles.Columns.Add("SerialNumber", "Número de Serie");
+            dgvVehicles.Columns.Add("Rentableid", "Id rentable");
         }
 
         private void CleanTextBox()
@@ -132,17 +134,14 @@ namespace Boocking.Views.RentableObjectsView
             txtPassengerCapacity.Text = string.Empty;
         }
 
-        private void CreateDataGridColumns()
+        private void ClearRows()
         {
-            dgvVehicles.Columns.Add("Name", "Nombre");
-            dgvVehicles.Columns.Add("Brand", "Marca");
-            dgvVehicles.Columns.Add("Model", "Modelo");
-            dgvVehicles.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
-            dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvVehicles.Columns.Add("Description", "Descripción");
-            dgvVehicles.Columns.Add("SerialNumber", "Número de Serie");
-            dgvVehicles.Columns.Add("Rentableid", "Id rentable");
+            dgvVehicles.Rows.Clear();
         }
+
+
+
+        #endregion
 
     }
 }
