@@ -57,9 +57,13 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                 UpdateBookingView updateBookingView = new UpdateBookingView(bookingId);
                 updateBookingView.ShowDialog();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione una reserva a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,11 +72,19 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             try
             {
                 int bookingId = (int)dgvEntities.SelectedRows[0].Cells["bookingId"].Value;
-                bookingController.DeleteBooking(bookingId);
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar esta reserva?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                bookingController.DeleteBooking(bookingId, result);
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione una reserva a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
