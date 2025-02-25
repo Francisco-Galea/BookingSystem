@@ -21,6 +21,7 @@ namespace Booking.Controllers
                 case "Tarjeta de Crédito":
                     strategySelected = new CreditCardStrategy();
                     break;
+                
             }
             return strategySelected;
         }

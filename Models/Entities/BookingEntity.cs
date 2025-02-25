@@ -14,29 +14,30 @@ namespace Booking.Models.Entities
         private decimal finalPrice;
         private bool isPaid;
         private DateTime createdAt = DateTime.Now;
-        private bool isDeleted; //El softDelete 
+        private bool isDeleted;
 
-        public BookingEntity(DateOnly INITBOOKING, DateOnly ENDBOOKING, ClientEntity OCLIENT ,IStrategyFinalPriceBooking OSELECTEDSTRATEGY, int DAYSBOOKED, decimal FINALPRICE, bool ISPAID)
-        {
-            this.initBooking = INITBOOKING;
-            this.endBooking = ENDBOOKING;
-            this.oClient = OCLIENT;
-            this.oStrategySelected = OSELECTEDSTRATEGY;
-            this.daysBooked = DAYSBOOKED;
-            this.finalPrice = FINALPRICE;
-            this.isPaid = ISPAID;
-        }
+
+        #pragma warning disable CS8618 
+        public BookingEntity() { }
+        #pragma warning restore CS8618 
 
         public int BOOKINGID
         {
             get { return this.bookingId; }
-            set { this.bookingId = value; } 
+            set { this.bookingId = value; }
         }
 
         public int DAYSBOOKED
         {
             get { return this.daysBooked; }
-            set { this.daysBooked = value; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Los días reservados deben ser mayores a 0.");
+                }
+                this.daysBooked = value;
+            }
         }
 
         public DateOnly INITBOOKING
@@ -48,13 +49,27 @@ namespace Booking.Models.Entities
         public DateOnly ENDBOOKING
         {
             get { return this.endBooking; }
-            set {this.endBooking = value; }
+            set
+            {
+                if (value < this.initBooking)
+                {
+                    throw new ArgumentException("La fecha de finalización no puede ser anterior a la fecha de inicio.");
+                }
+                this.endBooking = value;
+            }
         }
 
         public ClientEntity OCLIENT
         {
             get { return this.oClient; }
-            set { this.oClient = value; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("El cliente no puede ser nulo.");
+                }
+                this.oClient = value;
+            }
         }
 
         public bool ISPAID
@@ -66,13 +81,27 @@ namespace Booking.Models.Entities
         public IStrategyFinalPriceBooking OSELECTEDSTRATEGY
         {
             get { return this.oStrategySelected; }
-            set { this.oStrategySelected = value; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("La estrategia de precio no puede ser nula.");
+                }
+                this.oStrategySelected = value;
+            }
         }
 
         public decimal FINALPRICE
         {
             get { return this.finalPrice; }
-            set { this.finalPrice = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("El precio final no puede ser negativo.");
+                }
+                this.finalPrice = value;
+            }
         }
 
     }

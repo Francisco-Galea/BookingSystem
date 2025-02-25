@@ -14,7 +14,7 @@ namespace Booking.Controllers
         private readonly RentableEntityController rentableEntityController = new RentableEntityController();
         private readonly IBookingDao bookingDao = new BookingDaoSQLSERVER();
 
-        public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client,  IStrategyFinalPriceBooking strategySelected, bool isChecked)
+        public void CreateBooking(int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client,  IStrategyFinalPriceBooking strategySelected, bool isPaid)
         {
             try
             {
@@ -24,7 +24,13 @@ namespace Booking.Controllers
                 DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-                BookingEntity booking = new BookingEntity(initBookingParsed, endBookingParsed, client, strategySelected, daysBooked, finalPrice, isChecked);
+                BookingEntity booking = new BookingEntity();
+                booking.INITBOOKING = initBookingParsed;
+                booking.ENDBOOKING = endBookingParsed;
+                booking.DAYSBOOKED = daysBooked;
+                booking.OCLIENT = client;
+                booking.OSELECTEDSTRATEGY = strategySelected;
+                booking.ISPAID = isPaid;
                 bookingDao.InsertEntity(booking, entityToRentId);
             }
             catch
@@ -68,7 +74,7 @@ namespace Booking.Controllers
             bookingDao.DeleteEntity(bookingId);
         }
 
-        public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client, IStrategyFinalPriceBooking strategySelected, bool isChecked)
+        public void UpdateBooking(int bookingId, int entityToRentId, DateTime initBooking, DateTime endBooking, ClientEntity client, IStrategyFinalPriceBooking strategySelected, bool isPaid)
         {
             try
             {
@@ -78,8 +84,14 @@ namespace Booking.Controllers
                 DateOnly endBookingParsed = ParseController.ParseToDateOnly(endBooking);
                 decimal entityCostUsage = rentableEntityController.GetEntityCostUsage(entityToRentId);
                 decimal finalPrice = strategySelected.CalculateTotalPriceBooking(entityCostUsage, daysBooked);
-                BookingEntity bookingEntity = new BookingEntity(initBookingParsed, endBookingParsed, client,strategySelected, daysBooked, finalPrice, isChecked);
-                bookingDao.UpdateEntity(bookingId, bookingEntity, entityToRentId);
+                BookingEntity booking = new BookingEntity();
+                booking.INITBOOKING = initBookingParsed;
+                booking.ENDBOOKING = endBookingParsed;
+                booking.DAYSBOOKED = daysBooked;
+                booking.OCLIENT = client;
+                booking.OSELECTEDSTRATEGY = strategySelected;
+                booking.ISPAID = isPaid;
+                bookingDao.UpdateEntity(bookingId, booking, entityToRentId);
             }
             catch
             {
