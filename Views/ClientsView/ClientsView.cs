@@ -22,10 +22,12 @@ namespace Booking.Views.ClientsView
                 string lastName = txtLastName.Text;
                 string phoneNumber = txtPhoneNumber.Text;
                 clientController.CreateClient(clientName, lastName, phoneNumber);
+                Getclients();
+                MessageBox.Show("Cliente agregado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

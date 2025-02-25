@@ -1,4 +1,4 @@
-﻿namespace Booking.Controllers.Utility
+﻿namespace Booking.Utility
 {
     public static class ParseController
     {

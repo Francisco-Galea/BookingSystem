@@ -16,12 +16,14 @@ namespace Boocking.Views
             this.Hide();
             bookingsView.Show();
         }
+
         private void btnClients_Click(object sender, EventArgs e)
         {
             ClientsView clientsView = new ClientsView();
             this.Hide();
             clientsView.Show();
         }
+
         private void btnArticles_Click(object sender, EventArgs e)
         {
             RentablesView rentableItemsView = new RentablesView();

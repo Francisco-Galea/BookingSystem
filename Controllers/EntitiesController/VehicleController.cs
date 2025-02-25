@@ -1,8 +1,8 @@
 ﻿using Boocking.Models.Dao.VehicleDao;
 using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory.Interfaces;
-using Booking.Controllers.Utility;
 using Booking.Models.Factory;
+using Booking.Utility;
 
 namespace Boocking.Controllers.EntitiesController
 {

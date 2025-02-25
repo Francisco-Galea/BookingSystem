@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Boocking.Models.Entities;
+﻿using Boocking.Models.Entities;
 using Booking.Controllers;
 
 namespace Booking.Views.ClientsView

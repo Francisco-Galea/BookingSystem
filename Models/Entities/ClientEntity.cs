@@ -10,7 +10,9 @@
         private bool isDeleted;
 
 
+        #pragma warning disable CS8618 
         public ClientEntity()
+        #pragma warning restore CS8618 
         {
 
         }
@@ -24,8 +26,8 @@
 
         public int CLIENTID
         {
-            get { return clientId; }
-            set { clientId = value; }
+            get { return this.clientId; }
+            set { this.clientId = value; }
         }
 
         public string NAME
@@ -33,19 +35,11 @@
             get { return this.name; }
             set
             {
-                try
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    if (string.IsNullOrWhiteSpace(value))
-                    {
-                        throw new ArgumentException("El nombre no puede estar vacío.");
-                    }
-                    this.name = value.Trim();
+                    throw new ArgumentException("El nombre no puede estar vacío.");
                 }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw;
-                }
+                this.name = value.Trim();
             }
         }
 
@@ -54,19 +48,11 @@
             get { return this.lastName; }
             set
             {
-                try
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    if (string.IsNullOrWhiteSpace(value))
-                    {
-                        throw new ArgumentException("El apellido no puede estar vacío.");
-                    }
-                    this.lastName = value.Trim();
+                    throw new ArgumentException("El apellido no puede estar vacío.");
                 }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw;
-                }
+                this.lastName = value.Trim();
             }
         }
 
@@ -75,19 +61,11 @@
             get { return this.phoneNumber; }
             set
             {
-                try
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    if (string.IsNullOrWhiteSpace(value))
-                    {
-                        throw new ArgumentException("El celular no puede estar vacío.");
-                    }
-                    this.phoneNumber = value.Trim();
+                    throw new ArgumentException("El número de teléfono no puede estar vacío.");
                 }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw;
-                }
+                this.phoneNumber = value.Trim();
             }
         }
 
