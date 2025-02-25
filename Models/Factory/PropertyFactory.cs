@@ -5,9 +5,9 @@ namespace Booking.Models.Factory
 {
     public class PropertyFactory : IPropertyFactory
     {
-        public PropertyEntity CreatePropertyEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string LOCATION)
+        public PropertyEntity CreatePropertyEntity()
         {
-            return new PropertyEntity(NAME, DESCRIPTION, COSTUSAGERPERDAY, LOCATION);
+            return new PropertyEntity();
         }
     }
 }

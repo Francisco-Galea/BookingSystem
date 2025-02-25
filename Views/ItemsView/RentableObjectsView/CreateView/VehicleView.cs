@@ -31,9 +31,9 @@ namespace Boocking.Views.RentableObjectsView
                 LoadVehicles();
                 CleanTextBox();
             }
-            catch
+            catch (Exception ex) 
             {
-                throw;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

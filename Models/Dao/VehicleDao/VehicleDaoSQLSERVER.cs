@@ -29,7 +29,7 @@ namespace Boocking.Models.Dao.VehicleDao
                     rentableCommand.Parameters.AddWithValue("@CostUsagePerDay", vehicle.COSTUSAGEPERDAY);
 
                     var rentableIdResult = rentableCommand.ExecuteScalar();
-                    int rentableId = Convert.ToInt32(rentableIdResult); // 
+                    int rentableId = Convert.ToInt32(rentableIdResult); 
 
                     string vehicleQuery = @"
                     INSERT INTO Vehicles (RentableId, Brand, Model, PassengerCapacity, SerialNumber)
@@ -58,7 +58,7 @@ namespace Boocking.Models.Dao.VehicleDao
 
         public VehicleEntity GetEntityById(int rentableId)
         {
-            VehicleEntity vehicleReturned = null; 
+            VehicleEntity? vehicleReturned = null; 
 
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
@@ -97,7 +97,9 @@ namespace Boocking.Models.Dao.VehicleDao
                     }
                 }
             }
-            return vehicleReturned; 
+            #pragma warning disable CS8603 // Posible tipo de valor devuelto de referencia nulo
+            return vehicleReturned;
+            #pragma warning restore CS8603 // Posible tipo de valor devuelto de referencia nulo
         }
 
         public List<VehicleEntity> GetAllEntities()
@@ -218,5 +220,6 @@ namespace Boocking.Models.Dao.VehicleDao
                 }
             }
         }
+
     }
 }

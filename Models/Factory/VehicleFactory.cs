@@ -6,9 +6,9 @@ namespace Booking.Models.Factory
 {
     public class VehicleFactory : IVehicleFactory
     {
-        public VehicleEntity CreateVehicleEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string BRAND, string MODEL, int PASSENGERCAPACITY, string SERIALNUMBER)
+        public VehicleEntity CreateVehicleEntity()
         {
-            return new VehicleEntity(NAME, DESCRIPTION, COSTUSAGEPERDAY, BRAND, MODEL, PASSENGERCAPACITY, SERIALNUMBER);
+            return new VehicleEntity();
         }
     }
 }

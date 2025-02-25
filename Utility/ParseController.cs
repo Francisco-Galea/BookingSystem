@@ -11,7 +11,6 @@
             }
             catch (FormatException)
             {
-                MessageBox.Show($"No se puede convertir '{input}' en entero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new FormatException($"Cannot parse '{input}' into int.");
             }
         }
@@ -22,9 +21,12 @@
             {
                 return decimal.Parse(input);
             }
+            catch(NullReferenceException)
+            {
+                throw new NullReferenceException("No se puede convertir un valor vacio en decimal");
+            }
             catch (FormatException)
             {
-                MessageBox.Show($"No se puede convertir '{input}' en decimal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new FormatException($"Cannot parse '{input}' into decimal");
             }
         }
@@ -37,7 +39,6 @@
             }
             catch
             {
-                MessageBox.Show($"No se puede convertir '{input}' en DateOnly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new FormatException($"Cannot parse '{input}' into DateOnly");
             }
         }

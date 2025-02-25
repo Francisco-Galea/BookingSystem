@@ -19,13 +19,20 @@ namespace Boocking.Controllers.EntitiesController
                 decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
                 int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
 
-                VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
+                VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity();
+                vehicle.NAME = vehicleType;
+                vehicle.DESCRIPTION = vehicleDescription;
+                vehicle.COSTUSAGEPERDAY = parsedCostUsage;
+                vehicle.BRAND = vehicleBrand;
+                vehicle.MODEL = vehicleModel;
+                vehicle.PASSENGERCAPACITY = parsedPassengerCapacty;
+                vehicle.SERIALNUMBER = serialNumber;
                 vehicleDao.InsertEntity(vehicle);
                 MessageBox.Show("Vehiculo creado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch
+            catch(ArgumentException ex) 
             {
-                throw;
+                throw new Exception("Error al agregar un vehiculo: " + ex.Message);
             }
         }
 
@@ -36,7 +43,14 @@ namespace Boocking.Controllers.EntitiesController
                 decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
                 int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
 
-                VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity(vehicleType, vehicleDescription, parsedCostUsage, vehicleBrand, vehicleModel, parsedPassengerCapacty, serialNumber);
+                VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity();
+                vehicle.NAME = vehicleType;
+                vehicle.DESCRIPTION = vehicleDescription;
+                vehicle.COSTUSAGEPERDAY = parsedCostUsage;
+                vehicle.BRAND = vehicleBrand;
+                vehicle.MODEL = vehicleModel;
+                vehicle.PASSENGERCAPACITY = parsedPassengerCapacty;
+                vehicle.SERIALNUMBER = serialNumber;
                 vehicleDao.UpdateEntity(rentableId, vehicle);
                 MessageBox.Show("Vehiculo actualizado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

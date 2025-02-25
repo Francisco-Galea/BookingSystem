@@ -18,7 +18,11 @@ namespace Booking.Controllers.EntitiesController
             {
                 decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
                 
-                PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
+                PropertyEntity property = propertyFactory.CreatePropertyEntity();
+                property.NAME = propertyType;
+                property.DESCRIPTION = description;
+                property.COSTUSAGEPERDAY = parsedCostUsage;
+                property.LOCATION = location;
                 propertyDao.InsertEntity(property);
                 MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -34,7 +38,11 @@ namespace Booking.Controllers.EntitiesController
             {
                 decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
 
-                PropertyEntity property = propertyFactory.CreatePropertyEntity(propertyType, description, parsedCostUsage, location);
+                PropertyEntity property = propertyFactory.CreatePropertyEntity();
+                property.NAME = propertyType;
+                property.DESCRIPTION = description;
+                property.COSTUSAGEPERDAY = parsedCostUsage;
+                property.LOCATION = location;
                 propertyDao.UpdateEntity(rentableId, property);
                 MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
