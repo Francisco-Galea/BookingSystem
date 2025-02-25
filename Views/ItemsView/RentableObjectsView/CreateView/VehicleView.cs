@@ -43,17 +43,44 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["Rentableid"].Value;
-            vehicleController.DeleteVehicle(rentableId);
-            LoadVehicles();
+            try
+            {
+
+                int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["Rentableid"].Value;
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este vehiculo?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                vehicleController.DeleteVehicle(rentableId, result);
+                LoadVehicles();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione un vehiculo a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdate_Click_1(object sender, EventArgs e)
         {
-            int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["Rentableid"].Value;
-            VehicleUpdateView vehicleUpdateView = new VehicleUpdateView(rentableId);
-            vehicleUpdateView.ShowDialog();
-            LoadVehicles();
+            try
+            {
+                int rentableId = (int)dgvVehicles.SelectedRows[0].Cells["Rentableid"].Value;
+                VehicleUpdateView vehicleUpdateView = new VehicleUpdateView(rentableId);
+                vehicleUpdateView.ShowDialog();
+                LoadVehicles();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione un vehiculo a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

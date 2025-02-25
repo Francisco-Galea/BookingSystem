@@ -11,7 +11,7 @@
             }
             catch (FormatException)
             {
-                throw new FormatException($"Cannot parse '{input}' into int.");
+                throw new FormatException($"No se puede convertir ' {input} ' en un entero.");
             }
         }
 
@@ -21,13 +21,9 @@
             {
                 return decimal.Parse(input);
             }
-            catch(NullReferenceException)
-            {
-                throw new NullReferenceException("No se puede convertir un valor vacio en decimal");
-            }
             catch (FormatException)
             {
-                throw new FormatException($"Cannot parse '{input}' into decimal");
+                throw new FormatException($"No se puede convertir ' {input} ' en decimal");
             }
         }
 
@@ -39,7 +35,7 @@
             }
             catch
             {
-                throw new FormatException($"Cannot parse '{input}' into DateOnly");
+                throw new FormatException($"Cannot parse ' {input} ' into DateOnly");
             }
         }
 
