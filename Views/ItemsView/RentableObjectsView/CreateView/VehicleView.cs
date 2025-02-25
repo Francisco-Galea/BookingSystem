@@ -72,14 +72,15 @@ namespace Boocking.Views.RentableObjectsView
                 foreach (VehicleEntity vehicle in vehicles)
                 {
                     dgvVehicles.Rows.Add(
-                        vehicle.VEHICLEID,
+                        
                         vehicle.NAME,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
                         vehicle.BRAND,
                         vehicle.MODEL,
+                        vehicle.PASSENGERCAPACITY,
+                        vehicle.COSTUSAGEPERDAY,
+                        vehicle.DESCRIPTION,
                         vehicle.SERIALNUMBER,
-                        vehicle.PASSENGERCAPACITY
+                        vehicle.VEHICLEID
                         );
                 }
             }
@@ -102,14 +103,14 @@ namespace Boocking.Views.RentableObjectsView
 
         private void CreateDataGridColumns()
         {
-            dgvVehicles.Columns.Add("Rentableid", "Id rentable");
             dgvVehicles.Columns.Add("Name", "Nombre");
-            dgvVehicles.Columns.Add("Description", "Descripción");
-            dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvVehicles.Columns.Add("Brand", "Marca");
             dgvVehicles.Columns.Add("Model", "Modelo");
-            dgvVehicles.Columns.Add("SerialNumber", "Número de Serie");
             dgvVehicles.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
+            dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvVehicles.Columns.Add("Description", "Descripción");
+            dgvVehicles.Columns.Add("SerialNumber", "Número de Serie");
+            dgvVehicles.Columns.Add("Rentableid", "Id rentable");
         }
 
     }
