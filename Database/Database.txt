@@ -1,0 +1,57 @@
+CREATE TABLE Clients (
+    ClientId INT IDENTITY(1,1) PRIMARY KEY, 
+    Name NVARCHAR(100) NOT NULL, 
+    LastName NVARCHAR(100) NOT NULL, 
+    PhoneNumber NVARCHAR(15) NOT NULL, 
+    CreatedAt DATETIME NOT NULL,
+    IsDeleted BIT NOT NULL DEFAULT 0 
+);
+
+CREATE TABLE Rentables (
+    RentableId INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(500) NULL,
+    CostUsagePerDay DECIMAL(18,2) NOT NULL,
+    IsDeleted BIT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE Vehicles (
+    RentableId INT,
+    VehicleId INT PRIMARY KEY IDENTITY(1,1),
+    Brand NVARCHAR(50) NOT NULL,
+    Model NVARCHAR(50) NOT NULL,
+    PassengerCapacity INT NOT NULL,
+    SerialNumber NVARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Vehicles_Rentables FOREIGN KEY (RentableId) 
+        REFERENCES Rentables(RentableId)
+);
+
+CREATE TABLE Properties (
+    RentableId INT,
+    PropertyId INT PRIMARY KEY IDENTITY(1,1),
+    Location NVARCHAR(200) NOT NULL,
+    CONSTRAINT FK_Properties_Rentables FOREIGN KEY (RentableId) 
+        REFERENCES Rentables(RentableId)
+);
+
+CREATE TABLE Bookings (
+    BookingId INT IDENTITY(1,1) PRIMARY KEY,
+    ClientId INT NOT NULL, -- Se agrega la relación con Clients
+    InitBooking DATE NOT NULL,
+    EndBooking DATE NOT NULL,
+    DaysBooked INT NOT NULL,
+    PaymentMethod NVARCHAR(100) NOT NULL,
+    TotalPrice DECIMAL(18,2) NOT NULL,
+    IsPaid BIT NOT NULL DEFAULT 0,
+    IsActiveToUpdate BIT NOT NULL DEFAULT 1, -- Si se puede modificar o no
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    IsDeleted BIT NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Bookings_Clients FOREIGN KEY (ClientId) REFERENCES Clients(ClientId) -- Relación con Clients
+);
+
+CREATE TABLE BookingRentable (
+    BookingId INT NOT NULL,
+    RentableId INT NOT NULL,
+    FOREIGN KEY (BookingId) REFERENCES Bookings(BookingId) ON DELETE CASCADE,
+    FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId) ON DELETE CASCADE
+);

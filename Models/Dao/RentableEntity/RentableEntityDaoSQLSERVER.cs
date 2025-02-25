@@ -1,0 +1,47 @@
+﻿using Boocking.Models.Entities.RentableEntities;
+using Booking.Models.Dao.ConnectionString;
+using Microsoft.Data.SqlClient;
+
+namespace Booking.Models.Dao.RentableEntity
+{
+    public class RentableEntityDaoSQLSERVER : IRentableEntityDao
+    {
+
+        private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
+
+        public decimal GetEntityCostUsage(int rentableEntityId)
+        {
+            decimal entityCostUsage = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT r.CostUsagePerDay 
+                                FROM Rentables r
+                                WHERE r.RentableId = @RentableId AND r.IsDeleted = 0";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@RentableId", rentableEntityId);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                entityCostUsage = reader.GetDecimal(0);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener el vehículo", ex);
+                    }
+                }
+            }
+            return entityCostUsage;
+        }
+    }
+}
