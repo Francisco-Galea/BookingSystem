@@ -5,6 +5,11 @@ namespace Boocking.Views
 {
     public partial class MainView : Form
     {
+
+        private RentablesView rentablesView;
+        private ClientsView clientsView;
+        private BookingView bookingView;
+
         public MainView()
         {
             InitializeComponent();
@@ -12,23 +17,32 @@ namespace Boocking.Views
 
         private void btnBookings_Click(object sender, EventArgs e)
         {
-            BookingView bookingsView = new BookingView();
+            if (rentablesView == null || rentablesView.IsDisposed)
+            {
+                rentablesView = new RentablesView(this);  // Creamos una nueva vista si no existe
+            }
             this.Hide();
-            bookingsView.Show();
+            rentablesView.Show();
         }
 
         private void btnClients_Click(object sender, EventArgs e)
         {
-            ClientsView clientsView = new ClientsView();
+            if (clientsView == null || clientsView.IsDisposed)
+            {
+                clientsView = new ClientsView(this);  // Creamos una nueva vista si no existe
+            }
             this.Hide();
             clientsView.Show();
         }
 
         private void btnArticles_Click(object sender, EventArgs e)
         {
-            RentablesView rentableItemsView = new RentablesView();
+            if (bookingView == null || bookingView.IsDisposed)
+            {
+                bookingView = new BookingView(this);  // Creamos una nueva vista si no existe
+            }
             this.Hide();
-            rentableItemsView.Show();
+            bookingView.Show();
         }
 
     }

@@ -38,9 +38,10 @@
             // 
             // btnShowVehicles
             // 
-            btnShowVehicles.Location = new Point(134, 76);
+            btnShowVehicles.Location = new Point(107, 61);
+            btnShowVehicles.Margin = new Padding(2, 2, 2, 2);
             btnShowVehicles.Name = "btnShowVehicles";
-            btnShowVehicles.Size = new Size(137, 34);
+            btnShowVehicles.Size = new Size(110, 27);
             btnShowVehicles.TabIndex = 9;
             btnShowVehicles.Text = "Vehiculos";
             btnShowVehicles.UseVisualStyleBackColor = true;
@@ -48,9 +49,10 @@
             // 
             // btnShowProperties
             // 
-            btnShowProperties.Location = new Point(134, 116);
+            btnShowProperties.Location = new Point(107, 93);
+            btnShowProperties.Margin = new Padding(2, 2, 2, 2);
             btnShowProperties.Name = "btnShowProperties";
-            btnShowProperties.Size = new Size(137, 34);
+            btnShowProperties.Size = new Size(110, 27);
             btnShowProperties.TabIndex = 10;
             btnShowProperties.Text = "Propiedades";
             btnShowProperties.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // btnShowIndumentary
             // 
-            btnShowIndumentary.Location = new Point(134, 36);
+            btnShowIndumentary.Location = new Point(107, 29);
+            btnShowIndumentary.Margin = new Padding(2, 2, 2, 2);
             btnShowIndumentary.Name = "btnShowIndumentary";
-            btnShowIndumentary.Size = new Size(137, 34);
+            btnShowIndumentary.Size = new Size(110, 27);
             btnShowIndumentary.TabIndex = 11;
             btnShowIndumentary.Text = "Indumentaria";
             btnShowIndumentary.UseVisualStyleBackColor = true;
@@ -68,9 +71,10 @@
             // 
             // btnShowElectronics
             // 
-            btnShowElectronics.Location = new Point(134, 156);
+            btnShowElectronics.Location = new Point(107, 125);
+            btnShowElectronics.Margin = new Padding(2, 2, 2, 2);
             btnShowElectronics.Name = "btnShowElectronics";
-            btnShowElectronics.Size = new Size(137, 34);
+            btnShowElectronics.Size = new Size(110, 27);
             btnShowElectronics.TabIndex = 12;
             btnShowElectronics.Text = "Electronica";
             btnShowElectronics.UseVisualStyleBackColor = true;
@@ -79,26 +83,29 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(65, 8);
+            label1.Location = new Point(52, 6);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(294, 25);
+            label1.Size = new Size(248, 20);
             label1.TabIndex = 13;
             label1.Text = "Seleccione lo que desea administrar";
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(300, 313);
+            btnBack.Location = new Point(240, 250);
+            btnBack.Margin = new Padding(2, 2, 2, 2);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(112, 34);
+            btnBack.Size = new Size(90, 27);
             btnBack.TabIndex = 14;
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
-            // ItemsView
+            // RentablesView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 359);
+            ClientSize = new Size(339, 287);
             Controls.Add(btnBack);
             Controls.Add(label1);
             Controls.Add(btnShowElectronics);
@@ -106,7 +113,7 @@
             Controls.Add(btnShowProperties);
             Controls.Add(btnShowVehicles);
             Margin = new Padding(2);
-            Name = "ItemsView";
+            Name = "RentablesView";
             Text = "Booking";
             ResumeLayout(false);
             PerformLayout();

@@ -1,8 +1,10 @@
 ﻿using Boocking.Controllers.EntitiesController;
 using Boocking.Models.Entities.RentableEntities;
+using Boocking.Views.BookingsView.BookingsHistorialView;
 using Boocking.Views.BookingsView.ToReserveView;
 using Booking.Controllers;
 using Booking.Controllers.EntitiesController;
+using Booking.Views.ClientsView;
 
 namespace Boocking.Views.BookingsView
 {
@@ -12,10 +14,13 @@ namespace Boocking.Views.BookingsView
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PropertyController propertyController = new PropertyController();
+        private MainView mainView;
+        private BookingsHistoricalView bookingsHistoricalView;
 
-        public BookingView()
+        public BookingView(MainView mainView)
         {
             InitializeComponent();
+            this.mainView = mainView;
         }
 
 
@@ -110,5 +115,20 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("Location", "Ubicacion");
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            mainView.Show();
+        }
+
+        private void btnMyBookings_Click(object sender, EventArgs e)
+        {
+            if (bookingsHistoricalView == null || bookingsHistoricalView.IsDisposed)
+            {
+                bookingsHistoricalView = new BookingsHistoricalView(this); 
+            }
+            this.Hide();
+            bookingsHistoricalView.Show();
+        }
     }
 }

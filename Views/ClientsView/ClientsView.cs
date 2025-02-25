@@ -1,4 +1,5 @@
 ﻿using Boocking.Models.Entities;
+using Boocking.Views;
 using Booking.Controllers;
 
 namespace Booking.Views.ClientsView
@@ -6,11 +7,13 @@ namespace Booking.Views.ClientsView
     public partial class ClientsView : Form
     {
 
+        private MainView mainView;
         private readonly ClientController clientController = new ClientController();
 
-        public ClientsView()
+        public ClientsView(MainView mainView)
         {
             InitializeComponent();
+            this.mainView = mainView;   
             Getclients();
         }
 
@@ -60,7 +63,8 @@ namespace Booking.Views.ClientsView
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            mainView.Show();
         }
 
         private void Getclients()

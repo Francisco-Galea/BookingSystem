@@ -67,6 +67,7 @@
             btnBack.Size = new Size(124, 29);
             btnBack.TabIndex = 21;
             btnBack.Text = "Volver";
+            btnBack.Click += btnBack_Click;
             // 
             // btnMyBookings
             // 
@@ -76,6 +77,7 @@
             btnMyBookings.TabIndex = 8;
             btnMyBookings.Text = "Mis reservas";
             btnMyBookings.UseVisualStyleBackColor = true;
+            btnMyBookings.Click += btnMyBookings_Click;
             // 
             // btnVehicles
             // 

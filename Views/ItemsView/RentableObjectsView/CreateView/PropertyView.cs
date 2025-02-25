@@ -25,6 +25,8 @@ namespace Boocking.Views.RentableObjectsView
                 string costUsage = txtCostUsage.Text;
                 string location = txtLocation.Text;
                 propertyController.CreateProperty(propertyType, description, costUsage, location);
+                MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 LoadProperties();
             }
             catch

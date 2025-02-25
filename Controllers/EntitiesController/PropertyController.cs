@@ -25,7 +25,6 @@ namespace Booking.Controllers.EntitiesController
                 property.COSTUSAGEPERDAY = parsedCostUsage;
                 property.LOCATION = location;
                 propertyDao.InsertEntity(property);
-                MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {

@@ -5,9 +5,12 @@ namespace Boocking.Views.BookingsView
     public partial class RentablesView : Form
     {
 
-        public RentablesView()
+        private MainView mainView;
+
+        public RentablesView(MainView mainView)
         {
             InitializeComponent();
+            this.mainView = mainView;
         }
 
         private void btnShowIndumentary_Click(object sender, EventArgs e)
@@ -34,5 +37,10 @@ namespace Boocking.Views.BookingsView
 
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            mainView.Show();
+        }
     }
 }

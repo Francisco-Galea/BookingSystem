@@ -7,10 +7,12 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
     public partial class BookingsHistoricalView : Form
     {
         private readonly BookingController bookingController = new BookingController();
+        private readonly BookingView bookingView;
 
-        public BookingsHistoricalView()
+        public BookingsHistoricalView(BookingView bookingView)
         {
             InitializeComponent();
+            this.bookingView = bookingView;
         }
 
         private void btnVehicles_Click(object sender, EventArgs e)
@@ -76,7 +78,8 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            bookingView.Show();
         }
 
         private void LoadVehiclesBookedData(List<BookingVehicleDTO> bookingVehicleDTOs)
