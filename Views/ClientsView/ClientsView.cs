@@ -7,7 +7,7 @@ namespace Booking.Views.ClientsView
     public partial class ClientsView : Form
     {
 
-        private MainView mainView;
+        private readonly MainView mainView;
         private readonly ClientController clientController = new ClientController();
 
         public ClientsView(MainView mainView)
@@ -90,32 +90,20 @@ namespace Booking.Views.ClientsView
 
         private void Getclients()
         {
-            try
-            {
-                List<ClientEntity> clients = new List<ClientEntity>();
-                clients = clientController.GetClients();
-                LoadClientsIntoDataGrid(clients);
-            }
-            catch
-            {
-
-            }
+            List<ClientEntity> clients = new List<ClientEntity>();
+            clients = clientController.GetClients();
+            LoadClientsIntoDataGrid(clients);
         }
 
         private void LoadClientsIntoDataGrid(List<ClientEntity> clients)
         {
-            try
+           
+            ClearDataGrid();
+            foreach (ClientEntity client in clients)
             {
-                ClearDataGrid();
-                foreach (ClientEntity client in clients)
-                {
-                    dgvClients.Rows.Add(client.CLIENTID, client.NAME, client.LASTNAME, client.PHONENUMBER);
-                }
+                dgvClients.Rows.Add(client.CLIENTID, client.NAME, client.LASTNAME, client.PHONENUMBER);
             }
-            catch
-            {
-
-            }
+            
         }
 
         private void ClearTextBox()
