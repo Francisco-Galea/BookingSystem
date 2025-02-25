@@ -41,10 +41,15 @@ namespace Booking.Views.ClientsView
                 int clientId = (int)dgvClients.SelectedRows[0].Cells["Clientid"].Value;
                 UpdateClientView updateClientView = new UpdateClientView(clientId);
                 updateClientView.ShowDialog();
+                Getclients();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione un valor a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -52,12 +57,22 @@ namespace Booking.Views.ClientsView
         {
             try
             {
+                
                 int clientId = (int)dgvClients.SelectedRows[0].Cells["Clientid"].Value;
-                clientController.DeleteClient(clientId);
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este cliente?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                clientController.DeleteClient(clientId, result);
+                Getclients();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione un valor a eliminar","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -65,6 +80,11 @@ namespace Booking.Views.ClientsView
         {
             this.Hide();
             mainView.Show();
+        }
+
+        private void ClearDataGrid()
+        {
+            dgvClients.Rows.Clear();
         }
 
         private void Getclients()
@@ -85,6 +105,7 @@ namespace Booking.Views.ClientsView
         {
             try
             {
+                ClearDataGrid();
                 foreach (ClientEntity client in clients)
                 {
                     dgvClients.Rows.Add(client.CLIENTID, client.NAME, client.LASTNAME, client.PHONENUMBER);

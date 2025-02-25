@@ -29,11 +29,12 @@ namespace Booking.Views.ClientsView
                 string lastName = txtNewLastName.Text;
                 string phoneNumber = txtNewNumber.Text;
                 clientController.UpdateClient(clientSelectedId, name, lastName, phoneNumber);
+                MessageBox.Show("Cliente actualizado con exito con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
-            catch 
-            { 
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         } 
 
