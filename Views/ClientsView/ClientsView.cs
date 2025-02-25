@@ -26,6 +26,7 @@ namespace Booking.Views.ClientsView
                 string phoneNumber = txtPhoneNumber.Text;
                 clientController.CreateClient(clientName, lastName, phoneNumber);
                 Getclients();
+                ClearTextBox();
                 MessageBox.Show("Cliente agregado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -115,6 +116,13 @@ namespace Booking.Views.ClientsView
             {
 
             }
+        }
+
+        private void ClearTextBox()
+        {
+            txtName.Clear();
+            txtLastName.Clear();
+            txtPhoneNumber.Clear();
         }
 
     }
