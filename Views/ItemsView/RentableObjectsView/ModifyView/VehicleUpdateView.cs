@@ -18,22 +18,15 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
 
         private void LoadOldVehicleData(int rentableId)
         {
-            try
-            {
-                VehicleEntity oldVehicleData = new VehicleEntity();
-                oldVehicleData = vehicleController.GetVehicleById(rentableId);
-                txtOldVehicle.Text = oldVehicleData.NAME;
-                txtOldBrand.Text = oldVehicleData.BRAND;
-                txtOldModel.Text = oldVehicleData.MODEL;
-                txtOldDescription.Text = oldVehicleData.DESCRIPTION;
-                txtOldCost.Text = oldVehicleData.COSTUSAGEPERDAY.ToString();
-                txtOldSerialNumber.Text = oldVehicleData.SERIALNUMBER;
-                txtOldPassenger.Text = oldVehicleData.PASSENGERCAPACITY.ToString();
-            }
-            catch 
-            { 
-            
-            }
+            VehicleEntity oldVehicleData = new VehicleEntity();
+            oldVehicleData = vehicleController.GetVehicleById(rentableId);
+            txtOldVehicle.Text = oldVehicleData.NAME;
+            txtOldBrand.Text = oldVehicleData.BRAND;
+            txtOldModel.Text = oldVehicleData.MODEL;
+            txtOldDescription.Text = oldVehicleData.DESCRIPTION;
+            txtOldCost.Text = oldVehicleData.COSTUSAGEPERDAY.ToString();
+            txtOldSerialNumber.Text = oldVehicleData.SERIALNUMBER;
+            txtOldPassenger.Text = oldVehicleData.PASSENGERCAPACITY.ToString();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -55,9 +48,9 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 vehicleController.UpdateVehicle(rentableVehicleId, vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

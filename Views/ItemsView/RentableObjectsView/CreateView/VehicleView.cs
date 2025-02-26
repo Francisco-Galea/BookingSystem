@@ -89,7 +89,6 @@ namespace Boocking.Views.RentableObjectsView
             rentablesView.Show();
         }
 
-        
         private void LoadVehicles()
         {
             ClearRows();

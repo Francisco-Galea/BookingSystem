@@ -7,10 +7,11 @@ namespace Boocking.Views.BookingsView
     {
 
         private MainView mainView;
-        private VehicleView vehicleView;
-        private PropertyView propertyView;
-        private IndumentaryView indumentaryView;
-        private ElectronicView electronicView;
+        private VehicleView? vehicleView;
+        private PropertyView? propertyView;
+        private IndumentaryView? indumentaryView;
+        private ElectronicView? electronicView;
+
 
         public RentablesView(MainView mainView)
         {
