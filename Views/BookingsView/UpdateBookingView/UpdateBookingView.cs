@@ -129,14 +129,14 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             {
                 dgvEntities.Rows.Add
                     (
-                        vehicle.VEHICLEID,
                         vehicle.NAME,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
                         vehicle.BRAND,
                         vehicle.MODEL,
+                        vehicle.DESCRIPTION,
+                        vehicle.COSTUSAGEPERDAY,
+                        vehicle.PASSENGERCAPACITY,
                         vehicle.SERIALNUMBER,
-                        vehicle.PASSENGERCAPACITY
+                        vehicle.VEHICLEID
                     );
             }
         }

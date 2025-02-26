@@ -90,11 +90,16 @@ namespace Booking.Controllers
             return bookingDao.GetVehiclesBooked();
         }
 
-        
         public List<BookingPropertyDTO> GetPropertyBookings()
         {
             return bookingDao.GetPropertiesBooked();
         }
+
+        public List<BookingIndumentaryDto> GetIndumentaryBookings()
+        {
+            return bookingDao.GetIndumentariesBooked();
+        }
+
         #endregion
 
         #region Delete booking

@@ -15,6 +15,7 @@ namespace Booking.Models.Dao.BookingDao
         void UpdateEntity(int bookingId, BookingEntity booking, int entityToRentId);
         List<BookingPropertyDTO> GetPropertiesBooked();
         List<BookingVehicleDTO> GetVehiclesBooked();
+        List<BookingIndumentaryDto> GetIndumentariesBooked();
         BookingCoreDataDto GetBookingCoreData(int bookingId);
         bool CheckAvailabilityForExistingBooking(int entityToRentId, int currentBookingId, DateOnly initBooking, DateOnly endBooking);
     }
