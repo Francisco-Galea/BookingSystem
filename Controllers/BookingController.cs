@@ -29,6 +29,7 @@ namespace Booking.Controllers
                 BookingEntity booking = new BookingEntity();
                 booking.INITBOOKING = initBookingParsed;
                 booking.ENDBOOKING = endBookingParsed;
+                booking.FINALPRICE = finalPrice;
                 booking.DAYSBOOKED = daysBooked;
                 booking.OCLIENT = client;
                 booking.OSELECTEDSTRATEGY = strategySelected;
@@ -60,6 +61,7 @@ namespace Booking.Controllers
                 BookingEntity booking = new BookingEntity();
                 booking.INITBOOKING = initBookingParsed;
                 booking.ENDBOOKING = endBookingParsed;
+                booking.FINALPRICE = finalPrice;
                 booking.DAYSBOOKED = daysBooked;
                 booking.OCLIENT = client;
                 booking.OSELECTEDSTRATEGY = strategySelected;

@@ -75,7 +75,6 @@ namespace Booking.Models.Dao.BookingDao
                     SqlCommand deleteRentableCommand = new SqlCommand(deleteBookingQuery, connection, transaction);
                     deleteRentableCommand.Parameters.AddWithValue("@BookingId", bookingId);
                     deleteRentableCommand.ExecuteNonQuery();
-
                     transaction.Commit();
                 }
                 catch (Exception ex)

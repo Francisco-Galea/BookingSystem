@@ -42,7 +42,7 @@ namespace Boocking.Views.RentableObjectsView
         {
             try
             {
-                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["Rentableid"].Value;
                 PropertyUpdateView propertyUpdateView = new PropertyUpdateView(rentableId);
                 propertyUpdateView.ShowDialog();
                 LoadProperties();
@@ -61,7 +61,7 @@ namespace Boocking.Views.RentableObjectsView
         {
             try
             {
-                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["Rentableid"].Value;
                 DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este vehiculo?",
                                               "Confirmar eliminación",
                                               MessageBoxButtons.YesNo,

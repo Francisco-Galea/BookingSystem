@@ -116,8 +116,8 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                     vehicleBooked.totalPrice,
                     vehicleBooked.isPaid,
                     vehicleBooked.paymentMethod,
-                    vehicleBooked.rentableId,
-                    vehicleBooked.bookingId
+                    vehicleBooked.bookingId,
+                    vehicleBooked.rentableId
                     );
             }
         }
@@ -128,7 +128,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void GeneratePropertiesBookedColumns()
         {
-            dgvEntities.Columns.Add("bookinId", "Id");
+            dgvEntities.Columns.Add("bookingId", "Id");
             dgvEntities.Columns.Add("rentableName", "Articulo");
             dgvEntities.Columns.Add("rentableId", "Id Articulo");
             dgvEntities.Columns.Add("initBooking", "Inicio de reserva");
