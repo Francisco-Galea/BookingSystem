@@ -11,9 +11,16 @@ namespace Booking.Dtos.CoreDataBooking
     {
         public DateTime initBooking {  get; set; }
         public DateTime endBooking { get; set; }
+
+        #pragma warning disable CS8618 
         public string paymentMethod { get; set; }
+        #pragma warning restore CS8618 
+        
         public bool isPaid { get; set; }
+
+        #pragma warning disable CS8618 
         public ClientEntity oClient { get; set; }
+        #pragma warning restore CS8618 
 
     }
 }

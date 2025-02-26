@@ -10,7 +10,9 @@ namespace Boocking.Views
         private ClientsView clientsView;
         private BookingView bookingView;
 
+        #pragma warning disable CS8618 
         public MainView()
+        #pragma warning restore CS8618 
         {
             InitializeComponent();
         }
