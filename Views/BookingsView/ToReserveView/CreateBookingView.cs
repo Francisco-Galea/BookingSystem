@@ -7,15 +7,15 @@ namespace Boocking.Views.BookingsView.ToReserveView
     public partial class CreateBookingView : Form
     {
 
-        private readonly int entityToRentId;
+        private readonly int rentableId;
         private readonly BookingController bookingController = new BookingController();
         private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
         private readonly ClientController clientController = new ClientController();
 
-        public CreateBookingView(int entityId)
+        public CreateBookingView(int rentableId)
         {
             InitializeComponent();
-            this.entityToRentId = entityId;
+            this.rentableId = rentableId;
             GetClients();
         }
 
@@ -29,13 +29,13 @@ namespace Boocking.Views.BookingsView.ToReserveView
                 IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
                 ClientEntity clientSelected = (ClientEntity)cbClients.SelectedItem;
                 bool isChecked = checkBoxIsPayed.Checked;
-                bool isAvailable = bookingController.CheckEntityAvailability(entityToRentId, initBooking, endBooking);
+                bool isAvailable = bookingController.CheckEntityAvailability(rentableId, initBooking, endBooking);
                 if (!isAvailable)
                 {
                     MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
                     return;
                 }
-                bookingController.CreateBooking(entityToRentId, initBooking, endBooking, clientSelected, paymentSelected, isChecked);
+                bookingController.CreateBooking(rentableId, initBooking, endBooking, clientSelected, paymentSelected, isChecked);
                 this.Close();
             }
             catch (Exception ex)

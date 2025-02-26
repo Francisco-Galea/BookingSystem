@@ -51,12 +51,12 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
 
         private void CreateDataGridColumns()
         {
+            dgvIndumentary.Columns.Add("rentableId", "Id");
             dgvIndumentary.Columns.Add("IndumentaryType", "Indumentaria");
             dgvIndumentary.Columns.Add("Description", "Descripccion");
             dgvIndumentary.Columns.Add("CostUsage", "Tarifa diaria");
             dgvIndumentary.Columns.Add("Size", "Talle");
             dgvIndumentary.Columns.Add("Genre", "Genero");
-            dgvIndumentary.Columns.Add("RentableId", "Id rentable");
         }
 
         private void LoadIndumentaries()
@@ -66,12 +66,12 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
             foreach (IndumentaryEntity indumentary in indumentaries)
             {
                 dgvIndumentary.Rows.Add(
+                    indumentary.RENTABLEID,
                     indumentary.NAME,
                     indumentary.DESCRIPTION,
                     indumentary.COSTUSAGEPERDAY,
                     indumentary.SIZE,
-                    indumentary.GENRE,
-                    indumentary.RENTABLEID
+                    indumentary.GENRE
                     );
             }
         }
@@ -92,7 +92,7 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
         {
             try
             {
-                int rentableId = (int)dgvIndumentary.SelectedRows[0].Cells["Rentableid"].Value;
+                int rentableId = (int)dgvIndumentary.SelectedRows[0].Cells["rentableid"].Value;
                 DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar esta indumentaria?",
                                               "Confirmar eliminación",
                                               MessageBoxButtons.YesNo,

@@ -27,8 +27,8 @@ namespace Boocking.Views.BookingsView
         {
             try
             {
-                int entityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
-                CreateBookingView creatingBooking = new CreateBookingView(entityId);
+                int entityToRentId = (int)dgvEntities.SelectedRows[0].Cells["rentableId"].Value;
+                CreateBookingView creatingBooking = new CreateBookingView(entityToRentId);
                 creatingBooking.ShowDialog();
             }
             catch (NullReferenceException)
@@ -65,6 +65,7 @@ namespace Boocking.Views.BookingsView
 
         private void CreateVehicleDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableid", "Id");
             dgvEntities.Columns.Add("Name", "Nombre");
             dgvEntities.Columns.Add("Brand", "Marca");
             dgvEntities.Columns.Add("Model", "Modelo");
@@ -72,7 +73,6 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
             dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
         private void btnVehicles_Click(object sender, EventArgs e)
@@ -84,14 +84,14 @@ namespace Boocking.Views.BookingsView
                 foreach (VehicleEntity vehicle in vehicles)
                 {
                     dgvEntities.Rows.Add(
+                        vehicle.RENTABLEID,
                         vehicle.NAME,
                         vehicle.BRAND,
                         vehicle.MODEL,
                         vehicle.DESCRIPTION,
                         vehicle.COSTUSAGEPERDAY,
                         vehicle.PASSENGERCAPACITY,
-                        vehicle.SERIALNUMBER,
-                        vehicle.VEHICLEID
+                        vehicle.SERIALNUMBER
                         );
                 }
             
@@ -111,11 +111,11 @@ namespace Boocking.Views.BookingsView
                 foreach (PropertyEntity property in properties)
                 {
                     dgvEntities.Rows.Add(
+                        property.RENTABLEID,
                         property.NAME,
                         property.DESCRIPTION,
                         property.LOCATION,
-                        property.COSTUSAGEPERDAY,
-                        property.PROPERTYID
+                        property.COSTUSAGEPERDAY
                         );
                 }
             }
@@ -127,11 +127,11 @@ namespace Boocking.Views.BookingsView
 
         private void CreatePropertiesDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Propiedad");
             dgvEntities.Columns.Add("Description", "Descripción");
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("Location", "Ubicacion");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
         #endregion
@@ -164,24 +164,23 @@ namespace Boocking.Views.BookingsView
             foreach(IndumentaryEntity indumentary in indumentaries)
             {
                 dgvEntities.Rows.Add(
-                    indumentary.NAME,
+                    indumentary.RENTABLEID,
                     indumentary.DESCRIPTION,
                     indumentary.COSTUSAGEPERDAY,
                     indumentary.SIZE,
-                    indumentary.GENRE,
-                    indumentary.INDUMENTARYID
+                    indumentary.GENRE
                     );
             }
         }
 
         private void CreateIndumentaryDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Indumentaria");
             dgvEntities.Columns.Add("Description", "Descripción");
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("Size", "Talle");
             dgvEntities.Columns.Add("Genre", "Genero");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
     }

@@ -31,7 +31,7 @@
             dgvEntities = new DataGridView();
             btnVehicles = new Button();
             btnProperties = new Button();
-            btnIndumentary = new Button();
+            btnIndumentaries = new Button();
             btnElectronic = new Button();
             dtpInitBooking = new DateTimePicker();
             label1 = new Label();
@@ -90,16 +90,18 @@
             btnProperties.TabIndex = 2;
             btnProperties.Text = "Propiedades";
             btnProperties.UseVisualStyleBackColor = true;
+            btnProperties.Click += btnProperties_Click;
             // 
-            // btnIndumentary
+            // btnIndumentaries
             // 
-            btnIndumentary.Location = new Point(699, 50);
-            btnIndumentary.Margin = new Padding(2);
-            btnIndumentary.Name = "btnIndumentary";
-            btnIndumentary.Size = new Size(138, 34);
-            btnIndumentary.TabIndex = 3;
-            btnIndumentary.Text = "Indumentaria";
-            btnIndumentary.UseVisualStyleBackColor = true;
+            btnIndumentaries.Location = new Point(699, 50);
+            btnIndumentaries.Margin = new Padding(2);
+            btnIndumentaries.Name = "btnIndumentaries";
+            btnIndumentaries.Size = new Size(138, 34);
+            btnIndumentaries.TabIndex = 3;
+            btnIndumentaries.Text = "Indumentaria";
+            btnIndumentaries.UseVisualStyleBackColor = true;
+            btnIndumentaries.Click += btnIndumentaries_Click;
             // 
             // btnElectronic
             // 
@@ -374,7 +376,7 @@
             Controls.Add(label1);
             Controls.Add(dtpInitBooking);
             Controls.Add(btnElectronic);
-            Controls.Add(btnIndumentary);
+            Controls.Add(btnIndumentaries);
             Controls.Add(btnProperties);
             Controls.Add(btnVehicles);
             Controls.Add(dgvEntities);
@@ -391,7 +393,7 @@
         private DataGridView dgvEntities;
         private Button btnVehicles;
         private Button btnProperties;
-        private Button btnIndumentary;
+        private Button btnIndumentaries;
         private Button btnElectronic;
         private DateTimePicker dtpInitBooking;
         private Label label1;

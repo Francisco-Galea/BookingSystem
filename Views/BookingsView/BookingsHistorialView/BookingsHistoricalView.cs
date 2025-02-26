@@ -83,7 +83,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void GenerateVehiclesBookedColumns()
         {
-            dgvEntities.Columns.Add("bookingId", "Id");
+            dgvEntities.Columns.Add("bookingId", "Id de reserva");
             dgvEntities.Columns.Add("rentableName", "Articulo");
             dgvEntities.Columns.Add("brand", "Marca");
             dgvEntities.Columns.Add("model", "Modelo");
@@ -96,7 +96,6 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             dgvEntities.Columns.Add("totalPrice", "Precio total");
             dgvEntities.Columns.Add("isPaid", "Pagado");
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
-            dgvEntities.Columns.Add("rentableId", "Id Articulo");
         }
 
         private void LoadVehiclesBookedData(List<BookingVehicleDTO> bookingVehicleDTOs)
@@ -117,8 +116,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                     vehicleBooked.daysBooked,
                     vehicleBooked.totalPrice,
                     vehicleBooked.isPaid,
-                    vehicleBooked.paymentMethod,
-                    vehicleBooked.rentableId
+                    vehicleBooked.paymentMethod
                     );
             }
         }
@@ -129,9 +127,8 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void GeneratePropertiesBookedColumns()
         {
-            dgvEntities.Columns.Add("bookingId", "Id");
+            dgvEntities.Columns.Add("bookingId", "Id de reserva");
             dgvEntities.Columns.Add("rentableName", "Articulo");
-            dgvEntities.Columns.Add("rentableId", "Id Articulo");
             dgvEntities.Columns.Add("initBooking", "Inicio de reserva");
             dgvEntities.Columns.Add("endBooking", "Fin de reserva");
             dgvEntities.Columns.Add("daysBooked", "Dias reservado");
@@ -155,8 +152,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                     propertyBooked.daysBooked,
                     propertyBooked.totalPrice,
                     propertyBooked.isPaid,
-                    propertyBooked.paymentMethod,
-                    propertyBooked.rentableId
+                    propertyBooked.paymentMethod
                     );
             }
         }
@@ -210,8 +206,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                     indumentaryBooked.daysBooked,
                     indumentaryBooked.totalPrice,
                     indumentaryBooked.isPaid,
-                    indumentaryBooked.paymentMethod,
-                    indumentaryBooked.rentableId
+                    indumentaryBooked.paymentMethod
                     );
 
             }
@@ -232,7 +227,6 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             dgvEntities.Columns.Add("totalPrice", "Precio total");
             dgvEntities.Columns.Add("isPaid", "Pagado");
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
-            dgvEntities.Columns.Add("rentableId", "Id Articulo");
         }
 
     }

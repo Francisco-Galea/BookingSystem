@@ -61,7 +61,7 @@ namespace Boocking.Views.RentableObjectsView
         {
             try
             {
-                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["Rentableid"].Value;
+                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["rentableid"].Value;
                 DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este vehiculo?",
                                               "Confirmar eliminación",
                                               MessageBoxButtons.YesNo,
@@ -93,11 +93,11 @@ namespace Boocking.Views.RentableObjectsView
             {
                 dgvProperties.Rows.Add
                     (
+                    property.RENTABLEID,
                     property.NAME,
                     property.DESCRIPTION,
                     property.LOCATION,
-                    property.COSTUSAGEPERDAY,
-                    property.PROPERTYID
+                    property.COSTUSAGEPERDAY
                     );
             }
         }
@@ -106,11 +106,11 @@ namespace Boocking.Views.RentableObjectsView
 
         private void CreateDataGridColumns()
         {
+            dgvProperties.Columns.Add("rentableId", "Id");
             dgvProperties.Columns.Add("Name", "Propiedad");
             dgvProperties.Columns.Add("Description", "Descripción");
             dgvProperties.Columns.Add("Location", "Ubicacion");
             dgvProperties.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvProperties.Columns.Add("RentableId", "Id");
         }
 
         private void ClearRows()

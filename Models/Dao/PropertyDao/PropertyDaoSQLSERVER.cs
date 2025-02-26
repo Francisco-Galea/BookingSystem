@@ -96,7 +96,7 @@ namespace Boocking.Models.Dao.PropertyDao
                             while (reader.Read())
                             {
                                 PropertyEntity property = new PropertyEntity();
-                                property.PROPERTYID = reader.GetInt32(0);
+                                property.RENTABLEID = reader.GetInt32(0);
                                 property.NAME = reader.GetString(1);
                                 property.DESCRIPTION = reader.GetString(2);
                                 property.COSTUSAGEPERDAY = reader.GetDecimal(3);

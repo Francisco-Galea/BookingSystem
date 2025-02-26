@@ -47,7 +47,6 @@ namespace Booking.Controllers.EntitiesController
                 property.COSTUSAGEPERDAY = parsedCostUsage;
                 property.LOCATION = location;
                 propertyDao.UpdateEntity(rentableId, property);
-                MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (ArgumentException ex)
             {

@@ -131,7 +131,7 @@ namespace Boocking.Models.Dao.VehicleDao
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string query = @"
-                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
+                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity  
                                 FROM Vehicles v
                                 INNER JOIN Rentables r ON r.RentableId = v.RentableId
                                 WHERE r.IsDeleted = 0";
@@ -145,7 +145,7 @@ namespace Boocking.Models.Dao.VehicleDao
                             while (reader.Read())
                             {
                                 VehicleEntity vehicle = new VehicleEntity();
-                                vehicle.VEHICLEID = reader.GetInt32(0);
+                                vehicle.RENTABLEID = reader.GetInt32(0);
                                 vehicle.NAME = reader.GetString(1);
                                 vehicle.DESCRIPTION = reader.GetString(2);
                                 vehicle.COSTUSAGEPERDAY = reader.GetDecimal(3);
