@@ -47,11 +47,10 @@ namespace Booking.Controllers.EntitiesController
                 property.COSTUSAGEPERDAY = parsedCostUsage;
                 property.LOCATION = location;
                 propertyDao.UpdateEntity(rentableId, property);
-                MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch
+            catch (ArgumentException ex)
             {
-                throw;
+                throw new Exception("Error al modificar una propiedad: " + ex.Message);
             }
         }
         #endregion

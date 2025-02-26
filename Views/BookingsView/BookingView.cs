@@ -13,6 +13,7 @@ namespace Boocking.Views.BookingsView
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PropertyController propertyController = new PropertyController();
+        private readonly IndumentaryController indumentaryController = new IndumentaryController();
         private readonly MainView mainView;
         private BookingsHistoricalView? bookingsHistoricalView;
 
@@ -26,11 +27,11 @@ namespace Boocking.Views.BookingsView
         {
             try
             {
-                int entityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
-                CreateBookingView creatingBooking = new CreateBookingView(entityId);
+                int entityToRentId = (int)dgvEntities.SelectedRows[0].Cells["rentableId"].Value;
+                CreateBookingView creatingBooking = new CreateBookingView(entityToRentId);
                 creatingBooking.ShowDialog();
             }
-            catch (NullReferenceException) 
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Seleccione un articulo a alquilar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -64,6 +65,7 @@ namespace Boocking.Views.BookingsView
 
         private void CreateVehicleDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableid", "Id");
             dgvEntities.Columns.Add("Name", "Nombre");
             dgvEntities.Columns.Add("Brand", "Marca");
             dgvEntities.Columns.Add("Model", "Modelo");
@@ -71,34 +73,28 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
             dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
         private void btnVehicles_Click(object sender, EventArgs e)
         {
-            try
-            {
+
                 ClearDataGrid();
                 CreateVehicleDataGridColumns();
                 List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
                 foreach (VehicleEntity vehicle in vehicles)
                 {
                     dgvEntities.Rows.Add(
+                        vehicle.RENTABLEID,
                         vehicle.NAME,
                         vehicle.BRAND,
                         vehicle.MODEL,
                         vehicle.DESCRIPTION,
                         vehicle.COSTUSAGEPERDAY,
                         vehicle.PASSENGERCAPACITY,
-                        vehicle.SERIALNUMBER,
-                        vehicle.VEHICLEID
+                        vehicle.SERIALNUMBER
                         );
                 }
-            }
-            catch (Exception ex)
-            {
-
-            }
+            
         }
 
         #endregion
@@ -115,11 +111,11 @@ namespace Boocking.Views.BookingsView
                 foreach (PropertyEntity property in properties)
                 {
                     dgvEntities.Rows.Add(
+                        property.RENTABLEID,
                         property.NAME,
                         property.DESCRIPTION,
                         property.LOCATION,
-                        property.COSTUSAGEPERDAY,
-                        property.PROPERTYID
+                        property.COSTUSAGEPERDAY
                         );
                 }
             }
@@ -131,11 +127,11 @@ namespace Boocking.Views.BookingsView
 
         private void CreatePropertiesDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Propiedad");
             dgvEntities.Columns.Add("Description", "Descripción");
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("Location", "Ubicacion");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
         #endregion
@@ -159,6 +155,33 @@ namespace Boocking.Views.BookingsView
         }
 
         #endregion
+
+        private void btnIndumentaries_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            CreateIndumentaryDataGridColumns();
+            List<IndumentaryEntity> indumentaries = indumentaryController.GetAllIndumentaries();
+            foreach(IndumentaryEntity indumentary in indumentaries)
+            {
+                dgvEntities.Rows.Add(
+                    indumentary.RENTABLEID,
+                    indumentary.DESCRIPTION,
+                    indumentary.COSTUSAGEPERDAY,
+                    indumentary.SIZE,
+                    indumentary.GENRE
+                    );
+            }
+        }
+
+        private void CreateIndumentaryDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("Name", "Indumentaria");
+            dgvEntities.Columns.Add("Description", "Descripción");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("Size", "Talle");
+            dgvEntities.Columns.Add("Genre", "Genero");
+        }
 
     }
 }

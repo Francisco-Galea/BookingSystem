@@ -123,6 +123,7 @@
             btnIndumentary.TabIndex = 9;
             btnIndumentary.Text = "Indumentaria";
             btnIndumentary.UseVisualStyleBackColor = true;
+            btnIndumentary.Click += btnIndumentary_Click;
             // 
             // btnVehicles
             // 

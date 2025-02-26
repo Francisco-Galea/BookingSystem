@@ -6,9 +6,9 @@ namespace Boocking.Models.Factory
 {
     public class IndumentaryFactory : IIndumentaryFactory
     {
-        public RentableEntity CreateIndumentaryEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string SIZE, string GENRE)
+        public IndumentaryEntity CreateIndumentaryEntity()
         {
-            return new IndumentaryEntity(NAME, DESCRIPTION, COSTUSAGERPERDAY, SIZE, GENRE);
+            return new IndumentaryEntity();
         }
     }
 }

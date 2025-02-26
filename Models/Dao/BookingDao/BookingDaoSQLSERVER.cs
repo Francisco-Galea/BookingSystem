@@ -1,5 +1,4 @@
 ﻿using Boocking.Models.Entities;
-using Boocking.Models.Entities.RentableEntities;
 using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.ConnectionString;
@@ -75,7 +74,6 @@ namespace Booking.Models.Dao.BookingDao
                     SqlCommand deleteRentableCommand = new SqlCommand(deleteBookingQuery, connection, transaction);
                     deleteRentableCommand.Parameters.AddWithValue("@BookingId", bookingId);
                     deleteRentableCommand.ExecuteNonQuery();
-
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -377,6 +375,62 @@ namespace Booking.Models.Dao.BookingDao
             return propertiesBooked;
         }
 
+
+        public List<BookingIndumentaryDto> GetIndumentariesBooked()
+        {
+            List<BookingIndumentaryDto> indumentariesBooked = new List<BookingIndumentaryDto>();
+            ClientEntity client = new ClientEntity();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, i.Size, i.Genre, r.Description, c.Name, c.LastName, c.PhoneNumber
+                                FROM  BookingRentable br
+                                INNER JOIN Indumentaries i ON i.RentableId = br.RentableId
+                                INNER JOIN Bookings b ON b.BookingId = br.BookingId
+                                INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
+                                WHERE b.IsDeleted = 0
+                                ORDER BY b.EndBooking DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookingIndumentaryDto indumentaryBooked = new BookingIndumentaryDto();
+                                indumentaryBooked.bookingId = reader.GetInt32(0);
+                                indumentaryBooked.initBooking = reader.GetDateTime(1);
+                                indumentaryBooked.endBooking = reader.GetDateTime(2);
+                                indumentaryBooked.daysBooked = reader.GetInt32(3);
+                                indumentaryBooked.paymentMethod = reader.GetString(4);
+                                indumentaryBooked.totalPrice = reader.GetDecimal(5);
+                                indumentaryBooked.isPaid = reader.GetBoolean(6);
+                                indumentaryBooked.rentableId = reader.GetInt32(7);
+                                indumentaryBooked.rentableName = reader.GetString(8);
+                                indumentaryBooked.size = reader.GetString(9);
+                                indumentaryBooked.genre = reader.GetString(10);
+                                indumentaryBooked.description = reader.GetString(11);
+                                client.NAME = reader.GetString(12);
+                                client.LASTNAME = reader.GetString(13);
+                                client.PHONENUMBER = reader.GetString(14);
+                                indumentaryBooked.oClient = client;
+                                indumentariesBooked.Add(indumentaryBooked);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener las indumentarias", ex);
+                    }
+                }
+            }
+            return indumentariesBooked;
+        }
 
     }
 }

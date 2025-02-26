@@ -96,7 +96,7 @@ namespace Boocking.Models.Dao.PropertyDao
                             while (reader.Read())
                             {
                                 PropertyEntity property = new PropertyEntity();
-                                property.PROPERTYID = reader.GetInt32(0);
+                                property.RENTABLEID = reader.GetInt32(0);
                                 property.NAME = reader.GetString(1);
                                 property.DESCRIPTION = reader.GetString(2);
                                 property.COSTUSAGEPERDAY = reader.GetDecimal(3);
@@ -125,7 +125,7 @@ namespace Boocking.Models.Dao.PropertyDao
                                 SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
                                 FROM Properties p
                                 INNER JOIN Rentables r ON p.RentableId = r.RentableId
-                                WHERE p.PRentableId = @RentableId AND r.IsDeleted = 0";
+                                WHERE p.RentableId = @RentableId AND r.IsDeleted = 0";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -168,7 +168,7 @@ namespace Boocking.Models.Dao.PropertyDao
                 {
                     string updatePropertyQuery = @"
                                                     UPDATE Properties SET Location = @Location 
-                                                    WHERE WHERE RentableId = @RentableId";
+                                                    WHERE RentableId = @RentableId";
 
                     SqlCommand updatePropertyCommand = new SqlCommand(updatePropertyQuery, connection, transaction);
                     updatePropertyCommand.Parameters.AddWithValue("@RentableId", rentableId);

@@ -2,6 +2,7 @@
 using Boocking.Models.Entities;
 using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
+using Booking.Controllers.EntitiesController;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Strategy.Interface;
 
@@ -15,6 +16,10 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
         private readonly ClientController clientController = new ClientController();
+        private readonly IndumentaryController indumentaryController = new IndumentaryController();
+        private readonly PropertyController propertyController = new PropertyController();
+
+
 
         public UpdateBookingView(int bookingId)
         {
@@ -46,7 +51,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         {
             try
             {
-                int selectedEntityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
+                int selectedEntityId = (int)dgvEntities.SelectedRows[0].Cells["rentableId"].Value;
 
                 DateTime initBooking = dtpNewInitBooking.Value;
                 DateTime endBooking = dtpNewEndBooking.Value;
@@ -113,6 +118,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
 
         private void CreateVehicleDataGridColumns()
         {
+            dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Nombre");
             dgvEntities.Columns.Add("Brand", "Marca");
             dgvEntities.Columns.Add("Model", "Modelo");
@@ -120,7 +126,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
             dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
-            dgvEntities.Columns.Add("id", "Id");
         }
 
         private void LoadVehiclesData(List<VehicleEntity> vehicles)
@@ -129,14 +134,14 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             {
                 dgvEntities.Rows.Add
                     (
-                        vehicle.VEHICLEID,
+                        vehicle.RENTABLEID,
                         vehicle.NAME,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
                         vehicle.BRAND,
                         vehicle.MODEL,
-                        vehicle.SERIALNUMBER,
-                        vehicle.PASSENGERCAPACITY
+                        vehicle.DESCRIPTION,
+                        vehicle.COSTUSAGEPERDAY,
+                        vehicle.PASSENGERCAPACITY,
+                        vehicle.SERIALNUMBER
                     );
             }
         }
@@ -162,6 +167,46 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         }
 
         #endregion
+
+        private void btnProperties_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+        }
+
+        private void btnIndumentaries_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            GenerateIndumentariesDataGridColumns();
+            List<IndumentaryEntity> indumentaries = indumentaryController.GetAllIndumentaries();
+            LoadIndumentariesData(indumentaries);
+        }
+
+        private void GenerateIndumentariesDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("Name", "Indumentaria");
+            dgvEntities.Columns.Add("Description", "Descripción");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("Size", "Talle");
+            dgvEntities.Columns.Add("Genre", "Genero");
+        }
+
+
+        private void LoadIndumentariesData(List<IndumentaryEntity> indumentaries)
+        {
+            foreach (IndumentaryEntity indumentary in indumentaries)
+            {
+                dgvEntities.Rows.Add
+                    (
+                    indumentary.RENTABLEID,
+                    indumentary.NAME,
+                    indumentary.DESCRIPTION,
+                    indumentary.COSTUSAGEPERDAY,
+                    indumentary.SIZE,
+                    indumentary.GENRE
+                    );
+            }
+        }
 
     }
 }
