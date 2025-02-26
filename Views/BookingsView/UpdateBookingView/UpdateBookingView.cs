@@ -24,36 +24,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             GetClients();
         }
 
-        private void GetOldBookingData(int bookingEntityId)
-        {
-            try
-            {
-                BookingCoreDataDto bookingData = new BookingCoreDataDto();
-                bookingData = bookingController.GetBookingCoreData(bookingEntityId);
-                LoadOldBookingData(bookingData);
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void LoadOldBookingData(BookingCoreDataDto bookingData)
-        {
-            try
-            {
-                dtpInitBooking.Value = bookingData.initBooking;
-                dtpEndBooking.Value = bookingData.endBooking;
-                txtOldPaymentMethod.Text = bookingData.paymentMethod;
-                checkBoxOldIsPaid.Checked = bookingData.isPaid;
-                txtOldClient.Text = bookingData.oClient.ToString();
-            }
-            catch
-            {
-
-            }
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -61,54 +31,65 @@ namespace Booking.Views.BookingsView.UpdateBookingView
 
         private void btnVehicles_Click(object sender, EventArgs e)
         {
+            ClearDataGrid();
+            CreateVehicleDataGridColumns();
+            List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
+            LoadVehiclesData(vehicles);
+        }
+
+        private void btnUnselect_Click(object sender, EventArgs e)
+        {
+            dgvEntities.ClearSelection();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
             try
             {
-                ClearDataGrid();
-                CreateVehicleDataGridColumns();
-                List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
-                LoadVehiclesData(vehicles);
+                int selectedEntityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
+
+                DateTime initBooking = dtpNewInitBooking.Value;
+                DateTime endBooking = dtpNewEndBooking.Value;
+                string paymentMethod = cbNewPaymentMethod.Text;
+                IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+                ClientEntity clientSelected = (ClientEntity)cbNewClient.SelectedItem;
+                bool isPaid = checkBoxNewIsPaid.Checked;
+                bool isAvailable = bookingController.CheckAvailabilityForExistingBooking(selectedEntityId, bookingEntityId, initBooking, endBooking);
+                if (!isAvailable)
+                {
+                    MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
+                    return;
+                }
+                bookingController.UpdateBooking(bookingEntityId, selectedEntityId, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
+                this.Close();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione un vehiculo a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void LoadVehiclesData(List<VehicleEntity> vehicles)
+        #region Clients Methods
+
+        private void GetClients()
         {
-            try
-            {
-                foreach (VehicleEntity vehicle in vehicles)
-                {
-                    dgvEntities.Rows.Add(
-                        vehicle.VEHICLEID,
-                        vehicle.NAME,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
-                        vehicle.BRAND,
-                        vehicle.MODEL,
-                        vehicle.SERIALNUMBER,
-                        vehicle.PASSENGERCAPACITY
-                        );
-                }
-            }
-            catch
-            {
-
-            }
+            List<ClientEntity> clients = new List<ClientEntity>();
+            clients = clientController.GetClients();
+            LoadClients(clients);
         }
 
-        private void CreateVehicleDataGridColumns()
+        public void LoadClients(List<ClientEntity> clients)
         {
-            dgvEntities.Columns.Add("id", "Id");
-            dgvEntities.Columns.Add("Name", "Nombre");
-            dgvEntities.Columns.Add("Description", "Descripción");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvEntities.Columns.Add("Brand", "Marca");
-            dgvEntities.Columns.Add("Model", "Modelo");
-            dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
-            dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
+            cbNewClient.DataSource = clients;
         }
+
+        #endregion
+
+        #region Utility Methods
 
         private void ClearDataGrid()
         {
@@ -126,64 +107,61 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             dgvEntities.Rows.Clear();
         }
 
-        private void btnUnselect_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Vehicle Methods
+
+        private void CreateVehicleDataGridColumns()
         {
-            dgvEntities.ClearSelection();
+            dgvEntities.Columns.Add("Name", "Nombre");
+            dgvEntities.Columns.Add("Brand", "Marca");
+            dgvEntities.Columns.Add("Model", "Modelo");
+            dgvEntities.Columns.Add("Description", "Descripción");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
+            dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
+            dgvEntities.Columns.Add("id", "Id");
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void LoadVehiclesData(List<VehicleEntity> vehicles)
         {
-            try
+            foreach (VehicleEntity vehicle in vehicles)
             {
-                DateTime initBooking = dtpNewInitBooking.Value;
-                DateTime endBooking = dtpNewEndBooking.Value;
-                string paymentMethod = cbNewPaymentMethod.Text;
-                IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
-                ClientEntity clientSelected = (ClientEntity)cbNewClient.SelectedItem;
-                bool isPaid = checkBoxNewIsPaid.Checked;
-                int selectedEntityId = (int)dgvEntities.SelectedRows[0].Cells["id"].Value;
-
-                bool isAvailable = bookingController.CheckAvailabilityForExistingBooking(selectedEntityId, bookingEntityId, initBooking, endBooking);
-                if (!isAvailable)
-                {
-                    MessageBox.Show("La entidad no está disponible en las fechas solicitadas.");
-                    return;
-                }
-
-                bookingController.UpdateBooking(bookingEntityId, selectedEntityId, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
-                this.Close();
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void GetClients()
-        {
-            try
-            {
-                List<ClientEntity> clients = new List<ClientEntity>();
-                clients = clientController.GetClients();
-                LoadClients(clients);
-            }
-            catch
-            {
-
+                dgvEntities.Rows.Add
+                    (
+                        vehicle.VEHICLEID,
+                        vehicle.NAME,
+                        vehicle.DESCRIPTION,
+                        vehicle.COSTUSAGEPERDAY,
+                        vehicle.BRAND,
+                        vehicle.MODEL,
+                        vehicle.SERIALNUMBER,
+                        vehicle.PASSENGERCAPACITY
+                    );
             }
         }
 
-        public void LoadClients(List<ClientEntity> clients)
-        {
-            try
-            {
-                cbNewClient.DataSource = clients;
-            }
-            catch
-            {
+        #endregion
 
-            }
+        #region BookingMethods
+
+        private void GetOldBookingData(int bookingEntityId)
+        {
+            BookingCoreDataDto bookingData = new BookingCoreDataDto();
+            bookingData = bookingController.GetBookingCoreData(bookingEntityId);
+            LoadOldBookingData(bookingData);
         }
+
+        private void LoadOldBookingData(BookingCoreDataDto bookingData)
+        {
+            dtpInitBooking.Value = bookingData.initBooking;
+            dtpEndBooking.Value = bookingData.endBooking;
+            txtOldPaymentMethod.Text = bookingData.paymentMethod;
+            checkBoxOldIsPaid.Checked = bookingData.isPaid;
+            txtOldClient.Text = bookingData.oClient.ToString();
+        }
+
+        #endregion
 
     }
 }

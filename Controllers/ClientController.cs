@@ -46,7 +46,7 @@ namespace Booking.Controllers
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al agregar el cliente: " + ex.Message);
+                throw new Exception("Error al actualizar el cliente: " + ex.Message);
             }
             catch (Exception ex)
             {
@@ -56,11 +56,14 @@ namespace Booking.Controllers
         #endregion
 
         #region Delete Client
-        public void DeleteClient(int clientId)
+        public void DeleteClient(int clientId, DialogResult result)
         {
             try
             {
-                clientDao.DeleteEntity(clientId);
+                if(result == DialogResult.Yes)
+                {
+                    clientDao.DeleteEntity(clientId);
+                }
             }
             catch (SqlException ex)
             {

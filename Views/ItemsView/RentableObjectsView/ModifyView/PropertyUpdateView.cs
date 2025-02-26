@@ -27,26 +27,20 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 propertyController.UpdateProperty(rentablePropertyId, propertyType, description, costUsage, location);
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void LoadOldPropertyData(int rentableId)
         {
-            try
-            {
-                PropertyEntity oldPropertyData = new PropertyEntity();
-                oldPropertyData = propertyController.GetPropertyById(rentableId);
-                txtOldProperty.Text = oldPropertyData.NAME;
-                txtOldDescription.Text = oldPropertyData.DESCRIPTION;
-                txtOldCostUsage.Text = oldPropertyData.COSTUSAGEPERDAY.ToString();
-                txtOldLocation.Text = oldPropertyData.LOCATION;
-            }
-            catch
-            {
-            }
+            PropertyEntity oldPropertyData = new PropertyEntity();
+            oldPropertyData = propertyController.GetPropertyById(rentableId);
+            txtOldProperty.Text = oldPropertyData.NAME;
+            txtOldDescription.Text = oldPropertyData.DESCRIPTION;
+            txtOldCostUsage.Text = oldPropertyData.COSTUSAGEPERDAY.ToString();
+            txtOldLocation.Text = oldPropertyData.LOCATION;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

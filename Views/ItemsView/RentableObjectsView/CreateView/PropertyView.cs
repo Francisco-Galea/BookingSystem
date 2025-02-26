@@ -29,28 +29,54 @@ namespace Boocking.Views.RentableObjectsView
                 string location = txtLocation.Text;
                 propertyController.CreateProperty(propertyType, description, costUsage, location);
                 MessageBox.Show("Propiedad creada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                ClearTextBox();
                 LoadProperties();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
-            PropertyUpdateView propertyUpdateView = new PropertyUpdateView(rentableId);
-            propertyUpdateView.ShowDialog();
-            LoadProperties();
+            try
+            {
+                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+                PropertyUpdateView propertyUpdateView = new PropertyUpdateView(rentableId);
+                propertyUpdateView.ShowDialog();
+                LoadProperties();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione una propiedad a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
-            propertyController.DeleteProperty(rentableId);
-            LoadProperties();
+            try
+            {
+                int rentableId = (int)dgvProperties.SelectedRows[0].Cells["id"].Value;
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este vehiculo?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                propertyController.DeleteProperty(rentableId, result);
+                LoadProperties();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione una propiedad a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -61,25 +87,30 @@ namespace Boocking.Views.RentableObjectsView
 
         private void LoadProperties()
         {
-            try
+            ClearRows();
+            List<PropertyEntity> properties = propertyController.GetAllProperties();
+            foreach (PropertyEntity property in properties)
             {
-                ClearRows();
-                List<PropertyEntity> properties = propertyController.GetAllProperties();
-                foreach (PropertyEntity property in properties)
-                {
-                    dgvProperties.Rows.Add(
-                        property.PROPERTYID,
-                        property.NAME,
-                        property.DESCRIPTION,
-                        property.LOCATION,
-                        property.COSTUSAGEPERDAY
-                        );
-                }
+                dgvProperties.Rows.Add
+                    (
+                    property.NAME,
+                    property.DESCRIPTION,
+                    property.LOCATION,
+                    property.COSTUSAGEPERDAY,
+                    property.PROPERTYID
+                    );
             }
-            catch (Exception ex)
-            {
+        }
 
-            }
+        #region Utility Methods
+
+        private void CreateDataGridColumns()
+        {
+            dgvProperties.Columns.Add("Name", "Propiedad");
+            dgvProperties.Columns.Add("Description", "Descripción");
+            dgvProperties.Columns.Add("Location", "Ubicacion");
+            dgvProperties.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvProperties.Columns.Add("RentableId", "Id");
         }
 
         private void ClearRows()
@@ -87,14 +118,15 @@ namespace Boocking.Views.RentableObjectsView
             dgvProperties.Rows.Clear();
         }
 
-        private void CreateDataGridColumns()
+        private void ClearTextBox()
         {
-            dgvProperties.Columns.Add("RentableId", "Id");
-            dgvProperties.Columns.Add("Name", "Propiedad");
-            dgvProperties.Columns.Add("Description", "Descripción");
-            dgvProperties.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvProperties.Columns.Add("Location", "Ubicacion");
+            txtProperty.Clear();
+            txtDescription.Clear();
+            txtCostUsage.Clear();
+            txtLocation.Clear();
         }
+
+        #endregion
 
     }
 }

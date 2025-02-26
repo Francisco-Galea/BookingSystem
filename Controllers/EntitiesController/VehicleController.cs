@@ -3,6 +3,7 @@ using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory.Interfaces;
 using Booking.Models.Factory;
 using Booking.Utility;
+using Microsoft.Data.SqlClient;
 
 namespace Boocking.Controllers.EntitiesController
 {
@@ -77,9 +78,23 @@ namespace Boocking.Controllers.EntitiesController
         #endregion
 
         #region Delete Vehicle
-        public void DeleteVehicle(int rentableId)
+        public void DeleteVehicle(int rentableId, DialogResult result)
         {
-            vehicleDao.DeleteEntity(rentableId);
+            try
+            {
+                if(result == DialogResult.Yes)
+                {
+                    vehicleDao.DeleteEntity(rentableId);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al eliminar el vehiculo.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al eliminar el vehiculo.", ex);
+            }
         }
         #endregion
 

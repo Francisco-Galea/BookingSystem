@@ -5,6 +5,7 @@ using Booking.Models.Dao.BookingDao;
 using Booking.Models.Entities;
 using Booking.Models.Strategy.Interface;
 using Booking.Utility;
+using Microsoft.Data.SqlClient;
 
 namespace Booking.Controllers
 {
@@ -34,9 +35,13 @@ namespace Booking.Controllers
                 booking.ISPAID = isPaid;
                 bookingDao.InsertEntity(booking, entityToRentId);
             }
-            catch
+            catch (ArgumentException ex)
             {
-
+                throw new Exception("Error al agregar la reserva: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al agregar la reserva.", ex);
             }
         }
         #endregion
@@ -61,9 +66,13 @@ namespace Booking.Controllers
                 booking.ISPAID = isPaid;
                 bookingDao.UpdateEntity(bookingId, booking, entityToRentId);
             }
-            catch
+            catch (ArgumentException ex)
             {
-
+                throw new Exception("Error al actualizar la reserva: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al actualizar la reserva.", ex);
             }
         }
         #endregion
@@ -87,9 +96,23 @@ namespace Booking.Controllers
         #endregion
 
         #region Delete booking
-        public void DeleteBooking(int bookingId)
+        public void DeleteBooking(int bookingId, DialogResult result)
         {
-            bookingDao.DeleteEntity(bookingId);
+            try
+            {
+                if(result == DialogResult.Yes)
+                {
+                    bookingDao.DeleteEntity(bookingId);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al eliminar el cliente.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al eliminar el cliente.", ex);
+            }
         }
         #endregion
 

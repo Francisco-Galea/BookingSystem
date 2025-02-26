@@ -17,36 +17,20 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         private void btnVehicles_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ClearDataGrid();
-                GenerateVehiclesBookedColumns();
-                List<BookingVehicleDTO> bookingVehicleDTO = new List<BookingVehicleDTO>();
-                bookingVehicleDTO = bookingController.GetVehicleBookings();
-                LoadVehiclesBookedData(bookingVehicleDTO);
-            }
-            catch
-            { 
-            
-            }
+            ClearDataGrid();
+            GenerateVehiclesBookedColumns();
+            List<BookingVehicleDTO> bookingVehicleDTO = new List<BookingVehicleDTO>();
+            bookingVehicleDTO = bookingController.GetVehicleBookings();
+            LoadVehiclesBookedData(bookingVehicleDTO);
         }
 
         private void btnProperties_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ClearDataGrid();
-                GeneratePropertiesBookedColumns();
-                List<BookingPropertyDTO> bookingPropertiesDTO = new List<BookingPropertyDTO>();
-                bookingPropertiesDTO = bookingController.GetPropertyBookings();
-                LoadPropertiesBookedData(bookingPropertiesDTO);
-            }
-            catch
-            {
-
-            }
-
-
+            ClearDataGrid();
+            GeneratePropertiesBookedColumns();
+            List<BookingPropertyDTO> bookingPropertiesDTO = new List<BookingPropertyDTO>();
+            bookingPropertiesDTO = bookingController.GetPropertyBookings();
+            LoadPropertiesBookedData(bookingPropertiesDTO);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -57,9 +41,13 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                 UpdateBookingView updateBookingView = new UpdateBookingView(bookingId);
                 updateBookingView.ShowDialog();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione una reserva a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,11 +56,19 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             try
             {
                 int bookingId = (int)dgvEntities.SelectedRows[0].Cells["bookingId"].Value;
-                bookingController.DeleteBooking(bookingId);
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar esta reserva?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                bookingController.DeleteBooking(bookingId, result);
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione una reserva a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -82,77 +78,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             bookingView.Show();
         }
 
-        private void LoadVehiclesBookedData(List<BookingVehicleDTO> bookingVehicleDTOs)
-        {
-            try
-            {
-                foreach(BookingVehicleDTO vehicleBooked in  bookingVehicleDTOs)
-                {
-                    dgvEntities.Rows.Add(
-                        vehicleBooked.rentableName,
-                        vehicleBooked.brand,
-                        vehicleBooked.model,
-                        vehicleBooked.serialNumber,
-                        vehicleBooked.initBooking,
-                        vehicleBooked.endBooking,
-                        $"{vehicleBooked.oClient.NAME} {vehicleBooked.oClient.LASTNAME}",
-                        vehicleBooked.oClient.PHONENUMBER,
-                        vehicleBooked.daysBooked,
-                        vehicleBooked.totalPrice,
-                        vehicleBooked.isPaid,
-                        vehicleBooked.paymentMethod,
-                        vehicleBooked.rentableId,
-                        vehicleBooked.bookingId
-                        );
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void LoadPropertiesBookedData(List<BookingPropertyDTO> bookingPropertiesDTOs)
-        {
-            try
-            {
-                foreach (BookingPropertyDTO propertyBooked in bookingPropertiesDTOs)
-                {
-                    dgvEntities.Rows.Add(
-                        propertyBooked.bookingId,
-                        propertyBooked.rentableName,
-                        propertyBooked.rentableId,
-                        propertyBooked.initBooking,
-                        propertyBooked.endBooking,
-                        propertyBooked.daysBooked,
-                        propertyBooked.totalPrice,
-                        propertyBooked.isPaid,
-                        propertyBooked.paymentMethod,
-                        propertyBooked.Location
-                        );
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void ClearDataGrid()
-        {
-            ClearColumns();
-            ClearRows();
-        }
-
-        private void ClearColumns()
-        {
-            dgvEntities.Columns.Clear();
-        }
-
-        private void ClearRows()
-        {
-            dgvEntities.Rows.Clear();
-        }
+        #region Vehicles Methods
 
         private void GenerateVehiclesBookedColumns()
         {
@@ -170,8 +96,35 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
             dgvEntities.Columns.Add("bookingId", "Id");
             dgvEntities.Columns.Add("rentableId", "Id Articulo");
-
         }
+
+        private void LoadVehiclesBookedData(List<BookingVehicleDTO> bookingVehicleDTOs)
+        {
+            foreach (BookingVehicleDTO vehicleBooked in bookingVehicleDTOs)
+            {
+                dgvEntities.Rows.Add
+                    (
+                    vehicleBooked.rentableName,
+                    vehicleBooked.brand,
+                    vehicleBooked.model,
+                    vehicleBooked.serialNumber,
+                    vehicleBooked.initBooking,
+                    vehicleBooked.endBooking,
+                    $"{vehicleBooked.oClient.NAME} {vehicleBooked.oClient.LASTNAME}",
+                    vehicleBooked.oClient.PHONENUMBER,
+                    vehicleBooked.daysBooked,
+                    vehicleBooked.totalPrice,
+                    vehicleBooked.isPaid,
+                    vehicleBooked.paymentMethod,
+                    vehicleBooked.rentableId,
+                    vehicleBooked.bookingId
+                    );
+            }
+        }
+
+        #endregion
+
+        #region Properties Methods
 
         private void GeneratePropertiesBookedColumns()
         {
@@ -186,6 +139,48 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
             dgvEntities.Columns.Add("location", "Ubicacion");
         }
+
+        private void LoadPropertiesBookedData(List<BookingPropertyDTO> bookingPropertiesDTOs)
+        {
+            foreach (BookingPropertyDTO propertyBooked in bookingPropertiesDTOs)
+            {
+                dgvEntities.Rows.Add
+                    (
+                    propertyBooked.rentableName,
+                    propertyBooked.Location,
+                    propertyBooked.initBooking,
+                    propertyBooked.endBooking,
+                    propertyBooked.daysBooked,
+                    propertyBooked.totalPrice,
+                    propertyBooked.isPaid,
+                    propertyBooked.paymentMethod,
+                    propertyBooked.rentableId,
+                    propertyBooked.bookingId
+                    );
+            }
+        }
+
+        #endregion
+
+        #region Utility Methods
+
+        private void ClearDataGrid()
+        {
+            ClearColumns();
+            ClearRows();
+        }
+
+        private void ClearColumns()
+        {
+            dgvEntities.Columns.Clear();
+        }
+
+        private void ClearRows()
+        {
+            dgvEntities.Rows.Clear();
+        }
+
+        #endregion
 
     }
 }

@@ -16,8 +16,9 @@ namespace Booking.Models.Dao.ClientDao
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string insertQuery = @"
-                                    INSERT INTO Clients (Name, LastName, PhoneNumber, CreatedAt) 
-                                    VALUES (@Name, @LastName, @PhoneNumber, @CreatedAt);";
+                        INSERT INTO Clients (Name, LastName, PhoneNumber, CreatedAt) 
+                        VALUES (@Name, @LastName, @PhoneNumber, @CreatedAt);";
+
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(insertQuery, connection))
                     {
@@ -43,82 +44,98 @@ namespace Booking.Models.Dao.ClientDao
             }
         }
 
-        public ClientEntity GetEntityById(int clientId)
+        #pragma warning disable CS8766 
+        public ClientEntity? GetEntityById(int clientId)
+        #pragma warning restore CS8766 
         {
-            #pragma warning disable CS8600
-            ClientEntity client = null;
-            #pragma warning restore CS8600
+            ClientEntity? client = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            try
             {
-                string query = @"
-                                SELECT ClientId, Name, LastName, PhoneNumber FROM Clients WHERE IsDeleted = 0 AND ClientId = @clientId";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@ClientId", clientId);
+                    string query = @"
+                        SELECT ClientId, Name, LastName, PhoneNumber 
+                        FROM Clients WHERE IsDeleted = 0 AND ClientId = @ClientId";
 
-                    try
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        connection.Open();
+                        command.Parameters.AddWithValue("@ClientId", clientId);
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                client = new ClientEntity();
-                                client.CLIENTID = reader.GetInt32(0);
-                                client.NAME = reader.GetString(1);
-                                client.LASTNAME = reader.GetString(2);
-                                client.PHONENUMBER = reader.GetString(3);
+                                client = new ClientEntity
+                                {
+                                    CLIENTID = reader.GetInt32(0),
+                                    NAME = reader.GetString(1),
+                                    LASTNAME = reader.GetString(2),
+                                    PHONENUMBER = reader.GetString(3)
+                                };
                             }
                         }
                     }
-                    catch (SqlException ex)
-                    {
-                        throw new Exception("Error al obtener el cliente desde la base de datos.", ex);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        throw new Exception("Error de conexión con la base de datos.", ex);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Ocurrió un error inesperado al obtener el cliente.", ex);
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al obtener el cliente desde la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al obtener el cliente.", ex);
+            }
 
-            #pragma warning disable CS8603
             return client;
-            #pragma warning restore CS8603
         }
 
         public List<ClientEntity> GetAllEntities()
         {
             List<ClientEntity> clients = new List<ClientEntity>();
 
-            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            try
             {
-                string query = "SELECT ClientId, Name, LastName, PhoneNumber FROM Clients WHERE IsDeleted = 0";
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
+                    string query = "SELECT ClientId, Name, LastName, PhoneNumber FROM Clients WHERE IsDeleted = 0";
+
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             ClientEntity client = new ClientEntity
-                            (
-                                reader.GetString(1),
-                                reader.GetString(2),
-                                reader.GetString(3)
-                            );
-                            client.CLIENTID = reader.GetInt32(0);
+                            {
+                                CLIENTID = reader.GetInt32(0),
+                                NAME = reader.GetString(1),
+                                LASTNAME = reader.GetString(2),
+                                PHONENUMBER = reader.GetString(3)
+                            };
                             clients.Add(client);
                         }
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al obtener los clientes.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al obtener los clientes.", ex);
+            }
+
             return clients;
         }
 
@@ -129,12 +146,11 @@ namespace Booking.Models.Dao.ClientDao
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string updateQuery = @"
-                                            UPDATE Clients 
-                                            SET Name = @Name, 
-                                            LastName = @LastName, 
-                                            PhoneNumber = @PhoneNumber
-                                            WHERE ClientId = @ClientId AND IsDeleted = 0;";
+                        UPDATE Clients 
+                        SET Name = @Name, LastName = @LastName, PhoneNumber = @PhoneNumber
+                        WHERE ClientId = @ClientId AND IsDeleted = 0;";
 
+                    connection.Open();
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Name", entity.NAME);
@@ -142,9 +158,7 @@ namespace Booking.Models.Dao.ClientDao
                         command.Parameters.AddWithValue("@PhoneNumber", entity.PHONENUMBER);
                         command.Parameters.AddWithValue("@ClientId", clientId);
 
-                        connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
-
                         if (rowsAffected == 0)
                         {
                             throw new Exception("No se encontró un cliente activo con el ID proporcionado.");
@@ -173,17 +187,16 @@ namespace Booking.Models.Dao.ClientDao
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string deleteQuery = @"
-                                            UPDATE Clients 
-                                            SET IsDeleted = 1
-                                            WHERE ClientId = @ClientId AND IsDeleted = 0;";
+                        UPDATE Clients 
+                        SET IsDeleted = 1
+                        WHERE ClientId = @ClientId AND IsDeleted = 0;";
 
+                    connection.Open();
                     using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                     {
                         command.Parameters.AddWithValue("@ClientId", clientId);
 
-                        connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
-
                         if (rowsAffected == 0)
                         {
                             throw new Exception("No se encontró un cliente activo con el ID proporcionado.");

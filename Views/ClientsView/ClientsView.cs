@@ -7,7 +7,7 @@ namespace Booking.Views.ClientsView
     public partial class ClientsView : Form
     {
 
-        private MainView mainView;
+        private readonly MainView mainView;
         private readonly ClientController clientController = new ClientController();
 
         public ClientsView(MainView mainView)
@@ -26,6 +26,7 @@ namespace Booking.Views.ClientsView
                 string phoneNumber = txtPhoneNumber.Text;
                 clientController.CreateClient(clientName, lastName, phoneNumber);
                 Getclients();
+                ClearTextBox();
                 MessageBox.Show("Cliente agregado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -41,10 +42,15 @@ namespace Booking.Views.ClientsView
                 int clientId = (int)dgvClients.SelectedRows[0].Cells["Clientid"].Value;
                 UpdateClientView updateClientView = new UpdateClientView(clientId);
                 updateClientView.ShowDialog();
+                Getclients();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione un valor a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -52,12 +58,22 @@ namespace Booking.Views.ClientsView
         {
             try
             {
+                
                 int clientId = (int)dgvClients.SelectedRows[0].Cells["Clientid"].Value;
-                clientController.DeleteClient(clientId);
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este cliente?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                clientController.DeleteClient(clientId, result);
+                Getclients();
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-
+                MessageBox.Show("Seleccione un valor a eliminar","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -67,33 +83,34 @@ namespace Booking.Views.ClientsView
             mainView.Show();
         }
 
+        private void ClearDataGrid()
+        {
+            dgvClients.Rows.Clear();
+        }
+
         private void Getclients()
         {
-            try
-            {
-                List<ClientEntity> clients = new List<ClientEntity>();
-                clients = clientController.GetClients();
-                LoadClientsIntoDataGrid(clients);
-            }
-            catch
-            {
-
-            }
+            List<ClientEntity> clients = new List<ClientEntity>();
+            clients = clientController.GetClients();
+            LoadClientsIntoDataGrid(clients);
         }
 
         private void LoadClientsIntoDataGrid(List<ClientEntity> clients)
         {
-            try
+           
+            ClearDataGrid();
+            foreach (ClientEntity client in clients)
             {
-                foreach (ClientEntity client in clients)
-                {
-                    dgvClients.Rows.Add(client.CLIENTID, client.NAME, client.LASTNAME, client.PHONENUMBER);
-                }
+                dgvClients.Rows.Add(client.CLIENTID, client.NAME, client.LASTNAME, client.PHONENUMBER);
             }
-            catch
-            {
+            
+        }
 
-            }
+        private void ClearTextBox()
+        {
+            txtName.Clear();
+            txtLastName.Clear();
+            txtPhoneNumber.Clear();
         }
 
     }
