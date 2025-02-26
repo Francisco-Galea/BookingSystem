@@ -218,6 +218,5 @@ namespace Booking.Models.Dao.ClientDao
             }
         }
 
-
     }
 }
