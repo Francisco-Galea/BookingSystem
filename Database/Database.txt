@@ -55,3 +55,12 @@ CREATE TABLE BookingRentable (
     FOREIGN KEY (BookingId) REFERENCES Bookings(BookingId) ON DELETE CASCADE,
     FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId) ON DELETE CASCADE
 );
+
+CREATE TABLE Indumentaries (
+    RentableId INT,
+    IndumentaryId INT PRIMARY KEY IDENTITY(1,1),
+    Size NVARCHAR(10) NOT NULL,
+    Genre NVARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Indumentaries_Rentables FOREIGN KEY (RentableId) 
+        REFERENCES Rentables(RentableId)
+);

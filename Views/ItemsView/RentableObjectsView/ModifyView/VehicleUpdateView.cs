@@ -46,6 +46,7 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 string serialNumber = txtNewSerialNumber.Text;
                 string passengerCapacity = txtNewPassenger.Text;
                 vehicleController.UpdateVehicle(rentableVehicleId, vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                MessageBox.Show("Vehiculo actualizado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)

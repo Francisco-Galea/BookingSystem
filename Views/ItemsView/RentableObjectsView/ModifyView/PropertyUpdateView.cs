@@ -25,6 +25,7 @@ namespace Booking.Views.ItemsView.RentableObjectsView.ModifyView
                 string costUsage = txtNewCostUsage.Text;
                 string location = txtNewLocation.Text;
                 propertyController.UpdateProperty(rentablePropertyId, propertyType, description, costUsage, location);
+                MessageBox.Show("Propiedad actualizada con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)

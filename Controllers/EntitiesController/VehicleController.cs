@@ -56,11 +56,10 @@ namespace Boocking.Controllers.EntitiesController
                 vehicle.PASSENGERCAPACITY = parsedPassengerCapacty;
                 vehicle.SERIALNUMBER = serialNumber;
                 vehicleDao.UpdateEntity(rentableId, vehicle);
-                MessageBox.Show("Vehiculo actualizado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch
+            catch (ArgumentException ex)
             {
-                throw;
+                throw new Exception("Error al actualizar el vehiculo: " + ex.Message);
             }
         }
         #endregion

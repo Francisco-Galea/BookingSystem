@@ -78,7 +78,7 @@ namespace Boocking.Models.Dao.VehicleDao
                     string query = @"
                                 SELECT v.VehicleId, r.Name, r.Description, r.CostUsagePerDay, v.Brand, v.Model, v.SerialNumber, v.PassengerCapacity 
                                 FROM Vehicles v
-                                INNER JOIN Rentables r ON v.RentableId = r.RentableId
+                                INNER JOIN Rentables r ON r.RentableId = v.RentableId
                                 WHERE r.RentableId = @RentableId AND r.IsDeleted = 0";
 
                     using (SqlCommand command = new SqlCommand(query, connection))

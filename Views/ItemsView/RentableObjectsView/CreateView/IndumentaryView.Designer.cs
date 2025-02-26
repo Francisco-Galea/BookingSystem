@@ -40,12 +40,16 @@
             txtGenre = new TextBox();
             btnCreate = new Button();
             btnBack = new Button();
+            dgvIndumentary = new DataGridView();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvIndumentary).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(60, 18);
+            label1.Location = new Point(11, 9);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(181, 25);
@@ -55,7 +59,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(72, 79);
+            label2.Location = new Point(12, 69);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(104, 25);
@@ -65,7 +69,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(72, 141);
+            label3.Location = new Point(11, 129);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(101, 25);
@@ -75,7 +79,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(72, 202);
+            label4.Location = new Point(12, 189);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(45, 25);
@@ -85,7 +89,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(72, 265);
+            label5.Location = new Point(11, 249);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(69, 25);
@@ -94,7 +98,7 @@
             // 
             // txtIndimentaryType
             // 
-            txtIndimentaryType.Location = new Point(72, 45);
+            txtIndimentaryType.Location = new Point(12, 36);
             txtIndimentaryType.Margin = new Padding(2);
             txtIndimentaryType.Name = "txtIndimentaryType";
             txtIndimentaryType.Size = new Size(180, 31);
@@ -102,7 +106,7 @@
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(72, 108);
+            txtDescription.Location = new Point(11, 96);
             txtDescription.Margin = new Padding(2);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(180, 31);
@@ -110,7 +114,7 @@
             // 
             // txtCostUsage
             // 
-            txtCostUsage.Location = new Point(72, 169);
+            txtCostUsage.Location = new Point(11, 156);
             txtCostUsage.Margin = new Padding(2);
             txtCostUsage.Name = "txtCostUsage";
             txtCostUsage.Size = new Size(180, 31);
@@ -118,7 +122,7 @@
             // 
             // txtSize
             // 
-            txtSize.Location = new Point(72, 231);
+            txtSize.Location = new Point(12, 216);
             txtSize.Margin = new Padding(2);
             txtSize.Name = "txtSize";
             txtSize.Size = new Size(183, 31);
@@ -126,7 +130,7 @@
             // 
             // txtGenre
             // 
-            txtGenre.Location = new Point(72, 292);
+            txtGenre.Location = new Point(12, 276);
             txtGenre.Margin = new Padding(2);
             txtGenre.Name = "txtGenre";
             txtGenre.Size = new Size(180, 31);
@@ -134,10 +138,10 @@
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(11, 377);
+            btnCreate.Location = new Point(12, 322);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(112, 34);
+            btnCreate.Size = new Size(179, 34);
             btnCreate.TabIndex = 11;
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
@@ -145,7 +149,7 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(284, 376);
+            btnBack.Location = new Point(588, 436);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(112, 34);
             btnBack.TabIndex = 12;
@@ -153,11 +157,43 @@
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
+            // dgvIndumentary
+            // 
+            dgvIndumentary.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvIndumentary.Location = new Point(200, 9);
+            dgvIndumentary.Name = "dgvIndumentary";
+            dgvIndumentary.RowHeadersWidth = 62;
+            dgvIndumentary.Size = new Size(500, 421);
+            dgvIndumentary.TabIndex = 13;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(12, 361);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(179, 34);
+            btnUpdate.TabIndex = 14;
+            btnUpdate.Text = "Modificar";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(12, 401);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(179, 34);
+            btnDelete.TabIndex = 15;
+            btnDelete.Text = "Eliminar";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // IndumentaryView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(408, 422);
+            ClientSize = new Size(712, 476);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(dgvIndumentary);
             Controls.Add(btnBack);
             Controls.Add(btnCreate);
             Controls.Add(txtGenre);
@@ -173,6 +209,7 @@
             Margin = new Padding(2);
             Name = "IndumentaryView";
             Text = "IndumentaryView";
+            ((System.ComponentModel.ISupportInitialize)dgvIndumentary).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -191,5 +228,8 @@
         private TextBox txtGenre;
         private Button btnCreate;
         private Button btnBack;
+        private DataGridView dgvIndumentary;
+        private Button btnUpdate;
+        private Button btnDelete;
     }
 }

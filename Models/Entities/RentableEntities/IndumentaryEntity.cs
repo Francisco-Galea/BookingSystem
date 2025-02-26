@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Booking.Models.Entities;
+﻿using Booking.Models.Entities;
 
 namespace Boocking.Models.Entities.RentableEntities
 {
     public class IndumentaryEntity : RentableEntity
     {
         private int indumentaryId;
-        private string size;
-        private string genre;
+        private string? size;
+        private string? genre;
+
+        public IndumentaryEntity() : base () { }
 
         public IndumentaryEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string SIZE, string GENRE) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
@@ -27,14 +24,28 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public string SIZE
         {
-            get { return size; }
-            set { this.size = value; }
+            get { return this.size; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El talle no puede estar vacío.");
+                }
+                this.size = value.Trim();
+            }
         }
 
         public string GENRE
         {
-            get { return genre; }
-            set { this.genre = value; }
+            get { return this.genre; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El genero no puede estar vacío.");
+                }
+                this.genre = value.Trim();
+            }
         }
 
     }
