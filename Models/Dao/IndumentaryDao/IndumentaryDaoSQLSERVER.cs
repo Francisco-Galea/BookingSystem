@@ -64,7 +64,7 @@ namespace Booking.Models.Dao.IndumentaryDao
                             while (reader.Read())
                             {
                                 IndumentaryEntity indumentary = indumentaryFactory.CreateIndumentaryEntity();
-                                indumentary.RENTABLEID = reader.GetInt32(0);
+                                indumentary.INDUMENTARYID = reader.GetInt32(0);
                                 indumentary.NAME = reader.GetString(1);
                                 indumentary.DESCRIPTION = reader.GetString(2);
                                 indumentary.COSTUSAGEPERDAY = reader.GetDecimal(3);

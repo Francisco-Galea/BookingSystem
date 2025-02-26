@@ -13,6 +13,7 @@ namespace Boocking.Views.BookingsView
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PropertyController propertyController = new PropertyController();
+        private readonly IndumentaryController indumentaryController = new IndumentaryController();
         private readonly MainView mainView;
         private BookingsHistoricalView? bookingsHistoricalView;
 
@@ -30,7 +31,7 @@ namespace Boocking.Views.BookingsView
                 CreateBookingView creatingBooking = new CreateBookingView(entityId);
                 creatingBooking.ShowDialog();
             }
-            catch (NullReferenceException) 
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Seleccione un articulo a alquilar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -76,8 +77,7 @@ namespace Boocking.Views.BookingsView
 
         private void btnVehicles_Click(object sender, EventArgs e)
         {
-            try
-            {
+
                 ClearDataGrid();
                 CreateVehicleDataGridColumns();
                 List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
@@ -94,11 +94,7 @@ namespace Boocking.Views.BookingsView
                         vehicle.VEHICLEID
                         );
                 }
-            }
-            catch (Exception ex)
-            {
-
-            }
+            
         }
 
         #endregion
@@ -159,6 +155,34 @@ namespace Boocking.Views.BookingsView
         }
 
         #endregion
+
+        private void btnIndumentaries_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            CreateIndumentaryDataGridColumns();
+            List<IndumentaryEntity> indumentaries = indumentaryController.GetAllIndumentaries();
+            foreach(IndumentaryEntity indumentary in indumentaries)
+            {
+                dgvEntities.Rows.Add(
+                    indumentary.NAME,
+                    indumentary.DESCRIPTION,
+                    indumentary.COSTUSAGEPERDAY,
+                    indumentary.SIZE,
+                    indumentary.GENRE,
+                    indumentary.INDUMENTARYID
+                    );
+            }
+        }
+
+        private void CreateIndumentaryDataGridColumns()
+        {
+            dgvEntities.Columns.Add("Name", "Indumentaria");
+            dgvEntities.Columns.Add("Description", "Descripción");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("Size", "Talle");
+            dgvEntities.Columns.Add("Genre", "Genero");
+            dgvEntities.Columns.Add("id", "Id");
+        }
 
     }
 }

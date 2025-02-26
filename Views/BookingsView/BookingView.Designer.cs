@@ -33,10 +33,9 @@
             btnBack = new Button();
             btnMyBookings = new Button();
             btnVehicles = new Button();
-            btnIndumentary = new Button();
+            btnIndumentaries = new Button();
             btnProperties = new Button();
             button1 = new Button();
-            button2 = new Button();
             dgvEntities = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvEntities).BeginInit();
             SuspendLayout();
@@ -44,17 +43,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(15, 11);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(79, 20);
+            label1.Size = new Size(96, 25);
             label1.TabIndex = 0;
             label1.Text = "Buscar por";
             // 
             // btnToReserve
             // 
-            btnToReserve.Location = new Point(575, 199);
+            btnToReserve.Location = new Point(719, 249);
+            btnToReserve.Margin = new Padding(4, 4, 4, 4);
             btnToReserve.Name = "btnToReserve";
-            btnToReserve.Size = new Size(124, 29);
+            btnToReserve.Size = new Size(155, 36);
             btnToReserve.TabIndex = 4;
             btnToReserve.Text = "Reservar";
             btnToReserve.UseVisualStyleBackColor = true;
@@ -62,18 +63,20 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(575, 409);
+            btnBack.Location = new Point(719, 511);
+            btnBack.Margin = new Padding(4, 4, 4, 4);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(124, 29);
+            btnBack.Size = new Size(155, 36);
             btnBack.TabIndex = 21;
             btnBack.Text = "Volver";
             btnBack.Click += btnBack_Click;
             // 
             // btnMyBookings
             // 
-            btnMyBookings.Location = new Point(575, 234);
+            btnMyBookings.Location = new Point(719, 292);
+            btnMyBookings.Margin = new Padding(4, 4, 4, 4);
             btnMyBookings.Name = "btnMyBookings";
-            btnMyBookings.Size = new Size(124, 29);
+            btnMyBookings.Size = new Size(155, 36);
             btnMyBookings.TabIndex = 8;
             btnMyBookings.Text = "Mis reservas";
             btnMyBookings.UseVisualStyleBackColor = true;
@@ -81,28 +84,32 @@
             // 
             // btnVehicles
             // 
-            btnVehicles.Location = new Point(12, 32);
+            btnVehicles.Location = new Point(15, 40);
+            btnVehicles.Margin = new Padding(4, 4, 4, 4);
             btnVehicles.Name = "btnVehicles";
-            btnVehicles.Size = new Size(106, 29);
+            btnVehicles.Size = new Size(132, 36);
             btnVehicles.TabIndex = 15;
             btnVehicles.Text = "Vehiculos";
             btnVehicles.UseVisualStyleBackColor = true;
             btnVehicles.Click += btnVehicles_Click;
             // 
-            // btnIndumentary
+            // btnIndumentaries
             // 
-            btnIndumentary.Location = new Point(124, 31);
-            btnIndumentary.Name = "btnIndumentary";
-            btnIndumentary.Size = new Size(106, 29);
-            btnIndumentary.TabIndex = 16;
-            btnIndumentary.Text = "Indumentaria";
-            btnIndumentary.UseVisualStyleBackColor = true;
+            btnIndumentaries.Location = new Point(155, 39);
+            btnIndumentaries.Margin = new Padding(4, 4, 4, 4);
+            btnIndumentaries.Name = "btnIndumentaries";
+            btnIndumentaries.Size = new Size(132, 36);
+            btnIndumentaries.TabIndex = 16;
+            btnIndumentaries.Text = "Indumentaria";
+            btnIndumentaries.UseVisualStyleBackColor = true;
+            btnIndumentaries.Click += btnIndumentaries_Click;
             // 
             // btnProperties
             // 
-            btnProperties.Location = new Point(236, 31);
+            btnProperties.Location = new Point(295, 39);
+            btnProperties.Margin = new Padding(4, 4, 4, 4);
             btnProperties.Name = "btnProperties";
-            btnProperties.Size = new Size(106, 29);
+            btnProperties.Size = new Size(132, 36);
             btnProperties.TabIndex = 17;
             btnProperties.Text = "Propiedades";
             btnProperties.UseVisualStyleBackColor = true;
@@ -110,46 +117,39 @@
             // 
             // button1
             // 
-            button1.Location = new Point(348, 31);
+            button1.Location = new Point(435, 39);
+            button1.Margin = new Padding(4, 4, 4, 4);
             button1.Name = "button1";
-            button1.Size = new Size(106, 29);
+            button1.Size = new Size(132, 36);
             button1.TabIndex = 18;
             button1.Text = "Electronica";
             button1.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            button2.Location = new Point(460, 31);
-            button2.Name = "button2";
-            button2.Size = new Size(106, 28);
-            button2.TabIndex = 19;
-            button2.Text = "Nada jaja";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // dgvEntities
             // 
             dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEntities.Location = new Point(12, 66);
+            dgvEntities.Location = new Point(15, 82);
+            dgvEntities.Margin = new Padding(4, 4, 4, 4);
             dgvEntities.Name = "dgvEntities";
             dgvEntities.RowHeadersWidth = 51;
-            dgvEntities.Size = new Size(557, 372);
+            dgvEntities.Size = new Size(696, 465);
             dgvEntities.TabIndex = 2;
             // 
             // BookingView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(710, 445);
-            Controls.Add(button2);
+            ClientSize = new Size(888, 556);
             Controls.Add(button1);
             Controls.Add(btnProperties);
-            Controls.Add(btnIndumentary);
+            Controls.Add(btnIndumentaries);
             Controls.Add(btnVehicles);
             Controls.Add(btnMyBookings);
             Controls.Add(btnBack);
             Controls.Add(btnToReserve);
             Controls.Add(dgvEntities);
             Controls.Add(label1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "BookingView";
             Text = "Booking";
             ((System.ComponentModel.ISupportInitialize)dgvEntities).EndInit();
@@ -164,10 +164,9 @@
         private Button btnBack;
         private Button btnMyBookings;
         private Button btnVehicles;
-        private Button btnIndumentary;
+        private Button btnIndumentaries;
         private Button btnProperties;
         private Button button1;
-        private Button button2;
         private DataGridView dgvEntities;
     }
 }

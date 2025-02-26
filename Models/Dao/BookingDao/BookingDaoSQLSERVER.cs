@@ -1,5 +1,4 @@
 ﻿using Boocking.Models.Entities;
-using Boocking.Models.Entities.RentableEntities;
 using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.ConnectionString;

@@ -23,6 +23,9 @@ namespace Booking.Controllers
                 case "Tarjeta de Crédito":
                     strategySelected = new CreditCardStrategy();
                     break;
+
+                default:
+                    throw new Exception("Seleccione un metodo de pago");
                 
             }
             return strategySelected;
