@@ -38,7 +38,7 @@ namespace Booking.Models.Dao.RentableEntity
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al obtener el costo desde la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener el costo desde la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {

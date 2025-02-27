@@ -29,7 +29,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al eliminar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al eliminar la indumentaria en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -78,7 +78,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al obtener los vehiculos en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener las indumentarias en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -86,7 +86,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al obtener los vehiculos.", ex);
+                throw new Exception("Ocurrió un error inesperado al obtener las indumentarias.", ex);
             }
 
             return indumentaries;
@@ -129,7 +129,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al obtener la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener la indumentaria en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -189,7 +189,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al insertar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al insertar la indumentaria en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -254,7 +254,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al actualizar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al actualizar la indumentaria en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
