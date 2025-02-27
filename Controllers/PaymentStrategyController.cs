@@ -30,5 +30,6 @@ namespace Booking.Controllers
             }
             return strategySelected;
         }
+
     }
 }

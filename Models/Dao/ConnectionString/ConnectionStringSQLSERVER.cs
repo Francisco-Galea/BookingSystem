@@ -1,8 +1,8 @@
 ﻿namespace Booking.Models.Dao.ConnectionString
 {
-    public class ConnectionStringSQLSERVER
+    public sealed class ConnectionStringSQLSERVER
     {
-        private string connectionString = "Server=FRAN-GALEA\\SQLEXPRESS;Database=BookingSystem;TrustServerCertificate=true; Trusted_Connection=True;";
+        private readonly string connectionString = "Server=FRAN-GALEA\\SQLEXPRESS;Database=BookingSystem;TrustServerCertificate=true; Trusted_Connection=True;";
         #pragma warning disable CS8618 // Un campo que no acepta valores NULL 
         private static ConnectionStringSQLSERVER instance;
         #pragma warning restore CS8618 // Un campo que no acepta valores NULL 
