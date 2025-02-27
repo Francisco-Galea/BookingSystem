@@ -42,122 +42,126 @@
             txtSerialNumber = new TextBox();
             btnCreate = new Button();
             btnBack = new Button();
+            dgvElectronic = new DataGridView();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvElectronic).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(85, 18);
+            label1.Location = new Point(11, 9);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(101, 25);
+            label1.Size = new Size(83, 20);
             label1.TabIndex = 0;
             label1.Text = "Dispositivo";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(85, 96);
+            label2.Location = new Point(11, 60);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(104, 25);
+            label2.Size = new Size(87, 20);
             label2.TabIndex = 1;
             label2.Text = "Descripcion";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(85, 176);
+            label3.Location = new Point(11, 111);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(101, 25);
+            label3.Size = new Size(87, 20);
             label3.TabIndex = 2;
             label3.Text = "Tarifa diaria";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(85, 261);
+            label4.Location = new Point(11, 162);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(60, 25);
+            label4.Size = new Size(50, 20);
             label4.TabIndex = 3;
             label4.Text = "Marca";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(85, 340);
+            label5.Location = new Point(11, 213);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(74, 25);
+            label5.Size = new Size(61, 20);
             label5.TabIndex = 4;
             label5.Text = "Modelo";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(89, 418);
+            label6.Location = new Point(11, 264);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(143, 25);
+            label6.Size = new Size(119, 20);
             label6.TabIndex = 5;
             label6.Text = "Número de serie";
             // 
             // txtName
             // 
-            txtName.Location = new Point(89, 46);
+            txtName.Location = new Point(11, 31);
             txtName.Margin = new Padding(2);
             txtName.Name = "txtName";
-            txtName.Size = new Size(176, 31);
+            txtName.Size = new Size(176, 27);
             txtName.TabIndex = 6;
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(89, 124);
+            txtDescription.Location = new Point(11, 82);
             txtDescription.Margin = new Padding(2);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(176, 31);
+            txtDescription.Size = new Size(176, 27);
             txtDescription.TabIndex = 7;
             // 
             // txtCostUsage
             // 
-            txtCostUsage.Location = new Point(89, 204);
+            txtCostUsage.Location = new Point(11, 133);
             txtCostUsage.Margin = new Padding(2);
             txtCostUsage.Name = "txtCostUsage";
-            txtCostUsage.Size = new Size(176, 31);
+            txtCostUsage.Size = new Size(176, 27);
             txtCostUsage.TabIndex = 8;
             // 
             // txtBrand
             // 
-            txtBrand.Location = new Point(89, 289);
+            txtBrand.Location = new Point(11, 184);
             txtBrand.Margin = new Padding(2);
             txtBrand.Name = "txtBrand";
-            txtBrand.Size = new Size(176, 31);
+            txtBrand.Size = new Size(176, 27);
             txtBrand.TabIndex = 9;
             // 
             // txtModel
             // 
-            txtModel.Location = new Point(89, 368);
+            txtModel.Location = new Point(11, 235);
             txtModel.Margin = new Padding(2);
             txtModel.Name = "txtModel";
-            txtModel.Size = new Size(176, 31);
+            txtModel.Size = new Size(176, 27);
             txtModel.TabIndex = 10;
             // 
             // txtSerialNumber
             // 
-            txtSerialNumber.Location = new Point(89, 446);
+            txtSerialNumber.Location = new Point(11, 286);
             txtSerialNumber.Margin = new Padding(2);
             txtSerialNumber.Name = "txtSerialNumber";
-            txtSerialNumber.Size = new Size(176, 31);
+            txtSerialNumber.Size = new Size(176, 27);
             txtSerialNumber.TabIndex = 11;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(250, 526);
+            btnCreate.Location = new Point(11, 333);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(112, 34);
+            btnCreate.Size = new Size(176, 27);
             btnCreate.TabIndex = 13;
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
@@ -165,19 +169,50 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(3, 526);
+            btnBack.Location = new Point(766, 451);
+            btnBack.Margin = new Padding(2, 2, 2, 2);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(112, 34);
+            btnBack.Size = new Size(90, 27);
             btnBack.TabIndex = 14;
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
+            // dgvElectronic
+            // 
+            dgvElectronic.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvElectronic.Location = new Point(200, 12);
+            dgvElectronic.Name = "dgvElectronic";
+            dgvElectronic.RowHeadersWidth = 51;
+            dgvElectronic.Size = new Size(655, 417);
+            dgvElectronic.TabIndex = 15;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(12, 365);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(175, 29);
+            btnUpdate.TabIndex = 16;
+            btnUpdate.Text = "Modificar";
+            btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(12, 400);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(175, 29);
+            btnDelete.TabIndex = 17;
+            btnDelete.Text = "Eliminar";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
             // ElectronicView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(374, 572);
+            ClientSize = new Size(867, 489);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(dgvElectronic);
             Controls.Add(btnBack);
             Controls.Add(btnCreate);
             Controls.Add(txtSerialNumber);
@@ -195,6 +230,7 @@
             Margin = new Padding(2);
             Name = "ElectronicView";
             Text = "ElectronicView";
+            ((System.ComponentModel.ISupportInitialize)dgvElectronic).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,5 +251,8 @@
         private TextBox txtSerialNumber;
         private Button btnCreate;
         private Button btnBack;
+        private DataGridView dgvElectronic;
+        private Button btnUpdate;
+        private Button btnDelete;
     }
 }

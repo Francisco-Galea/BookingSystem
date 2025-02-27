@@ -9,6 +9,8 @@ namespace Boocking.Models.Entities.RentableEntities
         private string model;
         private string serialNumber;
 
+        public ElectronicEntity() : base() { }
+
         public ElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
         {
             this.brand = BRAND;
