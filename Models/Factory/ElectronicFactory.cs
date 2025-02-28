@@ -6,9 +6,9 @@ namespace Booking.Models.Factory
 {
     public class ElectronicFactory : IElectronicFactory
     {
-        public RentableEntity CreateElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER)
+        public ElectronicEntity CreateElectronicEntity()
         {
-            return new ElectronicEntity(NAME, DESCRIPTION, COSTUSAGERPERDAY, BRAND, MODEL, SERIALNUMBER);
+            return new ElectronicEntity();
         }
     }
 }

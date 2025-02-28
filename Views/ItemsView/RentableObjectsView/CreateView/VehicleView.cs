@@ -31,6 +31,7 @@ namespace Boocking.Views.RentableObjectsView
                 string serialNumber = txtSerialNumber.Text;
                 string passengerCapacity = txtPassengerCapacity.Text;
                 vehicleController.CreateVehicle(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                MessageBox.Show("Vehiculo creado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicles();
                 CleanTextBox();
             }

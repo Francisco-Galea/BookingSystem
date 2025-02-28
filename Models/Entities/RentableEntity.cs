@@ -32,7 +32,7 @@
                 {
                     if (string.IsNullOrEmpty(value))
                     {
-                        throw new Exception("El nombre del objeto no puede estar vacio");
+                        throw new Exception("El nombre de articulo no puede estar vacio");
                     }
                     this.name = value;
                 }
@@ -52,7 +52,7 @@
                 {
                     if (string.IsNullOrEmpty(value))
                     {
-                        throw new Exception("La descripcion del objeto no puede estar vacio");
+                        throw new Exception("La descripcion del articulo no puede estar vacio");
                     }
                     this.description = value;
                 }
@@ -72,7 +72,7 @@
                 {
                     if(value <= 0)
                     {
-                        throw new Exception("El costo de uso por dia no puede ser 0");
+                        throw new Exception("La tarifa diaria no puede ser 0");
                     }
                     this.costUsagePerDay = value;
                 }

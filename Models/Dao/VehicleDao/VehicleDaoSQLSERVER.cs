@@ -55,7 +55,7 @@ namespace Boocking.Models.Dao.VehicleDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al insertar el vehiculo en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al insertar el vehiculo en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {

@@ -130,8 +130,8 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Propiedad");
             dgvEntities.Columns.Add("Description", "Descripción");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
             dgvEntities.Columns.Add("Location", "Ubicacion");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
         }
 
         #endregion
@@ -165,6 +165,7 @@ namespace Boocking.Views.BookingsView
             {
                 dgvEntities.Rows.Add(
                     indumentary.RENTABLEID,
+                    indumentary.NAME,
                     indumentary.DESCRIPTION,
                     indumentary.COSTUSAGEPERDAY,
                     indumentary.SIZE,

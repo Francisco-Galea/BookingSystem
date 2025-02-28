@@ -129,13 +129,16 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
         {
             dgvEntities.Columns.Add("bookingId", "Id de reserva");
             dgvEntities.Columns.Add("rentableName", "Articulo");
+            dgvEntities.Columns.Add("description", "Descripcion");
             dgvEntities.Columns.Add("initBooking", "Inicio de reserva");
             dgvEntities.Columns.Add("endBooking", "Fin de reserva");
             dgvEntities.Columns.Add("daysBooked", "Dias reservado");
+            dgvEntities.Columns.Add("location", "Ubicacion");
+            dgvEntities.Columns.Add("client", "Cliente");
+            dgvEntities.Columns.Add("phoneNumber", "Celular");
             dgvEntities.Columns.Add("totalPrice", "Precio total");
             dgvEntities.Columns.Add("isPaid", "Pagado");
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
-            dgvEntities.Columns.Add("location", "Ubicacion");
         }
 
         private void LoadPropertiesBookedData(List<BookingPropertyDTO> bookingPropertiesDTOs)
@@ -146,10 +149,13 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
                     (
                     propertyBooked.bookingId,
                     propertyBooked.rentableName,
-                    propertyBooked.Location,
+                    propertyBooked.description,
                     propertyBooked.initBooking,
                     propertyBooked.endBooking,
                     propertyBooked.daysBooked,
+                    propertyBooked.Location,
+                    $"{propertyBooked.oClient.NAME} {propertyBooked.oClient.LASTNAME}",
+                    propertyBooked.oClient.PHONENUMBER,
                     propertyBooked.totalPrice,
                     propertyBooked.isPaid,
                     propertyBooked.paymentMethod

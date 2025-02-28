@@ -3,6 +3,7 @@ using Boocking.Models.Entities;
 using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
 using Booking.Controllers.EntitiesController;
+using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Strategy.Interface;
 
@@ -18,8 +19,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly ClientController clientController = new ClientController();
         private readonly IndumentaryController indumentaryController = new IndumentaryController();
         private readonly PropertyController propertyController = new PropertyController();
-
-
 
         public UpdateBookingView(int bookingId)
         {
@@ -171,17 +170,46 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private void btnProperties_Click(object sender, EventArgs e)
         {
             ClearDataGrid();
+            CreatePropertiesDataGridColumns();
+            List<PropertyEntity> properties = propertyController.GetAllProperties();
+            LoadProperties(properties);
         }
+
+        private void LoadProperties(List<PropertyEntity> properties)
+        {
+            foreach (PropertyEntity property in properties)
+            {
+                dgvEntities.Rows.Add
+                    (
+                        property.RENTABLEID,
+                        property.NAME,
+                        property.DESCRIPTION,
+                        property.COSTUSAGEPERDAY,
+                        property.LOCATION
+                    );
+            }
+        }
+
+        private void CreatePropertiesDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("propertyType", "Tipo de propiedad");
+            dgvEntities.Columns.Add("description", "Descripcion");
+            dgvEntities.Columns.Add("costUsage", "Tarifa diaria");
+            dgvEntities.Columns.Add("location", "Ubicacion");
+        }
+
+        #region Indumentary Methods
 
         private void btnIndumentaries_Click(object sender, EventArgs e)
         {
             ClearDataGrid();
-            GenerateIndumentariesDataGridColumns();
+            CreateIndumentariesDataGridColumns();
             List<IndumentaryEntity> indumentaries = indumentaryController.GetAllIndumentaries();
             LoadIndumentariesData(indumentaries);
         }
 
-        private void GenerateIndumentariesDataGridColumns()
+        private void CreateIndumentariesDataGridColumns()
         {
             dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Indumentaria");
@@ -190,7 +218,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             dgvEntities.Columns.Add("Size", "Talle");
             dgvEntities.Columns.Add("Genre", "Genero");
         }
-
 
         private void LoadIndumentariesData(List<IndumentaryEntity> indumentaries)
         {
@@ -207,6 +234,8 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                     );
             }
         }
+
+        #endregion
 
     }
 }

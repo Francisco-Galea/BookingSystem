@@ -357,7 +357,7 @@ namespace Booking.Models.Dao.BookingDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location, c.Name, c.LastName, c.PhoneNumber
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location, c.Name, c.LastName, c.PhoneNumber, r.Description
                                 FROM  BookingRentable br
                                 INNER JOIN Properties p ON p.RentableId = br.RentableId
                                 INNER JOIN Bookings b ON b.BookingId = br.BookingId
@@ -389,6 +389,7 @@ namespace Booking.Models.Dao.BookingDao
                                 client.NAME = reader.GetString(10);
                                 client.LASTNAME = reader.GetString(11);
                                 client.PHONENUMBER = reader.GetString(12);
+                                propertyBooked.description = reader.GetString(13);
                                 propertyBooked.oClient = client;
                                 propertiesBooked.Add(propertyBooked);
                             }
