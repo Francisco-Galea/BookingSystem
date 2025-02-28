@@ -182,7 +182,7 @@
             // 
             dgvElectronics.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvElectronics.Location = new Point(250, 15);
-            dgvElectronics.Margin = new Padding(4, 4, 4, 4);
+            dgvElectronics.Margin = new Padding(4);
             dgvElectronics.Name = "dgvElectronics";
             dgvElectronics.RowHeadersWidth = 51;
             dgvElectronics.Size = new Size(819, 521);
@@ -191,7 +191,7 @@
             // btnUpdate
             // 
             btnUpdate.Location = new Point(15, 456);
-            btnUpdate.Margin = new Padding(4, 4, 4, 4);
+            btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(219, 36);
             btnUpdate.TabIndex = 16;
@@ -202,12 +202,13 @@
             // btnDelete
             // 
             btnDelete.Location = new Point(15, 500);
-            btnDelete.Margin = new Padding(4, 4, 4, 4);
+            btnDelete.Margin = new Padding(4);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(219, 36);
             btnDelete.TabIndex = 17;
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // ElectronicView
             // 

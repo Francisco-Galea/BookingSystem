@@ -1,4 +1,5 @@
-﻿using Boocking.Models.Entities.RentableEntities;
+﻿using System.Reflection;
+using Boocking.Models.Entities.RentableEntities;
 using Booking.Models.Dao.ElectronicDao;
 using Booking.Models.Factory;
 using Booking.Models.Factory.Interface;
@@ -41,13 +42,49 @@ namespace Booking.Controllers.EntitiesController
             return electronicDao.GetAllEntities();
         }
 
+        public ElectronicEntity GetElectronicById(int rentableId)
+        {
+            return electronicDao.GetEntityById(rentableId);
+        }
 
+        public void DeleteElectronic(int rentableId, DialogResult result)
+        {
+            try
+            {
+                if (result == DialogResult.Yes)
+                {
+                    electronicDao.DeleteEntity(rentableId);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Ocurrio un error al eliminar un dispositivo electronico: " + e.Message);
+            }
+        }
 
-
-
-
-
-
+        public void UpdateElectronic(int rentableId, string electronicType, string description, string costUsage, string brand, string model, string serialNumber)
+        {
+            try
+            {
+                ElectronicEntity electronic = electronicFactory.CreateElectronicEntity();
+                electronic.NAME = electronicType;
+                electronic.DESCRIPTION = description;
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
+                electronic.COSTUSAGEPERDAY = parsedCostUsage;
+                electronic.BRAND = brand;
+                electronic.MODEL = model;
+                electronic.SERIALNUMBER = serialNumber;
+                electronicDao.UpdateEntity(rentableId, electronic);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new Exception("Error al actualizar un dispositivo electronico: " + ex.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Ocurrio un error al actualizar un dispositivo electronico: " + e.Message);
+            }
+        }
 
     }
 }

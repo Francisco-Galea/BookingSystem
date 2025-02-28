@@ -53,6 +53,7 @@ namespace Boocking.Views.RentableObjectsView
                                               MessageBoxButtons.YesNo,
                                               MessageBoxIcon.Warning);
                 vehicleController.DeleteVehicle(rentableId, result);
+                MessageBox.Show("Vehiculo eliminado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicles();
             }
             catch (ArgumentOutOfRangeException)

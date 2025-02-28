@@ -1,4 +1,5 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
+using Boocking.Models.Factory;
 using Booking.Models.Dao.ConnectionString;
 using Booking.Models.Factory;
 using Booking.Models.Factory.Interface;
@@ -14,7 +15,31 @@ namespace Booking.Models.Dao.ElectronicDao
 
         public void DeleteEntity(int rentableId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+                {
+                    connection.Open();
+                    SqlTransaction transaction = connection.BeginTransaction();
+                    string deleteRentableQuery = "UPDATE Rentables SET IsDeleted = 1 WHERE RentableId = @RentableId";
+                    SqlCommand deleteRentableCommand = new SqlCommand(deleteRentableQuery, connection, transaction);
+                    deleteRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                    deleteRentableCommand.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de consulta SQL al eliminar el dispositivo electronico en la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al eliminar el dispositivo electronico.", ex);
+            }
         }
 
         public List<ElectronicEntity> GetAllEntities()
@@ -71,7 +96,53 @@ namespace Booking.Models.Dao.ElectronicDao
 
         public ElectronicEntity GetEntityById(int rentableId)
         {
-            throw new NotImplementedException();
+            ElectronicEntity electronic = electronicFactory.CreateElectronicEntity();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+                {
+                    string query = @"
+                                SELECT r.Name, r.Description, r.CostUsagePerDay, e.Brand, e.Model, e.SerialNumber
+                                FROM Electronics e
+                                INNER JOIN Rentables r ON r.RentableId = e.RentableId
+                                WHERE r.RentableId = @RentableId AND r.IsDeleted = 0";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@RentableId", rentableId);
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                electronic.NAME = reader.GetString(0);
+                                electronic.DESCRIPTION = reader.GetString(1);
+                                electronic.COSTUSAGEPERDAY = reader.GetDecimal(2);
+                                electronic.BRAND = reader.GetString(3);
+                                electronic.MODEL = reader.GetString(4);
+                                electronic.SERIALNUMBER = reader.GetString(5);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de consulta SQL al obtener la indumentaria en la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al obtener la indumentaria.", ex);
+            }
+
+            #pragma warning disable CS8603
+            return electronic;
+            #pragma warning restore CS8603
         }
 
         public void InsertEntity(ElectronicEntity electronic)
@@ -133,8 +204,71 @@ namespace Booking.Models.Dao.ElectronicDao
 
         public void UpdateEntity(int rentableId, ElectronicEntity electronic)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            string updateRentableQuery = @"
+                                                            UPDATE Rentables 
+                                                            SET Name = @Name, 
+                                                            Description = @Description, 
+                                                            CostUsagePerDay = @CostUsagePerDay
+                                                            WHERE RentableId = @RentableId";
 
+                            using (SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction))
+                            {
+                                updateRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                                updateRentableCommand.Parameters.AddWithValue("@Name", electronic.NAME);
+                                updateRentableCommand.Parameters.AddWithValue("@Description", electronic.DESCRIPTION);
+                                updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", electronic.COSTUSAGEPERDAY);
+                                updateRentableCommand.ExecuteNonQuery();
+
+                            }
+
+                            string updateIndumentaryQuery = @"
+                                                        UPDATE Electronics
+                                                        SET 
+                                                        Brand = @Brand, 
+                                                        Model = @Model,
+                                                        SerialNumber = @SerialNumber
+                                                        WHERE RentableId = @RentableId";
+
+                            using (SqlCommand updateIndumentaryCommand = new SqlCommand(updateIndumentaryQuery, connection, transaction))
+                            {
+                                updateIndumentaryCommand.Parameters.AddWithValue("@RentableId", rentableId);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@Brand", electronic.BRAND);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@Model", electronic.MODEL);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@SerialNumber", electronic.SERIALNUMBER);
+                                updateIndumentaryCommand.ExecuteNonQuery();
+                            }
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de consulta SQL al actualizar la indumentaria en la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al actualizar la indumentaria.", ex);
+            }
+        }
     }
+
 }

@@ -2,6 +2,7 @@
 using Boocking.Models.Entities.RentableEntities;
 using Boocking.Views.BookingsView;
 using Booking.Controllers.EntitiesController;
+using Booking.Views.ItemsView.RentableObjectsView.ModifyView;
 
 namespace Boocking.Views.RentableObjectsView
 {
@@ -48,12 +49,27 @@ namespace Boocking.Views.RentableObjectsView
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int rentableId = (int)dgvElectronics.SelectedRows[0].Cells["Rentableid"].Value;
+                ElectronicUpdateView electronicUpdateView = new ElectronicUpdateView(rentableId);
+                electronicUpdateView.ShowDialog();
+                LoadElectronics();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione un vehiculo a actualizar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadElectronics()
         {
             ClearRows();
-            List<ElectronicEntity> electronics = electronicController.GetAllElectronics ();
+            List<ElectronicEntity> electronics = electronicController.GetAllElectronics();
             foreach (ElectronicEntity electronic in electronics)
             {
                 dgvElectronics.Rows.Add
@@ -95,22 +111,33 @@ namespace Boocking.Views.RentableObjectsView
             dgvElectronics.Rows.Clear();
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                int rentableId = (int)dgvElectronics.SelectedRows[0].Cells["rentableid"].Value;
+                DialogResult result = MessageBox.Show("¿Estás seguro de que quieres eliminar este dispositivo electronico?",
+                                              "Confirmar eliminación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Warning);
+                electronicController.DeleteElectronic(rentableId, result);
+                MessageBox.Show("Dispositivo electronico borrado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadElectronics();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Seleccione un dispositivo electronico a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Seleccione un dispositivo electronico a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }
