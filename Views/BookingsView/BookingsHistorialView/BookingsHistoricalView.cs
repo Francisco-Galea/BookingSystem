@@ -1,7 +1,6 @@
 ﻿using Booking.Views.BookingsView.UpdateBookingView;
 using Booking.Controllers;
 using Booking.Dtos.BookedEntities;
-using Boocking.Models.Entities.RentableEntities;
 
 namespace Boocking.Views.BookingsView.BookingsHistorialView
 {
@@ -14,24 +13,6 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
         {
             InitializeComponent();
             this.bookingView = bookingView;
-        }
-
-        private void btnVehicles_Click(object sender, EventArgs e)
-        {
-            ClearDataGrid();
-            GenerateVehiclesBookedColumns();
-            List<BookingVehicleDTO> bookingVehicleDTO = new List<BookingVehicleDTO>();
-            bookingVehicleDTO = bookingController.GetVehicleBookings();
-            LoadVehiclesBookedData(bookingVehicleDTO);
-        }
-
-        private void btnProperties_Click(object sender, EventArgs e)
-        {
-            ClearDataGrid();
-            GeneratePropertiesBookedColumns();
-            List<BookingPropertyDTO> bookingPropertiesDTO = new List<BookingPropertyDTO>();
-            bookingPropertiesDTO = bookingController.GetPropertyBookings();
-            LoadPropertiesBookedData(bookingPropertiesDTO);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -78,8 +59,38 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             this.Hide();
             bookingView.Show();
         }
-         
-        #region Vehicles Methods
+
+
+        #region Utility Methods
+
+        private void ClearDataGrid()
+        {
+            ClearColumns();
+            ClearRows();
+        }
+
+        private void ClearColumns()
+        {
+            dgvEntities.Columns.Clear();
+        }
+
+        private void ClearRows()
+        {
+            dgvEntities.Rows.Clear();
+        }
+
+        #endregion
+
+        #region Vehicle Methods
+
+        private void btnVehicles_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            GenerateVehiclesBookedColumns();
+            List<BookingVehicleDTO> bookingVehicleDTO = new List<BookingVehicleDTO>();
+            bookingVehicleDTO = bookingController.GetVehicleBookings();
+            LoadVehiclesBookedData(bookingVehicleDTO);
+        }
 
         private void GenerateVehiclesBookedColumns()
         {
@@ -123,7 +134,16 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         #endregion
 
-        #region Properties Methods
+        #region Property Methods
+
+        private void btnProperties_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            GeneratePropertiesBookedColumns();
+            List<BookingPropertyDTO> bookingPropertiesDTO = new List<BookingPropertyDTO>();
+            bookingPropertiesDTO = bookingController.GetPropertyBookings();
+            LoadPropertiesBookedData(bookingPropertiesDTO);
+        }
 
         private void GeneratePropertiesBookedColumns()
         {
@@ -165,32 +185,13 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
 
         #endregion
 
-        #region Utility Methods
-
-        private void ClearDataGrid()
-        {
-            ClearColumns();
-            ClearRows();
-        }
-
-        private void ClearColumns()
-        {
-            dgvEntities.Columns.Clear();
-        }
-
-        private void ClearRows()
-        {
-            dgvEntities.Rows.Clear();
-        }
-
-        #endregion
+        #region Indumentary Methods
 
         private void btnIndumentary_Click(object sender, EventArgs e)
         {
             ClearDataGrid();
             GenerateIndumentariesBookedColumns();
-            List<BookingIndumentaryDto> bookingIndumentaryDto = new List<BookingIndumentaryDto>();
-            bookingIndumentaryDto = bookingController.GetIndumentaryBookings();
+            List<BookingIndumentaryDto> bookingIndumentaryDto = bookingController.GetIndumentaryBookings();
             LoadIndumentaryBookedData(bookingIndumentaryDto);
         }
 
@@ -234,6 +235,60 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             dgvEntities.Columns.Add("isPaid", "Pagado");
             dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
         }
+
+        #endregion
+
+        #region Electronic Methods
+
+        private void btnElectronics_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            GenerateElectronicsBookedColumns();
+            List<BookingElectronicDto> bookingElectronicDto = bookingController.GetElectronicBookings();
+            LoadElectronicBookedData(bookingElectronicDto);
+        }
+
+        private void GenerateElectronicsBookedColumns()
+        {
+            dgvEntities.Columns.Add("bookingId", "Id");
+            dgvEntities.Columns.Add("rentableName", "Dispositivo");
+            dgvEntities.Columns.Add("initBooking", "Inicio de reserva");
+            dgvEntities.Columns.Add("endBooking", "Fin de reserva");
+            dgvEntities.Columns.Add("daysBooked", "Dias reservado");
+            dgvEntities.Columns.Add("brand", "Marca");
+            dgvEntities.Columns.Add("model", "Modelo");
+            dgvEntities.Columns.Add("serialNumber", "Número de serie");
+            dgvEntities.Columns.Add("client", "Cliente");
+            dgvEntities.Columns.Add("phoneNumber", "Celular");
+            dgvEntities.Columns.Add("totalPrice", "Precio final");
+            dgvEntities.Columns.Add("isPaid", "Pagado");
+            dgvEntities.Columns.Add("paymentMethod", "Medio de pago");
+        }
+
+        private void LoadElectronicBookedData(List<BookingElectronicDto> bookingElectronicDto)
+        {
+            foreach (BookingElectronicDto electronic in bookingElectronicDto)
+            {
+                dgvEntities.Rows.Add
+                (
+                    electronic.rentableId,
+                    electronic.rentableName,
+                    electronic.initBooking,
+                    electronic.endBooking,
+                    electronic.daysBooked,
+                    electronic.brand,
+                    electronic.model,
+                    electronic.serialNumber,
+                    $"{electronic.oClient.NAME} {electronic.oClient.LASTNAME}",
+                    electronic.oClient.PHONENUMBER,
+                    electronic.totalPrice,
+                    electronic.isPaid,
+                    electronic.paymentMethod
+                );
+            }
+        }
+
+        #endregion
 
     }
 }

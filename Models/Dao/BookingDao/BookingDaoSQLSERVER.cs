@@ -461,5 +461,64 @@ namespace Booking.Models.Dao.BookingDao
             return indumentariesBooked;
         }
 
+        public List<BookingElectronicDto> GetElectronicsBooked()
+        {
+            List<BookingElectronicDto> electronicsBooked = new List<BookingElectronicDto>();
+            ClientEntity client = new ClientEntity();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, e.Brand, e.Model, e.SerialNumber, c.Name, c.LastName, c.PhoneNumber
+                                FROM  BookingRentable br
+                                INNER JOIN Electronics e ON e.RentableId = br.RentableId
+                                INNER JOIN Bookings b ON b.BookingId = br.BookingId
+                                INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
+                                WHERE b.IsDeleted = 0
+                                ORDER BY b.EndBooking DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookingElectronicDto electronicBooked = new BookingElectronicDto();
+                                electronicBooked.bookingId = reader.GetInt32(0);
+                                electronicBooked.initBooking = reader.GetDateTime(1);
+                                electronicBooked.endBooking = reader.GetDateTime(2);
+                                electronicBooked.daysBooked = reader.GetInt32(3);
+                                electronicBooked.paymentMethod = reader.GetString(4);
+                                electronicBooked.totalPrice = reader.GetDecimal(5);
+                                electronicBooked.isPaid = reader.GetBoolean(6);
+                                electronicBooked.rentableId = reader.GetInt32(7);
+                                electronicBooked.rentableName = reader.GetString(8);
+                                electronicBooked.brand = reader.GetString(9);
+                                electronicBooked.model = reader.GetString(10);
+                                electronicBooked.serialNumber = reader.GetString(11);
+                                client.NAME = reader.GetString(12);
+                                client.LASTNAME = reader.GetString(13);
+                                client.PHONENUMBER = reader.GetString(14);
+                                electronicBooked.oClient = client;
+                                electronicsBooked.Add(electronicBooked);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener las indumentarias", ex);
+                    }
+                }
+            }
+            return electronicsBooked;
+        }
+
+
+
+
     }
 }

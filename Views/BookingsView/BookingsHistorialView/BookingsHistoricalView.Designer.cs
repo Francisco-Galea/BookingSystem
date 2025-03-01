@@ -33,7 +33,7 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             btnBack = new Button();
-            btnElectronic = new Button();
+            btnElectronics = new Button();
             btnProperties = new Button();
             btnIndumentary = new Button();
             btnVehicles = new Button();
@@ -43,29 +43,26 @@
             // dgvEntities
             // 
             dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEntities.Location = new Point(15, 90);
-            dgvEntities.Margin = new Padding(4);
+            dgvEntities.Location = new Point(12, 72);
             dgvEntities.Name = "dgvEntities";
             dgvEntities.RowHeadersWidth = 51;
-            dgvEntities.Size = new Size(845, 458);
+            dgvEntities.Size = new Size(676, 366);
             dgvEntities.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(15, 11);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(96, 25);
+            label1.Size = new Size(79, 20);
             label1.TabIndex = 2;
             label1.Text = "Buscar por";
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(868, 279);
-            btnUpdate.Margin = new Padding(4);
+            btnUpdate.Location = new Point(694, 223);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(118, 36);
+            btnUpdate.Size = new Size(94, 29);
             btnUpdate.TabIndex = 4;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -73,10 +70,9 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(868, 322);
-            btnDelete.Margin = new Padding(4);
+            btnDelete.Location = new Point(694, 258);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(118, 36);
+            btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 5;
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
@@ -84,31 +80,29 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(868, 511);
-            btnBack.Margin = new Padding(4);
+            btnBack.Location = new Point(694, 409);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(118, 36);
+            btnBack.Size = new Size(94, 29);
             btnBack.TabIndex = 6;
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
-            // btnElectronic
+            // btnElectronics
             // 
-            btnElectronic.Location = new Point(458, 46);
-            btnElectronic.Margin = new Padding(4);
-            btnElectronic.Name = "btnElectronic";
-            btnElectronic.Size = new Size(140, 36);
-            btnElectronic.TabIndex = 10;
-            btnElectronic.Text = "Electronica";
-            btnElectronic.UseVisualStyleBackColor = true;
+            btnElectronics.Location = new Point(366, 37);
+            btnElectronics.Name = "btnElectronics";
+            btnElectronics.Size = new Size(112, 29);
+            btnElectronics.TabIndex = 10;
+            btnElectronics.Text = "Electronica";
+            btnElectronics.UseVisualStyleBackColor = true;
+            btnElectronics.Click += btnElectronics_Click;
             // 
             // btnProperties
             // 
-            btnProperties.Location = new Point(162, 46);
-            btnProperties.Margin = new Padding(4);
+            btnProperties.Location = new Point(130, 37);
             btnProperties.Name = "btnProperties";
-            btnProperties.Size = new Size(140, 36);
+            btnProperties.Size = new Size(112, 29);
             btnProperties.TabIndex = 8;
             btnProperties.Text = "Propiedades";
             btnProperties.UseVisualStyleBackColor = true;
@@ -116,10 +110,9 @@
             // 
             // btnIndumentary
             // 
-            btnIndumentary.Location = new Point(310, 46);
-            btnIndumentary.Margin = new Padding(4);
+            btnIndumentary.Location = new Point(248, 37);
             btnIndumentary.Name = "btnIndumentary";
-            btnIndumentary.Size = new Size(140, 36);
+            btnIndumentary.Size = new Size(112, 29);
             btnIndumentary.TabIndex = 9;
             btnIndumentary.Text = "Indumentaria";
             btnIndumentary.UseVisualStyleBackColor = true;
@@ -127,10 +120,9 @@
             // 
             // btnVehicles
             // 
-            btnVehicles.Location = new Point(15, 46);
-            btnVehicles.Margin = new Padding(4);
+            btnVehicles.Location = new Point(12, 37);
             btnVehicles.Name = "btnVehicles";
-            btnVehicles.Size = new Size(140, 36);
+            btnVehicles.Size = new Size(112, 29);
             btnVehicles.TabIndex = 7;
             btnVehicles.Text = "Vehiculos";
             btnVehicles.UseVisualStyleBackColor = true;
@@ -138,10 +130,10 @@
             // 
             // BookingsHistoricalView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
-            Controls.Add(btnElectronic);
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnElectronics);
             Controls.Add(btnIndumentary);
             Controls.Add(btnProperties);
             Controls.Add(btnVehicles);
@@ -150,7 +142,6 @@
             Controls.Add(btnUpdate);
             Controls.Add(label1);
             Controls.Add(dgvEntities);
-            Margin = new Padding(4);
             Name = "BookingsHistoricalView";
             Text = "BookingsHistoricalView";
             ((System.ComponentModel.ISupportInitialize)dgvEntities).EndInit();
@@ -165,7 +156,7 @@
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnBack;
-        private Button btnElectronic;
+        private Button btnElectronics;
         private Button btnProperties;
         private Button btnIndumentary;
         private Button btnVehicles;

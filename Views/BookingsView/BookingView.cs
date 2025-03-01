@@ -14,6 +14,7 @@ namespace Boocking.Views.BookingsView
         private readonly VehicleController vehicleController = new VehicleController();
         private readonly PropertyController propertyController = new PropertyController();
         private readonly IndumentaryController indumentaryController = new IndumentaryController();
+        private readonly ElectronicController electronicController = new ElectronicController();
         private readonly MainView mainView;
         private BookingsHistoricalView? bookingsHistoricalView;
 
@@ -70,7 +71,7 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("Brand", "Marca");
             dgvEntities.Columns.Add("Model", "Modelo");
             dgvEntities.Columns.Add("Description", "Descripción");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Tarifa diaria");
             dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
             dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
         }
@@ -78,23 +79,23 @@ namespace Boocking.Views.BookingsView
         private void btnVehicles_Click(object sender, EventArgs e)
         {
 
-                ClearDataGrid();
-                CreateVehicleDataGridColumns();
-                List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
-                foreach (VehicleEntity vehicle in vehicles)
-                {
-                    dgvEntities.Rows.Add(
-                        vehicle.RENTABLEID,
-                        vehicle.NAME,
-                        vehicle.BRAND,
-                        vehicle.MODEL,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
-                        vehicle.PASSENGERCAPACITY,
-                        vehicle.SERIALNUMBER
-                        );
-                }
-            
+            ClearDataGrid();
+            CreateVehicleDataGridColumns();
+            List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
+            foreach (VehicleEntity vehicle in vehicles)
+            {
+                dgvEntities.Rows.Add(
+                    vehicle.RENTABLEID,
+                    vehicle.NAME,
+                    vehicle.BRAND,
+                    vehicle.MODEL,
+                    vehicle.DESCRIPTION,
+                    vehicle.COSTUSAGEPERDAY,
+                    vehicle.PASSENGERCAPACITY,
+                    vehicle.SERIALNUMBER
+                    );
+            }
+
         }
 
         #endregion
@@ -131,7 +132,7 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("Name", "Propiedad");
             dgvEntities.Columns.Add("Description", "Descripción");
             dgvEntities.Columns.Add("Location", "Ubicacion");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Tarifa diaria");
         }
 
         #endregion
@@ -161,7 +162,7 @@ namespace Boocking.Views.BookingsView
             ClearDataGrid();
             CreateIndumentaryDataGridColumns();
             List<IndumentaryEntity> indumentaries = indumentaryController.GetAllIndumentaries();
-            foreach(IndumentaryEntity indumentary in indumentaries)
+            foreach (IndumentaryEntity indumentary in indumentaries)
             {
                 dgvEntities.Rows.Add(
                     indumentary.RENTABLEID,
@@ -179,10 +180,43 @@ namespace Boocking.Views.BookingsView
             dgvEntities.Columns.Add("rentableId", "Id");
             dgvEntities.Columns.Add("Name", "Indumentaria");
             dgvEntities.Columns.Add("Description", "Descripción");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Tarifa diaria");
             dgvEntities.Columns.Add("Size", "Talle");
             dgvEntities.Columns.Add("Genre", "Genero");
         }
+
+        private void btnElectronics_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            CreateElectronicDataGridColumns();
+            List<ElectronicEntity> electronics = electronicController.GetAllElectronics();
+            foreach( ElectronicEntity electronic in electronics)
+            {
+                dgvEntities.Rows.Add
+                    (
+                        electronic.RENTABLEID,
+                        electronic.NAME,
+                        electronic.DESCRIPTION,
+                        electronic.COSTUSAGEPERDAY,
+                        electronic.BRAND,
+                        electronic.MODEL,
+                        electronic.SERIALNUMBER
+                    );
+            }
+        }
+
+        private void CreateElectronicDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("Name", "Dispositivo");
+            dgvEntities.Columns.Add("Description", "Descripcion");
+            dgvEntities.Columns.Add("CostUsage", "Tarifa diaria");
+            dgvEntities.Columns.Add("Brand", "Marca");
+            dgvEntities.Columns.Add("Model", "Modelo");
+            dgvEntities.Columns.Add("SerialNumber", "Número de serie");
+        }
+
+
 
     }
 }

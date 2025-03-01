@@ -32,7 +32,7 @@
             btnVehicles = new Button();
             btnProperties = new Button();
             btnIndumentaries = new Button();
-            btnElectronic = new Button();
+            btnElectronics = new Button();
             dtpInitBooking = new DateTimePicker();
             label1 = new Label();
             label2 = new Label();
@@ -63,19 +63,19 @@
             // dgvEntities
             // 
             dgvEntities.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEntities.Location = new Point(556, 89);
+            dgvEntities.Location = new Point(445, 71);
             dgvEntities.Margin = new Padding(2);
             dgvEntities.Name = "dgvEntities";
             dgvEntities.RowHeadersWidth = 62;
-            dgvEntities.Size = new Size(835, 696);
+            dgvEntities.Size = new Size(668, 557);
             dgvEntities.TabIndex = 0;
             // 
             // btnVehicles
             // 
-            btnVehicles.Location = new Point(841, 50);
+            btnVehicles.Location = new Point(673, 40);
             btnVehicles.Margin = new Padding(2);
             btnVehicles.Name = "btnVehicles";
-            btnVehicles.Size = new Size(138, 34);
+            btnVehicles.Size = new Size(110, 27);
             btnVehicles.TabIndex = 1;
             btnVehicles.Text = "Vehiculos";
             btnVehicles.UseVisualStyleBackColor = true;
@@ -83,10 +83,10 @@
             // 
             // btnProperties
             // 
-            btnProperties.Location = new Point(556, 50);
+            btnProperties.Location = new Point(445, 40);
             btnProperties.Margin = new Padding(2);
             btnProperties.Name = "btnProperties";
-            btnProperties.Size = new Size(138, 34);
+            btnProperties.Size = new Size(110, 27);
             btnProperties.TabIndex = 2;
             btnProperties.Text = "Propiedades";
             btnProperties.UseVisualStyleBackColor = true;
@@ -94,80 +94,81 @@
             // 
             // btnIndumentaries
             // 
-            btnIndumentaries.Location = new Point(699, 50);
+            btnIndumentaries.Location = new Point(559, 40);
             btnIndumentaries.Margin = new Padding(2);
             btnIndumentaries.Name = "btnIndumentaries";
-            btnIndumentaries.Size = new Size(138, 34);
+            btnIndumentaries.Size = new Size(110, 27);
             btnIndumentaries.TabIndex = 3;
             btnIndumentaries.Text = "Indumentaria";
             btnIndumentaries.UseVisualStyleBackColor = true;
             btnIndumentaries.Click += btnIndumentaries_Click;
             // 
-            // btnElectronic
+            // btnElectronics
             // 
-            btnElectronic.Location = new Point(984, 50);
-            btnElectronic.Margin = new Padding(2);
-            btnElectronic.Name = "btnElectronic";
-            btnElectronic.Size = new Size(138, 34);
-            btnElectronic.TabIndex = 4;
-            btnElectronic.Text = "Electronica";
-            btnElectronic.UseVisualStyleBackColor = true;
+            btnElectronics.Location = new Point(787, 40);
+            btnElectronics.Margin = new Padding(2);
+            btnElectronics.Name = "btnElectronics";
+            btnElectronics.Size = new Size(110, 27);
+            btnElectronics.TabIndex = 4;
+            btnElectronics.Text = "Electronica";
+            btnElectronics.UseVisualStyleBackColor = true;
+            btnElectronics.Click += btnElectronics_Click;
             // 
             // dtpInitBooking
             // 
             dtpInitBooking.Enabled = false;
-            dtpInitBooking.Location = new Point(14, 76);
+            dtpInitBooking.Location = new Point(11, 61);
             dtpInitBooking.Margin = new Padding(2);
             dtpInitBooking.Name = "dtpInitBooking";
-            dtpInitBooking.Size = new Size(349, 31);
+            dtpInitBooking.Size = new Size(280, 27);
             dtpInitBooking.TabIndex = 6;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(14, 22);
+            label1.Location = new Point(11, 18);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(203, 25);
+            label1.Size = new Size(171, 20);
             label1.TabIndex = 7;
             label1.Text = "Datos de la vieja reserva";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(14, 48);
+            label2.Location = new Point(11, 38);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(54, 25);
+            label2.Size = new Size(45, 20);
             label2.TabIndex = 8;
             label2.Text = "Inicio";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(14, 110);
+            label3.Location = new Point(11, 88);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(35, 25);
+            label3.Size = new Size(28, 20);
             label3.TabIndex = 9;
             label3.Text = "Fin";
             // 
             // dtpEndBooking
             // 
             dtpEndBooking.Enabled = false;
-            dtpEndBooking.Location = new Point(14, 138);
+            dtpEndBooking.Location = new Point(11, 110);
             dtpEndBooking.Margin = new Padding(2);
             dtpEndBooking.Name = "dtpEndBooking";
-            dtpEndBooking.Size = new Size(349, 31);
+            dtpEndBooking.Size = new Size(280, 27);
             dtpEndBooking.TabIndex = 10;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(14, 171);
+            label4.Location = new Point(11, 137);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(135, 25);
+            label4.Size = new Size(112, 20);
             label4.TabIndex = 12;
             label4.Text = "Medio de pago";
             // 
@@ -175,20 +176,20 @@
             // 
             checkBoxOldIsPaid.AutoSize = true;
             checkBoxOldIsPaid.Enabled = false;
-            checkBoxOldIsPaid.Location = new Point(18, 239);
+            checkBoxOldIsPaid.Location = new Point(14, 191);
             checkBoxOldIsPaid.Margin = new Padding(2);
             checkBoxOldIsPaid.Name = "checkBoxOldIsPaid";
-            checkBoxOldIsPaid.Size = new Size(117, 29);
+            checkBoxOldIsPaid.Size = new Size(97, 24);
             checkBoxOldIsPaid.TabIndex = 14;
             checkBoxOldIsPaid.Text = "Está pago";
             checkBoxOldIsPaid.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(12, 790);
+            btnUpdate.Location = new Point(10, 632);
             btnUpdate.Margin = new Padding(2);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(121, 34);
+            btnUpdate.Size = new Size(97, 27);
             btnUpdate.TabIndex = 15;
             btnUpdate.Text = "Actualizar";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -196,10 +197,9 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(1272, 791);
-            btnCancel.Margin = new Padding(4);
+            btnCancel.Location = new Point(1018, 633);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(118, 36);
+            btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 18;
             btnCancel.Text = "Cancelar";
             btnCancel.UseVisualStyleBackColor = true;
@@ -208,105 +208,94 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(18, 353);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new Point(14, 282);
             label5.Name = "label5";
-            label5.Size = new Size(122, 25);
+            label5.Size = new Size(99, 20);
             label5.TabIndex = 19;
             label5.Text = "Nuevos datos";
             // 
             // dtpNewInitBooking
             // 
-            dtpNewInitBooking.Location = new Point(18, 407);
-            dtpNewInitBooking.Margin = new Padding(4);
+            dtpNewInitBooking.Location = new Point(14, 326);
             dtpNewInitBooking.Name = "dtpNewInitBooking";
-            dtpNewInitBooking.Size = new Size(348, 31);
+            dtpNewInitBooking.Size = new Size(279, 27);
             dtpNewInitBooking.TabIndex = 20;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(16, 378);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new Point(13, 302);
             label6.Name = "label6";
-            label6.Size = new Size(54, 25);
+            label6.Size = new Size(45, 20);
             label6.TabIndex = 21;
             label6.Text = "Inicio";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(18, 445);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new Point(14, 356);
             label7.Name = "label7";
-            label7.Size = new Size(35, 25);
+            label7.Size = new Size(28, 20);
             label7.TabIndex = 22;
             label7.Text = "Fin";
             // 
             // dtpNewEndBooking
             // 
-            dtpNewEndBooking.Location = new Point(18, 473);
-            dtpNewEndBooking.Margin = new Padding(4);
+            dtpNewEndBooking.Location = new Point(14, 378);
             dtpNewEndBooking.Name = "dtpNewEndBooking";
-            dtpNewEndBooking.Size = new Size(348, 31);
+            dtpNewEndBooking.Size = new Size(279, 27);
             dtpNewEndBooking.TabIndex = 23;
             // 
             // cbNewPaymentMethod
             // 
             cbNewPaymentMethod.FormattingEnabled = true;
             cbNewPaymentMethod.Items.AddRange(new object[] { "Tarjeta de Crédito", "Transferencia", "Efectivo" });
-            cbNewPaymentMethod.Location = new Point(18, 539);
-            cbNewPaymentMethod.Margin = new Padding(4);
+            cbNewPaymentMethod.Location = new Point(14, 431);
             cbNewPaymentMethod.Name = "cbNewPaymentMethod";
-            cbNewPaymentMethod.Size = new Size(348, 33);
+            cbNewPaymentMethod.Size = new Size(279, 28);
             cbNewPaymentMethod.TabIndex = 26;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(18, 511);
-            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Location = new Point(14, 409);
             label9.Name = "label9";
-            label9.Size = new Size(135, 25);
+            label9.Size = new Size(112, 20);
             label9.TabIndex = 27;
             label9.Text = "Medio de pago";
             // 
             // checkBoxNewIsPaid
             // 
             checkBoxNewIsPaid.AutoSize = true;
-            checkBoxNewIsPaid.Location = new Point(18, 582);
-            checkBoxNewIsPaid.Margin = new Padding(4);
+            checkBoxNewIsPaid.Location = new Point(14, 466);
             checkBoxNewIsPaid.Name = "checkBoxNewIsPaid";
-            checkBoxNewIsPaid.Size = new Size(117, 29);
+            checkBoxNewIsPaid.Size = new Size(97, 24);
             checkBoxNewIsPaid.TabIndex = 28;
             checkBoxNewIsPaid.Text = "Está pago";
             checkBoxNewIsPaid.UseVisualStyleBackColor = true;
             // 
             // txtOldPaymentMethod
             // 
-            txtOldPaymentMethod.Location = new Point(15, 199);
-            txtOldPaymentMethod.Margin = new Padding(4);
+            txtOldPaymentMethod.Location = new Point(12, 159);
             txtOldPaymentMethod.Name = "txtOldPaymentMethod";
             txtOldPaymentMethod.ReadOnly = true;
-            txtOldPaymentMethod.Size = new Size(348, 31);
+            txtOldPaymentMethod.Size = new Size(279, 27);
             txtOldPaymentMethod.TabIndex = 29;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(559, 22);
-            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Location = new Point(447, 18);
             label8.Name = "label8";
-            label8.Size = new Size(182, 25);
+            label8.Size = new Size(154, 20);
             label8.TabIndex = 30;
             label8.Text = "Seleccione un articulo";
             // 
             // btnUnselect
             // 
-            btnUnselect.Location = new Point(556, 791);
-            btnUnselect.Margin = new Padding(4);
+            btnUnselect.Location = new Point(445, 633);
             btnUnselect.Name = "btnUnselect";
-            btnUnselect.Size = new Size(138, 36);
+            btnUnselect.Size = new Size(110, 29);
             btnUnselect.TabIndex = 31;
             btnUnselect.Text = "Deseleccionar";
             btnUnselect.UseVisualStyleBackColor = true;
@@ -314,43 +303,47 @@
             // 
             // txtOldClient
             // 
-            txtOldClient.Location = new Point(18, 298);
+            txtOldClient.Location = new Point(14, 238);
+            txtOldClient.Margin = new Padding(2, 2, 2, 2);
             txtOldClient.Name = "txtOldClient";
             txtOldClient.ReadOnly = true;
-            txtOldClient.Size = new Size(345, 31);
+            txtOldClient.Size = new Size(277, 27);
             txtOldClient.TabIndex = 32;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(14, 270);
+            label10.Location = new Point(11, 216);
+            label10.Margin = new Padding(2, 0, 2, 0);
             label10.Name = "label10";
-            label10.Size = new Size(65, 25);
+            label10.Size = new Size(55, 20);
             label10.TabIndex = 33;
             label10.Text = "Cliente";
             // 
             // cbNewClient
             // 
             cbNewClient.FormattingEnabled = true;
-            cbNewClient.Location = new Point(18, 643);
+            cbNewClient.Location = new Point(14, 514);
+            cbNewClient.Margin = new Padding(2, 2, 2, 2);
             cbNewClient.Name = "cbNewClient";
-            cbNewClient.Size = new Size(348, 33);
+            cbNewClient.Size = new Size(279, 28);
             cbNewClient.TabIndex = 34;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(18, 615);
+            label11.Location = new Point(14, 492);
+            label11.Margin = new Padding(2, 0, 2, 0);
             label11.Name = "label11";
-            label11.Size = new Size(119, 25);
+            label11.Size = new Size(100, 20);
             label11.TabIndex = 35;
             label11.Text = "Nuevo cliente";
             // 
             // UpdateBookingView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1405, 838);
+            ClientSize = new Size(1124, 670);
             Controls.Add(label11);
             Controls.Add(cbNewClient);
             Controls.Add(label10);
@@ -375,7 +368,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(dtpInitBooking);
-            Controls.Add(btnElectronic);
+            Controls.Add(btnElectronics);
             Controls.Add(btnIndumentaries);
             Controls.Add(btnProperties);
             Controls.Add(btnVehicles);
@@ -394,7 +387,7 @@
         private Button btnVehicles;
         private Button btnProperties;
         private Button btnIndumentaries;
-        private Button btnElectronic;
+        private Button btnElectronics;
         private DateTimePicker dtpInitBooking;
         private Label label1;
         private Label label2;

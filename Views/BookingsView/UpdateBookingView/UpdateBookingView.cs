@@ -3,7 +3,6 @@ using Boocking.Models.Entities;
 using Boocking.Models.Entities.RentableEntities;
 using Booking.Controllers;
 using Booking.Controllers.EntitiesController;
-using Booking.Dtos.BookedEntities;
 using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Strategy.Interface;
 
@@ -19,6 +18,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly ClientController clientController = new ClientController();
         private readonly IndumentaryController indumentaryController = new IndumentaryController();
         private readonly PropertyController propertyController = new PropertyController();
+        private readonly ElectronicController electronicController = new ElectronicController();
 
         public UpdateBookingView(int bookingId)
         {
@@ -31,19 +31,6 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void btnVehicles_Click(object sender, EventArgs e)
-        {
-            ClearDataGrid();
-            CreateVehicleDataGridColumns();
-            List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
-            LoadVehiclesData(vehicles);
-        }
-
-        private void btnUnselect_Click(object sender, EventArgs e)
-        {
-            dgvEntities.ClearSelection();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -67,9 +54,13 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                 bookingController.UpdateBooking(bookingEntityId, selectedEntityId, initBooking, endBooking, clientSelected, paymentSelected, isPaid);
                 this.Close();
             }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Seleccione un articulo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (ArgumentOutOfRangeException)
             {
-                MessageBox.Show("Seleccione un vehiculo a eliminar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seleccione un articulo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -111,38 +102,9 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             dgvEntities.Rows.Clear();
         }
 
-        #endregion
-
-        #region Vehicle Methods
-
-        private void CreateVehicleDataGridColumns()
+        private void btnUnselect_Click(object sender, EventArgs e)
         {
-            dgvEntities.Columns.Add("rentableId", "Id");
-            dgvEntities.Columns.Add("Name", "Nombre");
-            dgvEntities.Columns.Add("Brand", "Marca");
-            dgvEntities.Columns.Add("Model", "Modelo");
-            dgvEntities.Columns.Add("Description", "Descripción");
-            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
-            dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
-        }
-
-        private void LoadVehiclesData(List<VehicleEntity> vehicles)
-        {
-            foreach (VehicleEntity vehicle in vehicles)
-            {
-                dgvEntities.Rows.Add
-                    (
-                        vehicle.RENTABLEID,
-                        vehicle.NAME,
-                        vehicle.BRAND,
-                        vehicle.MODEL,
-                        vehicle.DESCRIPTION,
-                        vehicle.COSTUSAGEPERDAY,
-                        vehicle.PASSENGERCAPACITY,
-                        vehicle.SERIALNUMBER
-                    );
-            }
+            dgvEntities.ClearSelection();
         }
 
         #endregion
@@ -166,6 +128,8 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         }
 
         #endregion
+
+        #region Property Methods
 
         private void btnProperties_Click(object sender, EventArgs e)
         {
@@ -199,6 +163,8 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             dgvEntities.Columns.Add("location", "Ubicacion");
         }
 
+        #endregion
+
         #region Indumentary Methods
 
         private void btnIndumentaries_Click(object sender, EventArgs e)
@@ -231,6 +197,88 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                     indumentary.COSTUSAGEPERDAY,
                     indumentary.SIZE,
                     indumentary.GENRE
+                    );
+            }
+        }
+
+        #endregion
+
+        #region Electronic Methods
+
+        private void btnElectronics_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            CreateElectronicsDataGridColumns();
+            List<ElectronicEntity> electronics = electronicController.GetAllElectronics();
+            LoadElectronics(electronics);
+        }
+
+        private void LoadElectronics(List<ElectronicEntity> electronics)
+        {
+            foreach (ElectronicEntity electronic in electronics)
+            {
+                dgvEntities.Rows.Add
+                    (
+                        electronic.RENTABLEID,
+                        electronic.NAME,
+                        electronic.DESCRIPTION,
+                        electronic.COSTUSAGEPERDAY,
+                        electronic.BRAND,
+                        electronic.MODEL,
+                        electronic.SERIALNUMBER
+                    );
+            }
+        }
+
+        private void CreateElectronicsDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("Name", "Dispositivo");
+            dgvEntities.Columns.Add("Description", "Descripcion");
+            dgvEntities.Columns.Add("CostUsage", "Tarifa diaria");
+            dgvEntities.Columns.Add("Brand", "Marca");
+            dgvEntities.Columns.Add("Model", "Modelo");
+            dgvEntities.Columns.Add("SerialNumber", "Número de serie");
+        }
+
+        #endregion
+
+        #region Vehicle Methods
+
+        private void btnVehicles_Click(object sender, EventArgs e)
+        {
+            ClearDataGrid();
+            CreateVehicleDataGridColumns();
+            List<VehicleEntity> vehicles = vehicleController.GetAllVehicles();
+            LoadVehiclesData(vehicles);
+        }
+
+        private void CreateVehicleDataGridColumns()
+        {
+            dgvEntities.Columns.Add("rentableId", "Id");
+            dgvEntities.Columns.Add("Name", "Nombre");
+            dgvEntities.Columns.Add("Brand", "Marca");
+            dgvEntities.Columns.Add("Model", "Modelo");
+            dgvEntities.Columns.Add("Description", "Descripción");
+            dgvEntities.Columns.Add("CostUsagePerDay", "Costo por Día");
+            dgvEntities.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
+            dgvEntities.Columns.Add("SerialNumber", "Número de Serie");
+        }
+
+        private void LoadVehiclesData(List<VehicleEntity> vehicles)
+        {
+            foreach (VehicleEntity vehicle in vehicles)
+            {
+                dgvEntities.Rows.Add
+                    (
+                        vehicle.RENTABLEID,
+                        vehicle.NAME,
+                        vehicle.BRAND,
+                        vehicle.MODEL,
+                        vehicle.DESCRIPTION,
+                        vehicle.COSTUSAGEPERDAY,
+                        vehicle.PASSENGERCAPACITY,
+                        vehicle.SERIALNUMBER
                     );
             }
         }
