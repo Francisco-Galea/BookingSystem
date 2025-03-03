@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boocking.Models.Entities;
+﻿using Boocking.Models.Entities;
 
 namespace Booking.Dtos.CoreDataBooking
 {
+
+    /// <summary>
+    /// This DTO class is used in the UpdateBookingView. 
+    /// What I do is retrieve this data from the Bookings and Clients tables 
+    /// to show the system user which data they are about to modify when updating a booking.
+    /// </summary>
+    
     public class BookingCoreDataDto
     {
         public DateTime initBooking {  get; set; }

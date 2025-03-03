@@ -9,11 +9,6 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public PropertyEntity() : base() { }
 
-        public PropertyEntity(string NAME, string DESCRIPTION, decimal COSTUSAGEPERDAY, string LOCATION) : base(NAME, DESCRIPTION, COSTUSAGEPERDAY)
-        {
-            this.location = LOCATION;
-        }
-
         public int PROPERTYID
         {
             get { return propertyId; }

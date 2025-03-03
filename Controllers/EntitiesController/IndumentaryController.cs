@@ -29,7 +29,7 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al actualizar la indumentaria: " + ex.Message);
+                throw new Exception("Error al crear la indumentaria: " + ex.Message);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al actualizar la indumentaria: " + ex.Message);
+                throw new Exception("Error al modificar la indumentaria: " + ex.Message);
             }
         }
 

@@ -34,6 +34,25 @@ CREATE TABLE Properties (
         REFERENCES Rentables(RentableId)
 );
 
+CREATE TABLE Electronics (
+	RentableId INT,
+	ElectronicId INT PRIMARY KEY IDENTITY(1,1),
+	Brand NVARCHAR(50) NOT NULL,
+	Model NVARCHAR(50) NOT NULL,
+	SerialNumber NVARCHAR(50) NOT NULL
+	CONSTRAINT FK_Electronics_Rentables FOREIGN KEY (RentableId)
+		REFERENCES Rentables(RentableId)
+);
+
+CREATE TABLE Indumentaries (
+    RentableId INT,
+    IndumentaryId INT PRIMARY KEY IDENTITY(1,1),
+    Size NVARCHAR(10) NOT NULL,
+    Genre NVARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Indumentaries_Rentables FOREIGN KEY (RentableId) 
+        REFERENCES Rentables(RentableId)
+);
+
 CREATE TABLE Bookings (
     BookingId INT IDENTITY(1,1) PRIMARY KEY,
     ClientId INT NOT NULL, -- Se agrega la relación con Clients
@@ -54,13 +73,4 @@ CREATE TABLE BookingRentable (
     RentableId INT NOT NULL,
     FOREIGN KEY (BookingId) REFERENCES Bookings(BookingId) ON DELETE CASCADE,
     FOREIGN KEY (RentableId) REFERENCES Rentables(RentableId) ON DELETE CASCADE
-);
-
-CREATE TABLE Indumentaries (
-    RentableId INT,
-    IndumentaryId INT PRIMARY KEY IDENTITY(1,1),
-    Size NVARCHAR(10) NOT NULL,
-    Genre NVARCHAR(50) NOT NULL,
-    CONSTRAINT FK_Indumentaries_Rentables FOREIGN KEY (RentableId) 
-        REFERENCES Rentables(RentableId)
 );

@@ -18,23 +18,21 @@ namespace Boocking.Controllers.EntitiesController
         {
             try
             {
-                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
-                int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
-
                 VehicleEntity vehicle = vehicleFactory.CreateVehicleEntity();
                 vehicle.NAME = vehicleType;
                 vehicle.DESCRIPTION = vehicleDescription;
+                decimal parsedCostUsage = ParseController.ParseToDecimal(costUsage);
                 vehicle.COSTUSAGEPERDAY = parsedCostUsage;
                 vehicle.BRAND = vehicleBrand;
                 vehicle.MODEL = vehicleModel;
+                int parsedPassengerCapacty = ParseController.ParseToInt(passengerCapacity);
                 vehicle.PASSENGERCAPACITY = parsedPassengerCapacty;
                 vehicle.SERIALNUMBER = serialNumber;
                 vehicleDao.InsertEntity(vehicle);
-                MessageBox.Show("Vehiculo creado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(ArgumentException ex) 
             {
-                throw new Exception("Error al agregar un vehiculo: " + ex.Message);
+                throw new Exception("Error al crear un vehiculo: " + ex.Message);
             }
         }
         #endregion
@@ -59,7 +57,7 @@ namespace Boocking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al actualizar el vehiculo: " + ex.Message);
+                throw new Exception("Error al modificar el vehiculo: " + ex.Message);
             }
         }
         #endregion

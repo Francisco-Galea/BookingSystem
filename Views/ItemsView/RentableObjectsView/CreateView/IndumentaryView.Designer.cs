@@ -41,6 +41,12 @@
             btnCreate = new Button();
             btnBack = new Button();
             dgvIndumentary = new DataGridView();
+            rentableId = new DataGridViewTextBoxColumn();
+            indumentaryType = new DataGridViewTextBoxColumn();
+            description = new DataGridViewTextBoxColumn();
+            CostUsage = new DataGridViewTextBoxColumn();
+            size = new DataGridViewTextBoxColumn();
+            genre = new DataGridViewTextBoxColumn();
             btnUpdate = new Button();
             btnDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvIndumentary).BeginInit();
@@ -49,99 +55,99 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(11, 9);
+            label1.Location = new Point(9, 7);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(181, 25);
+            label1.Size = new Size(152, 20);
             label1.TabIndex = 0;
             label1.Text = "Tipo de indumentaria";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 69);
+            label2.Location = new Point(10, 55);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(104, 25);
+            label2.Size = new Size(87, 20);
             label2.TabIndex = 1;
             label2.Text = "Descripcion";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(11, 129);
+            label3.Location = new Point(9, 103);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(101, 25);
+            label3.Size = new Size(87, 20);
             label3.TabIndex = 2;
             label3.Text = "Tarifa diaria";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 189);
+            label4.Location = new Point(10, 151);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(45, 25);
+            label4.Size = new Size(39, 20);
             label4.TabIndex = 3;
             label4.Text = "Talle";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(11, 249);
+            label5.Location = new Point(9, 199);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(69, 25);
+            label5.Size = new Size(57, 20);
             label5.TabIndex = 4;
             label5.Text = "Genero";
             // 
             // txtIndimentaryType
             // 
-            txtIndimentaryType.Location = new Point(12, 36);
+            txtIndimentaryType.Location = new Point(10, 29);
             txtIndimentaryType.Margin = new Padding(2);
             txtIndimentaryType.Name = "txtIndimentaryType";
-            txtIndimentaryType.Size = new Size(180, 31);
+            txtIndimentaryType.Size = new Size(145, 27);
             txtIndimentaryType.TabIndex = 5;
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(11, 96);
+            txtDescription.Location = new Point(9, 77);
             txtDescription.Margin = new Padding(2);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(180, 31);
+            txtDescription.Size = new Size(145, 27);
             txtDescription.TabIndex = 6;
             // 
             // txtCostUsage
             // 
-            txtCostUsage.Location = new Point(11, 156);
+            txtCostUsage.Location = new Point(9, 125);
             txtCostUsage.Margin = new Padding(2);
             txtCostUsage.Name = "txtCostUsage";
-            txtCostUsage.Size = new Size(180, 31);
+            txtCostUsage.Size = new Size(145, 27);
             txtCostUsage.TabIndex = 7;
             // 
             // txtSize
             // 
-            txtSize.Location = new Point(12, 216);
+            txtSize.Location = new Point(10, 173);
             txtSize.Margin = new Padding(2);
             txtSize.Name = "txtSize";
-            txtSize.Size = new Size(183, 31);
+            txtSize.Size = new Size(147, 27);
             txtSize.TabIndex = 8;
             // 
             // txtGenre
             // 
-            txtGenre.Location = new Point(12, 276);
+            txtGenre.Location = new Point(10, 221);
             txtGenre.Margin = new Padding(2);
             txtGenre.Name = "txtGenre";
-            txtGenre.Size = new Size(180, 31);
+            txtGenre.Size = new Size(145, 27);
             txtGenre.TabIndex = 9;
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(12, 322);
+            btnCreate.Location = new Point(10, 258);
             btnCreate.Margin = new Padding(2);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(179, 34);
+            btnCreate.Size = new Size(143, 27);
             btnCreate.TabIndex = 11;
             btnCreate.Text = "Crear";
             btnCreate.UseVisualStyleBackColor = true;
@@ -149,9 +155,10 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(588, 436);
+            btnBack.Location = new Point(888, 348);
+            btnBack.Margin = new Padding(2);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(112, 34);
+            btnBack.Size = new Size(90, 27);
             btnBack.TabIndex = 12;
             btnBack.Text = "Volver";
             btnBack.UseVisualStyleBackColor = true;
@@ -160,17 +167,62 @@
             // dgvIndumentary
             // 
             dgvIndumentary.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvIndumentary.Location = new Point(200, 9);
+            dgvIndumentary.Columns.AddRange(new DataGridViewColumn[] { rentableId, indumentaryType, description, CostUsage, size, genre });
+            dgvIndumentary.Location = new Point(160, 7);
+            dgvIndumentary.Margin = new Padding(2);
             dgvIndumentary.Name = "dgvIndumentary";
             dgvIndumentary.RowHeadersWidth = 62;
-            dgvIndumentary.Size = new Size(500, 421);
+            dgvIndumentary.Size = new Size(818, 337);
             dgvIndumentary.TabIndex = 13;
+            // 
+            // rentableId
+            // 
+            rentableId.HeaderText = "Id";
+            rentableId.MinimumWidth = 6;
+            rentableId.Name = "rentableId";
+            rentableId.Width = 125;
+            // 
+            // indumentaryType
+            // 
+            indumentaryType.HeaderText = "Tipo de indumentaria";
+            indumentaryType.MinimumWidth = 6;
+            indumentaryType.Name = "indumentaryType";
+            indumentaryType.Width = 125;
+            // 
+            // description
+            // 
+            description.HeaderText = "Descripcion";
+            description.MinimumWidth = 6;
+            description.Name = "description";
+            description.Width = 125;
+            // 
+            // CostUsage
+            // 
+            CostUsage.HeaderText = "Tarifa diaria";
+            CostUsage.MinimumWidth = 6;
+            CostUsage.Name = "CostUsage";
+            CostUsage.Width = 125;
+            // 
+            // size
+            // 
+            size.HeaderText = "Talle";
+            size.MinimumWidth = 6;
+            size.Name = "size";
+            size.Width = 125;
+            // 
+            // genre
+            // 
+            genre.HeaderText = "Género";
+            genre.MinimumWidth = 6;
+            genre.Name = "genre";
+            genre.Width = 125;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(12, 361);
+            btnUpdate.Location = new Point(10, 289);
+            btnUpdate.Margin = new Padding(2);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(179, 34);
+            btnUpdate.Size = new Size(143, 27);
             btnUpdate.TabIndex = 14;
             btnUpdate.Text = "Modificar";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -178,9 +230,10 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(12, 401);
+            btnDelete.Location = new Point(10, 321);
+            btnDelete.Margin = new Padding(2);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(179, 34);
+            btnDelete.Size = new Size(143, 27);
             btnDelete.TabIndex = 15;
             btnDelete.Text = "Eliminar";
             btnDelete.UseVisualStyleBackColor = true;
@@ -188,9 +241,9 @@
             // 
             // IndumentaryView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(712, 476);
+            ClientSize = new Size(989, 381);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(dgvIndumentary);
@@ -231,5 +284,11 @@
         private DataGridView dgvIndumentary;
         private Button btnUpdate;
         private Button btnDelete;
+        private DataGridViewTextBoxColumn rentableId;
+        private DataGridViewTextBoxColumn indumentaryType;
+        private DataGridViewTextBoxColumn description;
+        private DataGridViewTextBoxColumn CostUsage;
+        private DataGridViewTextBoxColumn size;
+        private DataGridViewTextBoxColumn genre;
     }
 }

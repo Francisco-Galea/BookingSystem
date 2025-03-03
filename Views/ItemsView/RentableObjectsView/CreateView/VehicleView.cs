@@ -15,7 +15,6 @@ namespace Boocking.Views.RentableObjectsView
         {
             InitializeComponent();
             this.rentablesView = rentablesView;
-            CreateDataGridColumns();
             LoadVehicles();
         }
 
@@ -31,6 +30,7 @@ namespace Boocking.Views.RentableObjectsView
                 string serialNumber = txtSerialNumber.Text;
                 string passengerCapacity = txtPassengerCapacity.Text;
                 vehicleController.CreateVehicle(vehicleType, vehicleDescription, costUsage, vehicleBrand, vehicleModel, passengerCapacity, serialNumber);
+                MessageBox.Show("Vehiculo creado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadVehicles();
                 CleanTextBox();
             }
@@ -110,18 +110,7 @@ namespace Boocking.Views.RentableObjectsView
         }
 
         #region Utility Methods
-        private void CreateDataGridColumns()
-        {
-            dgvVehicles.Columns.Add("rentableid", "Id");
-            dgvVehicles.Columns.Add("Name", "Nombre");
-            dgvVehicles.Columns.Add("Brand", "Marca");
-            dgvVehicles.Columns.Add("Model", "Modelo");
-            dgvVehicles.Columns.Add("PassengerCapacity", "Capacidad de Pasajeros");
-            dgvVehicles.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvVehicles.Columns.Add("Description", "Descripción");
-            dgvVehicles.Columns.Add("SerialNumber", "Número de Serie");
-        }
-
+       
         private void CleanTextBox()
         {
             txtVehicleName.Text = string.Empty;
@@ -137,8 +126,6 @@ namespace Boocking.Views.RentableObjectsView
         {
             dgvVehicles.Rows.Clear();
         }
-
-
 
         #endregion
 

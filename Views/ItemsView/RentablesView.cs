@@ -12,7 +12,6 @@ namespace Boocking.Views.BookingsView
         private IndumentaryView? indumentaryView;
         private ElectronicView? electronicView;
 
-
         public RentablesView(MainView mainView)
         {
             InitializeComponent();
@@ -51,7 +50,12 @@ namespace Boocking.Views.BookingsView
 
         private void btnShowElectronics_Click(object sender, EventArgs e)
         {
-
+            if (electronicView == null || electronicView.IsDisposed)
+            {
+                electronicView = new ElectronicView(this);
+            }
+            this.Hide();
+            electronicView.Show();
         }
 
         private void btnBack_Click(object sender, EventArgs e)

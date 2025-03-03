@@ -24,7 +24,7 @@ namespace Booking.Models.Dao.BookingDao
                     string bookingQuery = @"
                                           INSERT INTO Bookings (InitBooking, EndBooking, ClientId ,DaysBooked, PaymentMethod, TotalPrice, IsPaid, IsActiveToUpdate, CreatedAt, IsDeleted) 
                                           VALUES (@InitBooking, @EndBooking, @ClientId, @DaysBooked, @PaymentMethod, @TotalPrice, @IsPaid, @IsActiveToUpdate, @CreatedAt, @IsDeleted);
-                                          SELECT SCOPE_IDENTITY();";  // Obtiene el ID recién insertado
+                                          SELECT SCOPE_IDENTITY();";  
 
                     SqlCommand bookingCommand = new SqlCommand(bookingQuery, connection, transaction);
                     bookingCommand.Parameters.AddWithValue("@InitBooking", booking.INITBOOKING);
@@ -38,7 +38,7 @@ namespace Booking.Models.Dao.BookingDao
                     bookingCommand.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
                     bookingCommand.Parameters.AddWithValue("@IsDeleted", false);
 
-                    int bookingId = Convert.ToInt32(bookingCommand.ExecuteScalar()); // Obtiene el ID
+                    int bookingId = Convert.ToInt32(bookingCommand.ExecuteScalar());
 
                    
                         string bookingRentableQuery = @"
@@ -53,11 +53,22 @@ namespace Booking.Models.Dao.BookingDao
 
                     transaction.Commit();
                 }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error en la consulta SQL al crear la reserva.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error de conexión con la base de datos.", ex);
+                }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Error al crear la reserva y su relación con rentables", ex);
+                    throw new Exception("Error al crear la reserva", ex);
                 }
+                
             }
         }
 
@@ -76,10 +87,17 @@ namespace Booking.Models.Dao.BookingDao
                     deleteRentableCommand.ExecuteNonQuery();
                     transaction.Commit();
                 }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error en la consulta SQL al eliminar la reserva.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    throw new Exception("Error de conexión con la base de datos.", ex);
+                }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
-                    throw new Exception("Error al realizar el borrado lógico del vehículo", ex);
+                    throw new Exception("Error al eliminar la reserva", ex);
                 }
             }
         }
@@ -90,50 +108,54 @@ namespace Booking.Models.Dao.BookingDao
             BookingCoreDataDto bookingData = new BookingCoreDataDto();
             ClientEntity client = new ClientEntity();
 
+            string query = @"
+                    SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid, c.Name, c.LastName, c.PhoneNumber 
+                    FROM  Bookings b
+                    INNER JOIN Clients c ON c.ClientId = b.ClientId
+                    WHERE b.IsDeleted = 0 AND b.BookingId = @BookingId";
+
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                string query = @"
-                                SELECT b.InitBooking, b.EndBooking, b.PaymentMethod, b.IsPaid, c.Name, c.LastName, c.PhoneNumber 
-                                FROM  Bookings b
-                                INNER JOIN Clients c ON c.ClientId = b.ClientId
-                                WHERE b.IsDeleted = 0 AND b.BookingId = @BookingId";
+                command.Parameters.AddWithValue("@BookingId", bookingId);
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@BookingId", bookingId);
-
-                    try
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                bookingData.initBooking = reader.GetDateTime(0);
-                                bookingData.endBooking = reader.GetDateTime(1);
-                                bookingData.paymentMethod = reader.GetString(2);
-                                bookingData.isPaid = reader.GetBoolean(3);
-                                client.NAME = reader.GetString(4);
-                                client.LASTNAME = reader.GetString(5);
-                                client.PHONENUMBER = reader.GetString(6);
-                                bookingData.oClient = client;
-                            }
+                            bookingData.initBooking = reader.GetDateTime(0);
+                            bookingData.endBooking = reader.GetDateTime(1);
+                            bookingData.paymentMethod = reader.GetString(2);
+                            bookingData.isPaid = reader.GetBoolean(3);
+                            client.NAME = reader.GetString(4);
+                            client.LASTNAME = reader.GetString(5);
+                            client.PHONENUMBER = reader.GetString(6);
+                            bookingData.oClient = client;
+                        }
+                        else
+                        {
+                            throw new Exception("No se encontraron datos para la reserva.");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al obtener el vehículo", ex);
-                    }
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error en la consulta SQL para obtener los datos de la reserva.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    throw new Exception("Error de conexion con la base de datos", ex);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al traer los datos reserva.", ex);
                 }
             }
 
             return bookingData;
-        }
-
-
-        public BookingEntity GetEntityById(int bookingId)
-        {
-            throw new NotImplementedException();
         }
 
         public void UpdateEntity(int bookingId, BookingEntity bookingEntity, int entityToRentId)
@@ -141,7 +163,7 @@ namespace Booking.Models.Dao.BookingDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 connection.Open();
-                SqlTransaction transaction = connection.BeginTransaction();
+                SqlTransaction transaction = connection.BeginTransaction();  
 
                 try
                 {
@@ -167,21 +189,32 @@ namespace Booking.Models.Dao.BookingDao
                     updateBookingCommand.ExecuteNonQuery();
 
                     string updateRentableQuery = @"
-                                                 UPDATE BookingRentable SET 
-                                                 RentableId = @entityToRentId
-                                                 WHERE BookingId = @bookingId
-                                                 ";
+                                                    UPDATE BookingRentable SET 
+                                                    RentableId = @entityToRentId
+                                                    WHERE BookingId = @bookingId
+                                                    ";
 
                     SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction);
                     updateRentableCommand.Parameters.AddWithValue("@bookingId", bookingId);
                     updateRentableCommand.Parameters.AddWithValue("@entityToRentId", entityToRentId);
                     updateRentableCommand.ExecuteNonQuery();
+
                     transaction.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();  
+                    throw new Exception("Error en la consulta SQL al actualizar la reserva.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    transaction.Rollback(); 
+                    throw new Exception("Error de conexión con la base de datos.", ex);
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
-                    throw new Exception("Error al actualizar el vehículo", ex);
+                    transaction.Rollback();  
+                    throw new Exception("Error al actualizar la reserva.", ex);
                 }
             }
         }
@@ -230,17 +263,17 @@ namespace Booking.Models.Dao.BookingDao
                 try
                 {
                     string query = @"
-                SELECT COUNT(*)
-                FROM BookingRentable br
-                INNER JOIN Bookings b ON br.BookingId = b.BookingId
-                WHERE br.RentableId = @RentableId
-                AND b.IsDeleted = 0
-                AND b.BookingId <> @CurrentBookingId  -- Se excluye la reserva actual
-                AND (
-                    (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) 
-                    OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking)
-                    OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking)
-                )";
+                                    SELECT COUNT(*)
+                                    FROM BookingRentable br
+                                    INNER JOIN Bookings b ON br.BookingId = b.BookingId
+                                    WHERE br.RentableId = @RentableId
+                                    AND b.IsDeleted = 0
+                                    AND b.BookingId <> @CurrentBookingId  --- Se excluye la reserva actual
+                                    AND (
+                                        (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) 
+                                        OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking)
+                                        OR (b.InitBooking BETWEEN @InitBooking AND @EndBooking)
+                                        )";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@RentableId", entityToRentId);
@@ -249,7 +282,7 @@ namespace Booking.Models.Dao.BookingDao
                     command.Parameters.AddWithValue("@EndBooking", endBooking.ToString("yyyy-MM-dd"));
 
                     int count = (int)command.ExecuteScalar();
-                    return count == 0; // Devuelve true si está disponible
+                    return count == 0; 
                 }
                 catch (Exception ex)
                 {
@@ -257,11 +290,6 @@ namespace Booking.Models.Dao.BookingDao
                 }
             }
         }
-
-
-
-
-
 
         public List<BookingVehicleDTO> GetVehiclesBooked()
         {
@@ -312,7 +340,7 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener los vehículos", ex);
+                        throw new Exception("Error al obtener los vehículos reservados", ex);
                     }
                 }
             }
@@ -328,7 +356,7 @@ namespace Booking.Models.Dao.BookingDao
             using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
             {
                 string query = @"
-                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location, c.Name, c.LastName, c.PhoneNumber
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, p.Location, c.Name, c.LastName, c.PhoneNumber, r.Description
                                 FROM  BookingRentable br
                                 INNER JOIN Properties p ON p.RentableId = br.RentableId
                                 INNER JOIN Bookings b ON b.BookingId = br.BookingId
@@ -360,6 +388,7 @@ namespace Booking.Models.Dao.BookingDao
                                 client.NAME = reader.GetString(10);
                                 client.LASTNAME = reader.GetString(11);
                                 client.PHONENUMBER = reader.GetString(12);
+                                propertyBooked.description = reader.GetString(13);
                                 propertyBooked.oClient = client;
                                 propertiesBooked.Add(propertyBooked);
                             }
@@ -367,14 +396,13 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener los vehículos", ex);
+                        throw new Exception("Error al obtener las propiedades reservadas", ex);
                     }
                 }
             }
 
             return propertiesBooked;
         }
-
 
         public List<BookingIndumentaryDto> GetIndumentariesBooked()
         {
@@ -425,12 +453,71 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener las indumentarias", ex);
+                        throw new Exception("Error al obtener las indumentarias reservadas", ex);
                     }
                 }
             }
             return indumentariesBooked;
         }
+
+        public List<BookingElectronicDto> GetElectronicsBooked()
+        {
+            List<BookingElectronicDto> electronicsBooked = new List<BookingElectronicDto>();
+            ClientEntity client = new ClientEntity();
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            {
+                string query = @"
+                                SELECT br.BookingId, b.InitBooking, b.EndBooking, b.DaysBooked, b.PaymentMethod, b.TotalPrice, b.IsPaid, br.RentableId, r.Name, e.Brand, e.Model, e.SerialNumber, c.Name, c.LastName, c.PhoneNumber
+                                FROM  BookingRentable br
+                                INNER JOIN Electronics e ON e.RentableId = br.RentableId
+                                INNER JOIN Bookings b ON b.BookingId = br.BookingId
+                                INNER JOIN Rentables r ON r.RentableId = br.RentableId
+                                INNER JOIN Clients c ON c.ClientId = b.ClientId
+                                WHERE b.IsDeleted = 0
+                                ORDER BY b.EndBooking DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookingElectronicDto electronicBooked = new BookingElectronicDto();
+                                electronicBooked.bookingId = reader.GetInt32(0);
+                                electronicBooked.initBooking = reader.GetDateTime(1);
+                                electronicBooked.endBooking = reader.GetDateTime(2);
+                                electronicBooked.daysBooked = reader.GetInt32(3);
+                                electronicBooked.paymentMethod = reader.GetString(4);
+                                electronicBooked.totalPrice = reader.GetDecimal(5);
+                                electronicBooked.isPaid = reader.GetBoolean(6);
+                                electronicBooked.rentableId = reader.GetInt32(7);
+                                electronicBooked.rentableName = reader.GetString(8);
+                                electronicBooked.brand = reader.GetString(9);
+                                electronicBooked.model = reader.GetString(10);
+                                electronicBooked.serialNumber = reader.GetString(11);
+                                client.NAME = reader.GetString(12);
+                                client.LASTNAME = reader.GetString(13);
+                                client.PHONENUMBER = reader.GetString(14);
+                                electronicBooked.oClient = client;
+                                electronicsBooked.Add(electronicBooked);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener los dispositivos electronicos reservados", ex);
+                    }
+                }
+            }
+            return electronicsBooked;
+        }
+
+
+
 
     }
 }

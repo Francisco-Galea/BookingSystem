@@ -6,29 +6,30 @@ namespace Booking.Controllers
     public class PaymentStrategyController
     {
 
-        //A refactorizar y eliminar
-        public IStrategyFinalPriceBooking GetPaymentData(string paymentType)
+        private readonly List<IStrategyFinalPriceBooking> paymentMethods = new List<IStrategyFinalPriceBooking>();
+        private static PaymentStrategyController paymentMethodsControllerInstance;
+
+        private PaymentStrategyController() 
         {
-            IStrategyFinalPriceBooking strategySelected = new CashStrategy();
-            switch (paymentType)
-            {
-                case "Efectivo":
-                    strategySelected = new CashStrategy();
-                    break;
-
-                case "Transferencia":
-                    strategySelected = new TransferStrategy();
-                    break;
-
-                case "Tarjeta de Crédito":
-                    strategySelected = new CreditCardStrategy();
-                    break;
-
-                default:
-                    throw new Exception("Seleccione un metodo de pago");
-                
-            }
-            return strategySelected;
+            paymentMethods.Add(new CashStrategy());
+            paymentMethods.Add(new TransferStrategy());
+            paymentMethods.Add(new CreditCardStrategy());
         }
+
+        public static PaymentStrategyController GetInstance()
+        {
+            if(paymentMethodsControllerInstance == null)
+            {
+                paymentMethodsControllerInstance = new PaymentStrategyController(); 
+            }
+            return paymentMethodsControllerInstance;
+        }
+
+        public List<IStrategyFinalPriceBooking> GetPaymentMethods()
+        {
+            return paymentMethods;
+        }
+
+
     }
 }

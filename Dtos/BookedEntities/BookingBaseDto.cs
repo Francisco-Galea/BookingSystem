@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Boocking.Models.Entities;
+﻿using Boocking.Models.Entities;
 
 namespace Booking.Dtos.BookedEntities
 {
+
+    /// <summary>
+    /// This class and its inheritances 
+    /// retrieve the most important information about the booking and display it to the user in the  
+    /// <see cref="BookingsHistoricalView"/> 
+    /// </summary>
+
     public class BookingBaseDTO
     {
         public int bookingId { get; set; } 

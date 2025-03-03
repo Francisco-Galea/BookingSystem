@@ -12,7 +12,7 @@ namespace Booking.Models.Strategy
 
         public override string ToString()
         {
-            return $"Tarjeta de Credito";
+            return $"Tarjeta de Credito, 40% de recargo";
         }
 
     }

@@ -12,7 +12,7 @@ namespace Booking.Models.Strategy
 
         public override string ToString()
         {
-            return $"Efectivo";
+            return $"Efectivo, 10% de descuento";
         }
 
     }

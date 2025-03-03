@@ -100,6 +100,12 @@ namespace Booking.Controllers
             return bookingDao.GetIndumentariesBooked();
         }
 
+        public List<BookingElectronicDto> GetElectronicBookings()
+        {
+            return bookingDao.GetElectronicsBooked();
+        }
+
+
         #endregion
 
         #region Delete booking

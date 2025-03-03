@@ -10,12 +10,6 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public IndumentaryEntity() : base () { }
 
-        public IndumentaryEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string SIZE, string GENRE) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
-        {
-            this.size = SIZE;
-            this.genre = GENRE;
-        }
-
         public int INDUMENTARYID
         {
             get { return indumentaryId; }

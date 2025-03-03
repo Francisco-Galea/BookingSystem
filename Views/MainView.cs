@@ -21,7 +21,7 @@ namespace Boocking.Views
         {
             if (bookingView == null || bookingView.IsDisposed)
             {
-                bookingView = new BookingView(this);  // Creamos una nueva vista si no existe
+                bookingView = new BookingView(this); 
             }
             this.Hide();
             bookingView.Show();
@@ -31,7 +31,7 @@ namespace Boocking.Views
         {
             if (clientsView == null || clientsView.IsDisposed)
             {
-                clientsView = new ClientsView(this);  // Creamos una nueva vista si no existe
+                clientsView = new ClientsView(this); 
             }
             this.Hide();
             clientsView.Show();
@@ -41,7 +41,7 @@ namespace Boocking.Views
         {
             if (rentablesView == null || rentablesView.IsDisposed)
             {
-                rentablesView = new RentablesView(this);  // Creamos una nueva vista si no existe
+                rentablesView = new RentablesView(this); 
             }
             this.Hide();
             rentablesView.Show();

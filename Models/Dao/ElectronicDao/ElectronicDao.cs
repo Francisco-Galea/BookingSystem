@@ -1,16 +1,17 @@
 ﻿using Boocking.Models.Entities.RentableEntities;
 using Boocking.Models.Factory;
-using Boocking.Models.Factory.Interfaces;
 using Booking.Models.Dao.ConnectionString;
+using Booking.Models.Factory;
+using Booking.Models.Factory.Interface;
 using Microsoft.Data.SqlClient;
 
-namespace Booking.Models.Dao.IndumentaryDao
+namespace Booking.Models.Dao.ElectronicDao
 {
-    public class IndumentaryDaoSQLSERVER : IIndumentaryDao
+    public class ElectronicDao : IElectronicDao
     {
 
         private readonly ConnectionStringSQLSERVER connectionStringSQLSERVER = ConnectionStringSQLSERVER.getInstance();
-        private readonly IIndumentaryFactory indumentaryFactory = new IndumentaryFactory();
+        private readonly IElectronicFactory electronicFactory = new ElectronicFactory();
 
         public void DeleteEntity(int rentableId)
         {
@@ -29,7 +30,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al eliminar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al eliminar el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -37,22 +38,22 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al eliminar la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al eliminar el dispositivo electronico.", ex);
             }
         }
 
-        public List<IndumentaryEntity> GetAllEntities()
+        public List<ElectronicEntity> GetAllEntities()
         {
-            List<IndumentaryEntity> indumentaries = new List<IndumentaryEntity>();
+            List<ElectronicEntity> electronics = new List<ElectronicEntity>();
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string query = @"
-                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, i.Size, i.Genre
-                                FROM Indumentaries i
-                                INNER JOIN Rentables r ON r.RentableId = i.RentableId
+                                SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, e.Brand, e.Model, e.SerialNumber
+                                FROM Electronics e
+                                INNER JOIN Rentables r ON r.RentableId = e.RentableId
                                 WHERE r.IsDeleted = 0";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -63,14 +64,15 @@ namespace Booking.Models.Dao.IndumentaryDao
                         {
                             while (reader.Read())
                             {
-                                IndumentaryEntity indumentary = indumentaryFactory.CreateIndumentaryEntity();
-                                indumentary.RENTABLEID = reader.GetInt32(0);
-                                indumentary.NAME = reader.GetString(1);
-                                indumentary.DESCRIPTION = reader.GetString(2);
-                                indumentary.COSTUSAGEPERDAY = reader.GetDecimal(3);
-                                indumentary.SIZE = reader.GetString(4);
-                                indumentary.GENRE = reader.GetString(5);
-                                indumentaries.Add(indumentary);
+                                ElectronicEntity electronic = electronicFactory.CreateElectronicEntity();
+                                electronic.RENTABLEID = reader.GetInt32(0);
+                                electronic.NAME = reader.GetString(1);
+                                electronic.DESCRIPTION = reader.GetString(2);
+                                electronic.COSTUSAGEPERDAY = reader.GetDecimal(3);
+                                electronic.BRAND = reader.GetString(4);
+                                electronic.MODEL = reader.GetString(5);
+                                electronic.SERIALNUMBER = reader.GetString(6);
+                                electronics.Add(electronic);
                             }
                         }
                     }
@@ -78,7 +80,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al obtener las indumentarias en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener los dispositivos electronicos en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -86,24 +88,23 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al obtener las indumentarias.", ex);
+                throw new Exception("Ocurrió un error inesperado al obtener los dispositivos electronicos.", ex);
             }
 
-            return indumentaries;
-
+            return electronics;
         }
 
-        public IndumentaryEntity GetEntityById(int rentableId)
+        public ElectronicEntity GetEntityById(int rentableId)
         {
-            IndumentaryEntity indumentaryReturned = null;
+            ElectronicEntity electronic = electronicFactory.CreateElectronicEntity();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
                 {
                     string query = @"
-                                SELECT i.IndumentaryId, r.Name, r.Description, r.CostUsagePerDay, i.Size, i.Genre
-                                FROM Indumentaries i
-                                INNER JOIN Rentables r ON r.RentableId = i.RentableId
+                                SELECT r.Name, r.Description, r.CostUsagePerDay, e.Brand, e.Model, e.SerialNumber
+                                FROM Electronics e
+                                INNER JOIN Rentables r ON r.RentableId = e.RentableId
                                 WHERE r.RentableId = @RentableId AND r.IsDeleted = 0";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -115,13 +116,12 @@ namespace Booking.Models.Dao.IndumentaryDao
                         {
                             if (reader.Read())
                             {
-                                indumentaryReturned = indumentaryFactory.CreateIndumentaryEntity();
-                                indumentaryReturned.INDUMENTARYID = reader.GetInt32(0);
-                                indumentaryReturned.NAME = reader.GetString(1);
-                                indumentaryReturned.DESCRIPTION = reader.GetString(2);
-                                indumentaryReturned.COSTUSAGEPERDAY = reader.GetDecimal(3);
-                                indumentaryReturned.SIZE = reader.GetString(4);
-                                indumentaryReturned.GENRE = reader.GetString(5);
+                                electronic.NAME = reader.GetString(0);
+                                electronic.DESCRIPTION = reader.GetString(1);
+                                electronic.COSTUSAGEPERDAY = reader.GetDecimal(2);
+                                electronic.BRAND = reader.GetString(3);
+                                electronic.MODEL = reader.GetString(4);
+                                electronic.SERIALNUMBER = reader.GetString(5);
                             }
                         }
                     }
@@ -129,7 +129,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al obtener la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -137,15 +137,15 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al obtener la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al obtener el dispositivo electronico.", ex);
             }
 
             #pragma warning disable CS8603
-            return indumentaryReturned;
+            return electronic;
             #pragma warning restore CS8603
         }
 
-        public void InsertEntity(IndumentaryEntity indumentary)
+        public void InsertEntity(ElectronicEntity electronic)
         {
             try
             {
@@ -155,27 +155,28 @@ namespace Booking.Models.Dao.IndumentaryDao
                     SqlTransaction transaction = connection.BeginTransaction();
                     try
                     {
-                        string insertRentableQuery = @"
+                        string rentableQuery = @"
                                                 INSERT INTO Rentables (Name, Description, CostUsagePerDay) 
                                                 OUTPUT INSERTED.RentableId
                                                 VALUES (@Name, @Description, @CostUsagePerDay)";
 
-                        SqlCommand rentableCommand = new SqlCommand(insertRentableQuery, connection, transaction);
-                        rentableCommand.Parameters.AddWithValue("@Name", indumentary.NAME);
-                        rentableCommand.Parameters.AddWithValue("@Description", indumentary.DESCRIPTION);
-                        rentableCommand.Parameters.AddWithValue("@CostUsagePerDay", indumentary.COSTUSAGEPERDAY);
+                        SqlCommand rentableCommand = new SqlCommand(rentableQuery, connection, transaction);
+                        rentableCommand.Parameters.AddWithValue("@Name", electronic.NAME);
+                        rentableCommand.Parameters.AddWithValue("@Description", electronic.DESCRIPTION);
+                        rentableCommand.Parameters.AddWithValue("@CostUsagePerDay", electronic.COSTUSAGEPERDAY);
 
                         var rentableIdResult = rentableCommand.ExecuteScalar();
                         int rentableId = Convert.ToInt32(rentableIdResult);
 
-                        string insertIndumentaryQuery = @"
-                                                INSERT INTO Indumentaries (RentableId ,Size, Genre)
-                                                VALUES (@RentableId, @Size, @Genre)";
+                        string vehicleQuery = @"
+                                                INSERT INTO Electronics (RentableId, Brand, Model, SerialNumber)
+                                                VALUES (@RentableId, @Brand, @Model, @SerialNumber)";
 
-                        SqlCommand vehicleCommand = new SqlCommand(insertIndumentaryQuery, connection, transaction);
+                        SqlCommand vehicleCommand = new SqlCommand(vehicleQuery, connection, transaction);
                         vehicleCommand.Parameters.AddWithValue("@RentableId", rentableId);
-                        vehicleCommand.Parameters.AddWithValue("@Size", indumentary.SIZE);
-                        vehicleCommand.Parameters.AddWithValue("@Genre", indumentary.GENRE);
+                        vehicleCommand.Parameters.AddWithValue("@Brand", electronic.BRAND);
+                        vehicleCommand.Parameters.AddWithValue("@Model", electronic.MODEL);
+                        vehicleCommand.Parameters.AddWithValue("@SerialNumber", electronic.SERIALNUMBER);
                         vehicleCommand.ExecuteNonQuery();
 
                         transaction.Commit();
@@ -189,7 +190,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al insertar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al insertar el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -197,11 +198,11 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al insertar la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al insertar el dispositivo electronico.", ex);
             }
         }
 
-        public void UpdateEntity(int rentableId, IndumentaryEntity indumentary)
+        public void UpdateEntity(int rentableId, ElectronicEntity electronic)
         {
             try
             {
@@ -222,24 +223,27 @@ namespace Booking.Models.Dao.IndumentaryDao
                             using (SqlCommand updateRentableCommand = new SqlCommand(updateRentableQuery, connection, transaction))
                             {
                                 updateRentableCommand.Parameters.AddWithValue("@RentableId", rentableId);
-                                updateRentableCommand.Parameters.AddWithValue("@Name", indumentary.NAME);
-                                updateRentableCommand.Parameters.AddWithValue("@Description", indumentary.DESCRIPTION);
-                                updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", indumentary.COSTUSAGEPERDAY);
+                                updateRentableCommand.Parameters.AddWithValue("@Name", electronic.NAME);
+                                updateRentableCommand.Parameters.AddWithValue("@Description", electronic.DESCRIPTION);
+                                updateRentableCommand.Parameters.AddWithValue("@CostUsagePerDay", electronic.COSTUSAGEPERDAY);
                                 updateRentableCommand.ExecuteNonQuery();
 
                             }
 
                             string updateIndumentaryQuery = @"
-                                                        UPDATE Indumentaries 
-                                                        SET Size = @Size, 
-                                                        Genre = @Genre
+                                                        UPDATE Electronics
+                                                        SET 
+                                                        Brand = @Brand, 
+                                                        Model = @Model,
+                                                        SerialNumber = @SerialNumber
                                                         WHERE RentableId = @RentableId";
 
                             using (SqlCommand updateIndumentaryCommand = new SqlCommand(updateIndumentaryQuery, connection, transaction))
                             {
                                 updateIndumentaryCommand.Parameters.AddWithValue("@RentableId", rentableId);
-                                updateIndumentaryCommand.Parameters.AddWithValue("@Size", indumentary.SIZE);
-                                updateIndumentaryCommand.Parameters.AddWithValue("@Genre", indumentary.GENRE);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@Brand", electronic.BRAND);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@Model", electronic.MODEL);
+                                updateIndumentaryCommand.Parameters.AddWithValue("@SerialNumber", electronic.SERIALNUMBER);
                                 updateIndumentaryCommand.ExecuteNonQuery();
                             }
                             transaction.Commit();
@@ -254,7 +258,7 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al actualizar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al actualizar el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -262,9 +266,9 @@ namespace Booking.Models.Dao.IndumentaryDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al actualizar la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al actualizar el dispositivo electronico.", ex);
             }
         }
-    
     }
+
 }

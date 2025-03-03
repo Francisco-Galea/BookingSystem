@@ -42,10 +42,20 @@ namespace Boocking.Models.Dao.PropertyDao
 
                     transaction.Commit();
                 }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error de consulta SQL al insertar la propiedad en la base de datos.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error de conexión con la base de datos.", ex);
+                }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Error al crear la propiedad", ex);
+                    throw new Exception("Ocurrió un error inesperado al insertar la propiedad.", ex);
                 }
             }
         }
@@ -66,10 +76,17 @@ namespace Boocking.Models.Dao.PropertyDao
 
                     transaction.Commit();
                 }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error de consulta SQL al eliminar la propiedad en la base de datos.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    throw new Exception("Error de conexión con la base de datos.", ex);
+                }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
-                    throw new Exception("Error al realizar el borrado lógico de la propiedad", ex);
+                    throw new Exception("Ocurrió un error inesperado al eliminar la propiedad.", ex);
                 }
             }
         }
@@ -78,18 +95,19 @@ namespace Boocking.Models.Dao.PropertyDao
         {
             List<PropertyEntity> properties = new List<PropertyEntity>();
 
-            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            try
             {
-                string query = @"
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+                {
+                    string query = @"
                                 SELECT r.RentableId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
                                 FROM Properties p
                                 INNER JOIN Rentables r ON p.RentableId = r.RentableId
                                 WHERE r.IsDeleted = 0";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -105,12 +123,21 @@ namespace Boocking.Models.Dao.PropertyDao
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al obtener las propiedades", ex);
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de consulta SQL al obtener las propiedades en la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al obtener las propiedades.", ex);
+            }
+            
 
             return properties;
         }
@@ -119,20 +146,20 @@ namespace Boocking.Models.Dao.PropertyDao
         {
             PropertyEntity propertyReturned = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+            try
             {
-                string query = @"
+                using (SqlConnection connection = new SqlConnection(connectionStringSQLSERVER.ConnectionString))
+                {
+                    string query = @"
                                 SELECT p.PropertyId, r.Name, r.Description, r.CostUsagePerDay, p.Location 
                                 FROM Properties p
                                 INNER JOIN Rentables r ON p.RentableId = r.RentableId
                                 WHERE p.RentableId = @RentableId AND r.IsDeleted = 0";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@RentableId", rentableId);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@RentableId", rentableId);
+
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -147,14 +174,21 @@ namespace Boocking.Models.Dao.PropertyDao
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al obtener la propiedad", ex);
-                    }
                 }
+                return propertyReturned;
             }
-
-            return propertyReturned;
+            catch (SqlException ex)
+            {
+                throw new Exception("Error de consulta SQL al obtener la propiedad en la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Error de conexión con la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado al obtener la propiedad.", ex);
+            }
         }
 
         public void UpdateEntity(int rentableId, PropertyEntity property)
@@ -188,10 +222,20 @@ namespace Boocking.Models.Dao.PropertyDao
 
                     transaction.Commit();
                 }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error de consulta SQL al actualizar la propiedad en la base de datos.", ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error de conexión con la base de datos.", ex);
+                }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Error al actualizar la propiedad", ex);
+                    throw new Exception("Ocurrió un error inesperado al actualizar la propiedad.", ex);
                 }
             }
         }
