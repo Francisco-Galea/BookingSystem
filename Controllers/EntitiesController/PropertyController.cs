@@ -29,7 +29,7 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al agregar una propiedad: " + ex.Message);
+                throw new Exception("Error al crear una propiedad: " + ex.Message);
             }
         }
         #endregion
@@ -67,11 +67,11 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error al eliminar el vehiculo.", ex);
+                throw new Exception("Error al eliminar la propiedad.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al eliminar el vehiculo.", ex);
+                throw new Exception("Ocurrió un error inesperado al eliminar la propiedad.", ex);
             }
         }
         #endregion

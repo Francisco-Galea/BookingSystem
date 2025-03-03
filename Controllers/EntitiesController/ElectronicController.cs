@@ -33,7 +33,7 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (Exception e)
             {
-                throw new Exception("Ocurrio un error al agregar un dispositivo electronico: " + e.Message);
+                throw new Exception("Ocurrio un error al crear un dispositivo electronico: " + e.Message);
             }
         }
 
@@ -78,11 +78,11 @@ namespace Booking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al actualizar un dispositivo electronico: " + ex.Message);
+                throw new Exception("Error al modificar un dispositivo electronico: " + ex.Message);
             }
             catch (Exception e)
             {
-                throw new Exception("Ocurrio un error al actualizar un dispositivo electronico: " + e.Message);
+                throw new Exception("Ocurrio un error al modificar un dispositivo electronico: " + e.Message);
             }
         }
 

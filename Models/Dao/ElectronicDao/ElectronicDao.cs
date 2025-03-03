@@ -129,7 +129,7 @@ namespace Booking.Models.Dao.ElectronicDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al obtener la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al obtener el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -137,7 +137,7 @@ namespace Booking.Models.Dao.ElectronicDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al obtener la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al obtener el dispositivo electronico.", ex);
             }
 
             #pragma warning disable CS8603
@@ -258,7 +258,7 @@ namespace Booking.Models.Dao.ElectronicDao
             }
             catch (SqlException ex)
             {
-                throw new Exception("Error de consulta SQL al actualizar la indumentaria en la base de datos.", ex);
+                throw new Exception("Error de consulta SQL al actualizar el dispositivo electronico en la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -266,7 +266,7 @@ namespace Booking.Models.Dao.ElectronicDao
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocurrió un error inesperado al actualizar la indumentaria.", ex);
+                throw new Exception("Ocurrió un error inesperado al actualizar el dispositivo electronico.", ex);
             }
         }
     }

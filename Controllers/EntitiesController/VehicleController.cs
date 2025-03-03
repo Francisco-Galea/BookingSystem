@@ -57,7 +57,7 @@ namespace Boocking.Controllers.EntitiesController
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Error al actualizar el vehiculo: " + ex.Message);
+                throw new Exception("Error al modificar el vehiculo: " + ex.Message);
             }
         }
         #endregion

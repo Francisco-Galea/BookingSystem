@@ -271,7 +271,7 @@ namespace Boocking.Views.BookingsView.BookingsHistorialView
             {
                 dgvEntities.Rows.Add
                 (
-                    electronic.rentableId,
+                    electronic.bookingId,
                     electronic.rentableName,
                     electronic.initBooking,
                     electronic.endBooking,

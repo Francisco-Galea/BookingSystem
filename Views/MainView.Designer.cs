@@ -112,7 +112,6 @@
             Name = "MainView";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainView";
-            WindowState = FormWindowState.Maximized;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

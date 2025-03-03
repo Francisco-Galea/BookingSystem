@@ -14,7 +14,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         private readonly int bookingEntityId;
         private readonly BookingController bookingController = new BookingController();
         private readonly VehicleController vehicleController = new VehicleController();
-        private readonly PaymentStrategyController paymentStrategyController = new PaymentStrategyController();
+        private readonly PaymentStrategyController paymentStrategyController = PaymentStrategyController.GetInstance();
         private readonly ClientController clientController = new ClientController();
         private readonly IndumentaryController indumentaryController = new IndumentaryController();
         private readonly PropertyController propertyController = new PropertyController();
@@ -26,6 +26,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
             this.bookingEntityId = bookingId;
             GetOldBookingData(bookingEntityId);
             GetClients();
+            LoadPaymentMethodsInComboBox(paymentStrategyController.GetPaymentMethods());
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace Booking.Views.BookingsView.UpdateBookingView
                 DateTime initBooking = dtpNewInitBooking.Value;
                 DateTime endBooking = dtpNewEndBooking.Value;
                 string paymentMethod = cbNewPaymentMethod.Text;
-                IStrategyFinalPriceBooking paymentSelected = paymentStrategyController.GetPaymentData(paymentMethod);
+                IStrategyFinalPriceBooking paymentSelected = (IStrategyFinalPriceBooking)cbNewPaymentMethod.SelectedItem;
                 ClientEntity clientSelected = (ClientEntity)cbNewClient.SelectedItem;
                 bool isPaid = checkBoxNewIsPaid.Checked;
                 bool isAvailable = bookingController.CheckAvailabilityForExistingBooking(selectedEntityId, bookingEntityId, initBooking, endBooking);
@@ -85,6 +86,11 @@ namespace Booking.Views.BookingsView.UpdateBookingView
         #endregion
 
         #region Utility Methods
+
+        private void LoadPaymentMethodsInComboBox(List<IStrategyFinalPriceBooking> paymentMethods)
+        {
+            cbNewPaymentMethod.DataSource = paymentMethods;
+        }
 
         private void ClearDataGrid()
         {

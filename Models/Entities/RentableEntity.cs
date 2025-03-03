@@ -10,13 +10,6 @@
 
         public RentableEntity() { }
 
-        public RentableEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY)
-        {
-            this.NAME = NAME;
-            this.DESCRIPTION = DESCRIPTION;
-            this.COSTUSAGEPERDAY = COSTUSAGERPERDAY;
-        }
-
         public int RENTABLEID
         {
             get { return this.rentableId; }

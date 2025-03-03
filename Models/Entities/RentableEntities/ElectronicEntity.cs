@@ -11,13 +11,6 @@ namespace Boocking.Models.Entities.RentableEntities
 
         public ElectronicEntity() : base() { }
 
-        public ElectronicEntity(string NAME, string DESCRIPTION, decimal COSTUSAGERPERDAY, string BRAND, string MODEL, string SERIALNUMBER) : base(NAME, DESCRIPTION, COSTUSAGERPERDAY)
-        {
-            this.brand = BRAND;
-            this.model = MODEL;
-            this.serialNumber = SERIALNUMBER;
-        }
-
         public int ELECTRONICID
         {
             get { return electronicId; }

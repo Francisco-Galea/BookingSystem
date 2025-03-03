@@ -4,7 +4,6 @@ using Booking.Dtos.CoreDataBooking;
 using Booking.Models.Dao.ConnectionString;
 using Booking.Models.Entities;
 using Microsoft.Data.SqlClient;
-using System.Transactions;
 
 namespace Booking.Models.Dao.BookingDao
 {
@@ -269,7 +268,7 @@ namespace Booking.Models.Dao.BookingDao
                                     INNER JOIN Bookings b ON br.BookingId = b.BookingId
                                     WHERE br.RentableId = @RentableId
                                     AND b.IsDeleted = 0
-                                    AND b.BookingId <> @CurrentBookingId  -- Se excluye la reserva actual
+                                    AND b.BookingId <> @CurrentBookingId  --- Se excluye la reserva actual
                                     AND (
                                         (@InitBooking BETWEEN b.InitBooking AND b.EndBooking) 
                                         OR (@EndBooking BETWEEN b.InitBooking AND b.EndBooking)
@@ -341,7 +340,7 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener los vehículos", ex);
+                        throw new Exception("Error al obtener los vehículos reservados", ex);
                     }
                 }
             }
@@ -397,7 +396,7 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener las propiedades", ex);
+                        throw new Exception("Error al obtener las propiedades reservadas", ex);
                     }
                 }
             }
@@ -454,7 +453,7 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener las indumentarias", ex);
+                        throw new Exception("Error al obtener las indumentarias reservadas", ex);
                     }
                 }
             }
@@ -510,7 +509,7 @@ namespace Booking.Models.Dao.BookingDao
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener las indumentarias", ex);
+                        throw new Exception("Error al obtener los dispositivos electronicos reservados", ex);
                     }
                 }
             }

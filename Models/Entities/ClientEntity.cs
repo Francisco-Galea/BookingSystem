@@ -17,13 +17,6 @@
 
         }
 
-        public ClientEntity(string NAME, string LASTNAME, string PHONENUMBER)
-        {
-            this.name = NAME;
-            this.lastName = LASTNAME;
-            this.phoneNumber = PHONENUMBER;
-        }
-
         public int CLIENTID
         {
             get { return this.clientId; }
