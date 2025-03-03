@@ -16,7 +16,6 @@ namespace Boocking.Views.RentableObjectsView
         {
             InitializeComponent();
             this.rentablesView = rentablesView;
-            CreateDataGridColumns();
             LoadElectronics();
         }
 
@@ -85,17 +84,6 @@ namespace Boocking.Views.RentableObjectsView
             }
         }
 
-        private void CreateDataGridColumns()
-        {
-            dgvElectronics.Columns.Add("rentableid", "Id");
-            dgvElectronics.Columns.Add("Name", "Nombre");
-            dgvElectronics.Columns.Add("Brand", "Marca");
-            dgvElectronics.Columns.Add("Model", "Modelo");
-            dgvElectronics.Columns.Add("CostUsagePerDay", "Costo por Día");
-            dgvElectronics.Columns.Add("Description", "Descripción");
-            dgvElectronics.Columns.Add("SerialNumber", "Número de Serie");
-        }
-
         private void CleanTextBox()
         {
             txtName.Text = string.Empty;
@@ -122,7 +110,6 @@ namespace Boocking.Views.RentableObjectsView
                                               MessageBoxButtons.YesNo,
                                               MessageBoxIcon.Warning);
                 electronicController.DeleteElectronic(rentableId, result);
-                MessageBox.Show("Dispositivo electronico borrado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadElectronics();
             }
             catch (NullReferenceException)

@@ -17,7 +17,6 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
             InitializeComponent();
             this.rentablesView = rentablesView;
             this.rentablesView = rentablesView;
-            CreateDataGridColumns();
             LoadIndumentaries();
         }
 
@@ -31,6 +30,7 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
                 string size = txtSize.Text;
                 string genre = txtGenre.Text;
                 indumentaryController.CreateIndumentary(indumentaryType, description, costUsage, size, genre);
+                MessageBox.Show("Indumentaria creado con exito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadIndumentaries();
                 CleanTextBox();
             }
@@ -47,16 +47,6 @@ namespace Boocking.Views.ItemsView.RentableObjectsView
             txtCostUsage.Clear();
             txtGenre.Clear();
             txtSize.Clear();
-        }
-
-        private void CreateDataGridColumns()
-        {
-            dgvIndumentary.Columns.Add("rentableId", "Id");
-            dgvIndumentary.Columns.Add("IndumentaryType", "Indumentaria");
-            dgvIndumentary.Columns.Add("Description", "Descripccion");
-            dgvIndumentary.Columns.Add("CostUsage", "Tarifa diaria");
-            dgvIndumentary.Columns.Add("Size", "Talle");
-            dgvIndumentary.Columns.Add("Genre", "Genero");
         }
 
         private void LoadIndumentaries()

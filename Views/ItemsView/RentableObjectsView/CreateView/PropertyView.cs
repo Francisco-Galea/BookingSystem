@@ -15,7 +15,6 @@ namespace Boocking.Views.RentableObjectsView
         {
             InitializeComponent();
             this.rentablesView = rentablesView;
-            CreateDataGridColumns();
             LoadProperties();
         }
 
@@ -103,15 +102,6 @@ namespace Boocking.Views.RentableObjectsView
         }
 
         #region Utility Methods
-
-        private void CreateDataGridColumns()
-        {
-            dgvProperties.Columns.Add("rentableId", "Id");
-            dgvProperties.Columns.Add("Name", "Propiedad");
-            dgvProperties.Columns.Add("Description", "Descripción");
-            dgvProperties.Columns.Add("Location", "Ubicacion");
-            dgvProperties.Columns.Add("CostUsagePerDay", "Costo por Día");
-        }
 
         private void ClearRows()
         {
